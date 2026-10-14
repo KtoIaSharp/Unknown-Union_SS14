@@ -1,0 +1,11 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'radio-jammer-title'}"
+               MinSize="300 120">
+    <BoxContainer Orientation="Vertical" SeparationOverride="4">
+        <Label Name="CurrentLabel" Text="{Loc 'radio-jammer-no-target'}" />
+        <Control MinSize="0 6" />
+        <Label Text="{Loc 'radio-enter-frequency'}" />
+        <LineEdit Name="FreqInput" PlaceHolder="{Loc 'radio-frequency-placeholder'}" />
+        <Button Name="SetButton" Text="{Loc 'radio-set-frequency'}" />
+    </BoxContainer>
+</DefaultWindow>
