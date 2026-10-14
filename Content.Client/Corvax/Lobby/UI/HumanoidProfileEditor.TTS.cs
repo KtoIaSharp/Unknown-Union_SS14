@@ -1,56 +1,46 @@
+using System.Linq;
 using Content.Client.Corvax.TTS;
-using Content.Shared.Corvax.CCCVars;
-using Robust.Client.UserInterface;
+using Content.Shared.Corvax.TTS;
+using Content.Shared.Preferences;
 
 namespace Content.Client.Lobby.UI;
 
 public sealed partial class HumanoidProfileEditor
 {
-    private TTSTab? _ttsTab;
+    private List<TTSVoicePrototype> _voices = new();
 
-    private void RefreshVoiceTab()
+    /// <summary>
+    /// Refills the voice dropdown with voices available for the profile's sex.
+    /// </summary>
+    public void RefreshVoiceButton()
     {
-        if (!_cfgManager.GetCVar(CCCVars.TTSEnabled))
+        VoiceButton.Clear();
+        _voices.Clear();
+
+        if (Profile is null)
             return;
 
-        _ttsTab = new TTSTab();
-        var children = new List<Control>();
-        foreach (var child in TabContainer.Children)
-            children.Add(child);
+        _voices = _prototypeManager
+            .EnumeratePrototypes<TTSVoicePrototype>()
+            .Where(o => o.RoundStart && HumanoidCharacterProfile.CanHaveVoice(o, Profile.Sex))
+            .OrderBy(o => Loc.GetString(o.Name))
+            .ToList();
 
-        TabContainer.RemoveAllChildren();
-
-        for (int i = 0; i < children.Count; i++)
+        for (var i = 0; i < _voices.Count; i++)
         {
-            if (i == 1) // Set the tab to the 2nd place.
-            {
-                TabContainer.AddChild(_ttsTab);
-            }
-            TabContainer.AddChild(children[i]);
+            VoiceButton.AddItem(Loc.GetString(_voices[i].Name), i);
+            if (_voices[i].ID == Profile.Voice)
+                VoiceButton.SelectId(i);
         }
 
-        TabContainer.SetTabTitle(1, Loc.GetString("humanoid-profile-editor-voice-tab"));
-
-        _ttsTab.OnVoiceSelected += voiceId =>
+        // Current voice is not available for this sex (or no longer exists) - fall back to the first one.
+        if (VoiceButton.SelectedId == -1 && _voices.Count > 0)
         {
-            SetVoice(voiceId);
-            _ttsTab.SetSelectedVoice(voiceId);
-        };
-
-        _ttsTab.OnPreviewRequested += voiceId =>
-        {
-            _entManager.System<TTSSystem>().RequestPreviewTTS(voiceId);
-        };
+            VoiceButton.SelectId(0);
+            SetVoice(_voices[0].ID);
+        }
     }
 
-    private void UpdateTTSVoicesControls()
-    {
-        if (Profile is null || _ttsTab is null)
-            return;
-
-        _ttsTab.UpdateControls(Profile, Profile.Sex);
-        _ttsTab.SetSelectedVoice(Profile.Voice);
-    }
     private void SetVoice(string newVoice)
     {
         Profile = Profile?.WithVoice(newVoice);

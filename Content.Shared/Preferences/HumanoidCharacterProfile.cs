@@ -646,6 +646,11 @@ namespace Content.Shared.Preferences
                 _jobPriorities.Add(job, priority);
             }
 
+            if (_jobPriorities.Count == 0)
+            {
+                _jobPriorities.Add(SharedGameTicker.FallbackOverflowJob, JobPriority.High);
+            }
+
             PreferenceUnavailable = prefsUnavailableMode;
 
             _antagPreferences.Clear();

@@ -1,5 +1,6 @@
 - type: job
-  id: Scientist
+  id: Scientist
+  setPreference: false
   name: job-name-scientist
   description: job-description-scientist
   playTimeTracker: JobScientist
@@ -15,7 +16,8 @@
   - Maintenance
 
 - type: startingGear
-  id: ScientistGear
+  id: ScientistGear
+  setPreference: false
   equipment:
     ears: ClothingHeadsetScience
   #storage:
@@ -23,7 +25,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ScientistChameleonOutfit
+  id: ScientistChameleonOutfit
+  setPreference: false
   job: Scientist
   equipment:
     head: ClothingHeadBandSkull

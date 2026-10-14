@@ -3,7 +3,8 @@
 # Command
 
 - type: startingGear
-  id: VisitorCaptain
+  id: VisitorCaptain
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCaptain
     shoes: ClothingShoesBootsLaceup
@@ -19,7 +20,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorCaptainAlt
+  id: VisitorCaptainAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCapFormal
     shoes: ClothingShoesBootsLaceup
@@ -35,7 +37,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorCE
+  id: VisitorCE
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChiefEngineer
     shoes: ClothingShoesColorWhite
@@ -49,7 +52,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorCEAlt
+  id: VisitorCEAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChiefEngineerTurtle
     shoes: ClothingShoesColorWhite
@@ -63,7 +67,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorCMO
+  id: VisitorCMO
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMO
     shoes: ClothingShoesColorBrown
@@ -78,7 +83,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorCMOAlt
+  id: VisitorCMOAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMOTurtle
     shoes: ClothingShoesColorBrown
@@ -93,7 +99,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorHOP
+  id: VisitorHOP
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
     shoes: ClothingShoesLeather
@@ -107,7 +114,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorHOPAlt
+  id: VisitorHOPAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
     shoes: ClothingShoesLeather
@@ -121,7 +129,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorHOS
+  id: VisitorHOS
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoSParadeMale
     shoes: ClothingShoesBootsCowboyBlackFilled
@@ -140,7 +149,8 @@
   - WeaponSubMachineGunWt550
 
 - type: startingGear
-  id: VisitorHOSAlt
+  id: VisitorHOSAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHosFormal
     shoes: ClothingShoesBootsCowboyFancyFilled
@@ -158,7 +168,8 @@
   - WeaponSubMachineGunWt550
 
 - type: startingGear
-  id: VisitorRD
+  id: VisitorRD
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitResearchDirector
     shoes: ClothingShoesColorBrown
@@ -172,7 +183,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorRDAlt
+  id: VisitorRDAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitResearchDirector
     shoes: ClothingShoesColorBrown
@@ -186,7 +198,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: VisitorQM
+  id: VisitorQM
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitQMTurtleneck
     shoes: ClothingShoesColorBrown
@@ -200,7 +213,8 @@
     pocket2: AppraisalTool
 
 - type: startingGear
-  id: VisitorQMAlt
+  id: VisitorQMAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitQMFormal
     shoes: ClothingShoesColorBrown
@@ -216,7 +230,8 @@
 # Security
 
 - type: startingGear
-  id: VisitorSecurityCadet
+  id: VisitorSecurityCadet
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSec
     shoes: ClothingShoesBootsCombatFilled
@@ -233,7 +248,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorSecurityCadetAlt
+  id: VisitorSecurityCadetAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSecGrey
     shoes: ClothingShoesBootsCombatFilled
@@ -251,7 +267,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorSecurityOfficer
+  id: VisitorSecurityOfficer
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSec
     shoes: ClothingShoesBootsCombatFilled
@@ -268,7 +285,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorSecurityOfficerAlt
+  id: VisitorSecurityOfficerAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSecGrey
     shoes: ClothingShoesBootsCombatFilled
@@ -286,7 +304,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorDetective
+  id: VisitorDetective
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitDetective
     shoes: ClothingShoesBootsCombatFilled
@@ -304,7 +323,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorDetectiveAlt
+  id: VisitorDetectiveAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitDetectiveGrey
     shoes: ClothingShoesBootsCombatFilled
@@ -322,7 +342,8 @@
   - FlashlightSeclite
 
 - type: startingGear
-  id: VisitorWarden
+  id: VisitorWarden
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitWarden
     shoes: ClothingShoesBootsCombatFilled
@@ -342,7 +363,8 @@
   - WeaponShotgunKammerer
 
 - type: startingGear
-  id: VisitorWardenAlt
+  id: VisitorWardenAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitWarden
     shoes: ClothingShoesBootsCombatFilled
@@ -363,7 +385,8 @@
 # Cargo
 
 - type: startingGear
-  id: VisitorCargoTech
+  id: VisitorCargoTech
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesColorBlack
@@ -377,7 +400,8 @@
   - DrinkRumBottleFull
 
 - type: startingGear
-  id: VisitorCargoTechAlt
+  id: VisitorCargoTechAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesBootsWinterCargo
@@ -393,7 +417,8 @@
   - KnifePlastic
 
 - type: startingGear
-  id: VisitorSalvageSpecialist
+  id: VisitorSalvageSpecialist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     shoes: ClothingShoesBootsSalvage
@@ -408,7 +433,8 @@
   - FoodSnackBoritos
 
 - type: startingGear
-  id: VisitorSalvageSpecialistAlt
+  id: VisitorSalvageSpecialistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     shoes: ClothingShoesBootsSalvage
@@ -426,7 +452,8 @@
 # Engineering
 
 - type: startingGear
-  id: VisitorAtmosTech
+  id: VisitorAtmosTech
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitAtmos
     shoes: ClothingShoesColorWhite
@@ -443,7 +470,8 @@
   - FireExtinguisher
 
 - type: startingGear
-  id: VisitorAtmosTechAlt
+  id: VisitorAtmosTechAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitAtmosCasual
     shoes: ClothingShoesColorWhite
@@ -462,7 +490,8 @@
   - FoodSnackBoritos
 
 - type: startingGear
-  id: VisitorTechnicalAssistant
+  id: VisitorTechnicalAssistant
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorYellow
     shoes: ClothingShoesBootsWork
@@ -478,7 +507,8 @@
   - CableApcStack
 
 - type: startingGear
-  id: VisitorTechnicalAssistantAlt
+  id: VisitorTechnicalAssistantAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitEngineeringHazard
     shoes: ClothingShoesColorBlack
@@ -496,7 +526,8 @@
   - SheetSteel
 
 - type: startingGear
-  id: VisitorEngineer
+  id: VisitorEngineer
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitEngineering
     shoes: ClothingShoesBootsWork
@@ -515,7 +546,8 @@
   - CableApcStack
 
 - type: startingGear
-  id: VisitorEngineerAlt
+  id: VisitorEngineerAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSeniorEngineer
     shoes: ClothingShoesBootsWork
@@ -535,7 +567,8 @@
 # Medical
 
 - type: startingGear
-  id: VisitorChemist
+  id: VisitorChemist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChemistry
     shoes: ClothingShoesColorOrange
@@ -553,7 +586,8 @@
   - PillCanisterRandom
 
 - type: startingGear
-  id: VisitorChemistAlt
+  id: VisitorChemistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChemistry
     shoes: ClothingShoesColorOrange
@@ -571,7 +605,8 @@
   - PillCanisterRandom
 
 - type: startingGear
-  id: VisitorGeneticist
+  id: VisitorGeneticist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitGenetics
     shoes: ClothingShoesColorBlue
@@ -589,7 +624,8 @@
   - SyringePhalanximine
 
 - type: startingGear
-  id: VisitorGeneticistAlt
+  id: VisitorGeneticistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitGenetics
     shoes: ClothingShoesColorBlue
@@ -607,7 +643,8 @@
   - SyringeBicaridine
 
 - type: startingGear
-  id: VisitorVirologist
+  id: VisitorVirologist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitVirology
     shoes: ClothingShoesColorGreen
@@ -625,7 +662,8 @@
   - SyringeSigynate
 
 - type: startingGear
-  id: VisitorVirologistAlt
+  id: VisitorVirologistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitVirology
     shoes: ClothingShoesColorGreen
@@ -644,7 +682,8 @@
   - SyringeEphedrine
 
 - type: startingGear
-  id: VisitorMedicalDoctor
+  id: VisitorMedicalDoctor
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMedicalDoctor
     shoes: ClothingShoesColorWhite
@@ -663,7 +702,8 @@
   - SyringeInaprovaline
 
 - type: startingGear
-  id: VisitorMedicalDoctorAlt
+  id: VisitorMedicalDoctorAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMedicalDoctor
     shoes: ClothingShoesBootsWinterMed
@@ -682,7 +722,8 @@
   - SyringeSaline
 
 - type: startingGear
-  id: VisitorDentist
+  id: VisitorDentist
+  setPreference: false
   equipment:
     jumpsuit: UniformScrubsColorBlue
     shoes: ClothingShoesColorBlue
@@ -701,7 +742,8 @@
   - Drill
 
 - type: startingGear
-  id: VisitorPsychologist
+  id: VisitorPsychologist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitPsychologist
     shoes: ClothingShoesLeather
@@ -719,7 +761,8 @@
   - Lighter
 
 - type: startingGear
-  id: VisitorPsychologistAlt
+  id: VisitorPsychologistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitPsychologist
     shoes: ClothingShoesLeather
@@ -736,7 +779,8 @@
   - DrinkWhiskeyBottleFull
 
 - type: startingGear
-  id: VisitorParamedic
+  id: VisitorParamedic
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitParamedic
     shoes: ClothingShoesSwat
@@ -756,7 +800,8 @@
   - Gauze
 
 - type: startingGear
-  id: VisitorParamedicAlt
+  id: VisitorParamedicAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitParamedic
     shoes: ClothingShoesBootsWork
@@ -776,7 +821,8 @@
   - Gauze
 
 - type: startingGear
-  id: VisitorMedicalIntern
+  id: VisitorMedicalIntern
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
     shoes: ClothingShoesColorWhite
@@ -793,7 +839,8 @@
   - Gauze
 
 - type: startingGear
-  id: VisitorMedicalInternAlt
+  id: VisitorMedicalInternAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
     shoes: ClothingShoesColorWhite
@@ -810,7 +857,8 @@
   - Gauze
 
 - type: startingGear
-  id: VisitorScrubsPurple
+  id: VisitorScrubsPurple
+  setPreference: false
   equipment:
     jumpsuit: UniformScrubsColorPurple
     shoes: ClothingShoesColorRed
@@ -828,7 +876,8 @@
   - MedicatedSuture
 
 - type: startingGear
-  id: VisitorScrubsGreen
+  id: VisitorScrubsGreen
+  setPreference: false
   equipment:
     jumpsuit: UniformScrubsColorGreen
     shoes: ClothingShoesColorGreen
@@ -846,7 +895,8 @@
   - MedicatedSuture
 
 - type: startingGear
-  id: VisitorScrubsBlue
+  id: VisitorScrubsBlue
+  setPreference: false
   equipment:
     jumpsuit: UniformScrubsColorBlue
     shoes: ClothingShoesColorBlue
@@ -866,7 +916,8 @@
 # Science
 
 - type: startingGear
-  id: VisitorResearchAssistant
+  id: VisitorResearchAssistant
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorPurple
     shoes: ClothingShoesColorBlack
@@ -880,7 +931,8 @@
   - NetworkConfigurator
 
 - type: startingGear
-  id: VisitorResearchAssistantAlt
+  id: VisitorResearchAssistantAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCasualPurple
     shoes: ClothingShoesColorBlack
@@ -894,7 +946,8 @@
   - DrinkHotCoffee
 
 - type: startingGear
-  id: VisitorScientist
+  id: VisitorScientist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitScientistFormal
     shoes: ClothingShoesColorPurple
@@ -908,7 +961,8 @@
   - DrinkHotCoffee
 
 - type: startingGear
-  id: VisitorScientistAlt
+  id: VisitorScientistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitScientist
     shoes: ClothingShoesBootsWinterSci
@@ -925,7 +979,8 @@
 # Civilian
 
 - type: startingGear
-  id: VisitorBartender
+  id: VisitorBartender
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitBartender
     shoes: ClothingShoesColorBlack
@@ -940,7 +995,8 @@
     pocket2: BarSpoon
 
 - type: startingGear
-  id: VisitorBartenderAlt
+  id: VisitorBartenderAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitBartenderPurple
     shoes: ClothingShoesColorBlack
@@ -955,7 +1011,8 @@
     pocket2: DrinkTequilaBottleFull
 
 - type: startingGear
-  id: VisitorBotanist
+  id: VisitorBotanist
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHydroponics
     shoes: ClothingShoesColorGreen
@@ -968,7 +1025,8 @@
 
 
 - type: startingGear
-  id: VisitorBotanistAlt
+  id: VisitorBotanistAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHydroponics
     shoes: ClothingShoesColorGreen
@@ -980,7 +1038,8 @@
     pocket2: HydroponicsToolSpade
 
 - type: startingGear
-  id: VisitorBoxer
+  id: VisitorBoxer
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShorts
     shoes: ClothingShoesColorBlack
@@ -992,7 +1051,8 @@
     pocket2: SoapDeluxe
 
 - type: startingGear
-  id: VisitorBoxerAlt
+  id: VisitorBoxerAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShorts
     shoes: ClothingShoesColorBlack
@@ -1005,7 +1065,8 @@
     pocket2: DrinkSpaceGlue
 
 - type: startingGear #!! make sure these are bible users.
-  id: VisitorChaplain
+  id: VisitorChaplain
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChaplain
     shoes: ClothingShoesColorBlack
@@ -1019,7 +1080,8 @@
     pocket2: FoodSnackEnergy
 
 - type: startingGear
-  id: VisitorChaplainAlt
+  id: VisitorChaplainAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChaplain
     shoes: ClothingShoesColorBlack
@@ -1032,7 +1094,8 @@
     pocket2: DrinkCoconutWaterCarton
 
 - type: startingGear
-  id: VisitorChef
+  id: VisitorChef
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChef
     shoes: ClothingShoesChef
@@ -1050,7 +1113,8 @@
   - DrinkWineBottleFull
 
 - type: startingGear
-  id: VisitorChefAlt
+  id: VisitorChefAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChef
     shoes: ClothingShoesColorBlack
@@ -1068,7 +1132,8 @@
   - FoodCheese
 
 - type: startingGear
-  id: VisitorClown
+  id: VisitorClown
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitClown
     shoes: ClothingShoesClown
@@ -1080,7 +1145,8 @@
     pocket2: ClownRecorder
 
 - type: startingGear
-  id: VisitorJanitor
+  id: VisitorJanitor
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitJanitor
     shoes: ClothingShoesGaloshes
@@ -1096,7 +1162,8 @@
   - Bucket
 
 - type: startingGear
-  id: VisitorJanitorAlt
+  id: VisitorJanitorAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitJanitor
     shoes: ClothingShoesGaloshes
@@ -1112,7 +1179,8 @@
   - Bucket
 
 - type: startingGear
-  id: VisitorLawyerAltA
+  id: VisitorLawyerAltA
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLawyerBlack
     shoes: ClothingShoesColorBlack
@@ -1127,7 +1195,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLawyerAltB
+  id: VisitorLawyerAltB
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLawyerBlue
     shoes: ClothingShoesLeather
@@ -1142,7 +1211,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLawyerAltC
+  id: VisitorLawyerAltC
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLawyerRed
     shoes: ClothingShoesColorRed
@@ -1158,7 +1228,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLawyerAltD
+  id: VisitorLawyerAltD
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLawyerPurple
     shoes: ClothingShoesSnakeskinBoots
@@ -1176,7 +1247,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLawyerAltE
+  id: VisitorLawyerAltE
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLawyerGood
     shoes: ClothingShoesLeather
@@ -1192,7 +1264,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLawyerCentcom
+  id: VisitorLawyerCentcom
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCentcomAgent
     shoes: ClothingShoesLeather
@@ -1210,7 +1283,8 @@
   - BriefcaseBrownFilled
 
 - type: startingGear
-  id: VisitorLibrarian
+  id: VisitorLibrarian
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitLibrarian
     shoes: ClothingShoesBootsLaceup
@@ -1226,7 +1300,8 @@
   - Cane
 
 - type: startingGear
-  id: VisitorLibrarianAlt
+  id: VisitorLibrarianAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCurator
     shoes: ClothingShoesBootsLaceup
@@ -1242,7 +1317,8 @@
   - BoxFolderClipboardThreePapers
 
 - type: startingGear
-  id: VisitorMusicianFancyAltA
+  id: VisitorMusicianFancyAltA
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1256,7 +1332,8 @@
   - TromboneInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltB
+  id: VisitorMusicianFancyAltB
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1270,7 +1347,8 @@
   - SynthesizerInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltC
+  id: VisitorMusicianFancyAltC
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1284,7 +1362,8 @@
   - CelloInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltD
+  id: VisitorMusicianFancyAltD
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1298,7 +1377,8 @@
   - ViolinInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltE
+  id: VisitorMusicianFancyAltE
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1312,7 +1392,8 @@
   - ViolaInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltF
+  id: VisitorMusicianFancyAltF
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1326,7 +1407,8 @@
   - ClarinetInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltG
+  id: VisitorMusicianFancyAltG
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1340,7 +1422,8 @@
   - SaxophoneInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltH
+  id: VisitorMusicianFancyAltH
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1354,7 +1437,8 @@
   - FrenchHornInstrument
 
 - type: startingGear
-  id: VisitorMusicianFancyAltI
+  id: VisitorMusicianFancyAltI
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesColorBrown
@@ -1368,7 +1452,8 @@
   - TrumpetInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltA
+  id: VisitorMusicianRelaxedAltA
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesColorBlack
@@ -1382,7 +1467,8 @@
   - RockGuitarInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltB
+  id: VisitorMusicianRelaxedAltB
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesColorBlack
@@ -1396,7 +1482,8 @@
   - BanjoInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltC
+  id: VisitorMusicianRelaxedAltC
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesColorBrown
@@ -1410,7 +1497,8 @@
   - AcousticGuitarInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltD
+  id: VisitorMusicianRelaxedAltD
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesColorBlack
@@ -1424,7 +1512,8 @@
   - ElectricGuitarInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltE
+  id: VisitorMusicianRelaxedAltE
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMusician
     shoes: ClothingShoesBootsLaceup
@@ -1437,7 +1526,8 @@
   - TrumpetInstrument
 
 - type: startingGear
-  id: VisitorMusicianRelaxedAltF
+  id: VisitorMusicianRelaxedAltF
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformRandomShirt
     shoes: ClothingShoesWizard
@@ -1452,7 +1542,8 @@
   - SaxophoneInstrument
 
 - type: startingGear
-  id: VisitorMusicianMariachi
+  id: VisitorMusicianMariachi
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorTeal
     shoes: ClothingShoesColorBrown
@@ -1468,7 +1559,8 @@
   - AcousticGuitarInstrument
 
 - type: startingGear
-  id: VisitorMime
+  id: VisitorMime
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMime
     shoes: ClothingShoesColorWhite
@@ -1483,7 +1575,8 @@
     pocket2: RubberStampMime
 
 - type: startingGear
-  id: VisitorMimeAlt
+  id: VisitorMimeAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMime
     shoes: ClothingShoesColorWhite
@@ -1501,7 +1594,8 @@
   - FoodBurgerMime
 
 - type: startingGear
-  id: VisitorReporter
+  id: VisitorReporter
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitReporter
     shoes: ClothingShoesLeather
@@ -1512,7 +1606,8 @@
     pocket2: BoxFolderClipboardThreePapers
 
 - type: startingGear
-  id: VisitorReporterAlt
+  id: VisitorReporterAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitJournalist
     shoes: ClothingShoesColorBrown
@@ -1523,7 +1618,8 @@
     pocket2: BoxFolderClipboardThreePapers
 
 - type: startingGear
-  id: VisitorServiceWorker
+  id: VisitorServiceWorker
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitBartender
     shoes: ClothingShoesColorBlack
@@ -1535,7 +1631,8 @@
     pocket2: FoodShakerPepper
 
 - type: startingGear
-  id: VisitorServiceWorkerAlt
+  id: VisitorServiceWorkerAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBlack
     shoes: ClothingShoesColorBlack
@@ -1548,7 +1645,8 @@
     pocket2: FoodShakerPepper
 
 - type: startingGear
-  id: VisitorZookeeper
+  id: VisitorZookeeper
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSafari
     shoes: ClothingShoesBootsSalvage
@@ -1561,7 +1659,8 @@
     pocket2: PillCanisterDylovene
 
 - type: startingGear
-  id: VisitorZookeeperAlt
+  id: VisitorZookeeperAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSafari
     shoes: ClothingShoesBootsWork
@@ -1583,7 +1682,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 # Challenge Cargo Tech
 - type: startingGear
-  id: ChallengeCargoTechGearSuit
+  id: ChallengeCargoTechGearSuit
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesColorBlack
@@ -1594,7 +1694,8 @@
     pocket1: AppraisalTool
 
 - type: startingGear
-  id: ChallengeCargoTechGearCoat
+  id: ChallengeCargoTechGearCoat
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesBootsWinterCargo
@@ -1609,7 +1710,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #Captain Disaster Victim
 - type: startingGear
-  id: ChallengeVictimCaptain
+  id: ChallengeVictimCaptain
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCaptain
     shoes: ClothingShoesBootsLaceup
@@ -1622,7 +1724,8 @@
     #ears: # No headsets.
 
 - type: startingGear
-  id: ChallengeVictimCaptainAlt
+  id: ChallengeVictimCaptainAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCapFormal
     shoes: ClothingShoesBootsLaceup
@@ -1639,7 +1742,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #CMO Disaster Victim
 - type: startingGear
-  id: ChallengeVictimCMO
+  id: ChallengeVictimCMO
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMO
     shoes: ClothingShoesColorBrown
@@ -1652,7 +1756,8 @@
     outerClothing: ClothingOuterCoatLabCmo
 
 - type: startingGear
-  id: ChallengeVictimCMOAlt
+  id: ChallengeVictimCMOAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMOTurtle
     shoes: ClothingShoesColorBrown
@@ -1668,7 +1773,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #CE Disaster Victim
 - type: startingGear
-  id: ChallengeVictimCE
+  id: ChallengeVictimCE
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChiefEngineer
     shoes: ClothingShoesColorWhite
@@ -1682,7 +1788,8 @@
     pocket1: WeaponDisabler
 
 - type: startingGear
-  id: ChallengeVictimCEAlt
+  id: ChallengeVictimCEAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitChiefEngineerTurtle
     shoes: ClothingShoesColorWhite
@@ -1699,7 +1806,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #HOP Disaster Victim
 - type: startingGear
-  id: ChallengeVictimHOP
+  id: ChallengeVictimHOP
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
     shoes: ClothingShoesLeather
@@ -1712,7 +1820,8 @@
     outerClothing: ClothingOuterWinterHoP
 
 - type: startingGear
-  id: ChallengeVictimHOPAlt
+  id: ChallengeVictimHOPAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
     shoes: ClothingShoesLeather
@@ -1728,7 +1837,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #HOS Disaster Victim
 - type: startingGear
-  id: ChallengeVictimHOS
+  id: ChallengeVictimHOS
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoSParadeMale
     shoes: ClothingShoesBootsCowboyBlackFilled
@@ -1743,7 +1853,8 @@
     outerClothing: ClothingOuterCoatHoSTrench
 
 - type: startingGear
-  id: ChallengeVictimHOSAlt
+  id: ChallengeVictimHOSAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitHosFormal
     shoes: ClothingShoesBootsCowboyFancyFilled
@@ -1760,7 +1871,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #RD Disaster Victim
 - type: startingGear
-  id: ChallengeVictimRD
+  id: ChallengeVictimRD
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitResearchDirector
     shoes: ClothingShoesColorBrown
@@ -1772,7 +1884,8 @@
     outerClothing: ClothingOuterCoatRD
 
 - type: startingGear
-  id: ChallengeVictimRDAlt
+  id: ChallengeVictimRDAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitResearchDirector
     shoes: ClothingShoesColorBrown
@@ -1787,7 +1900,8 @@
 # carefully consider everything you add to these. These are meant for roles that are placed in survival situations where every item will be a resource.
 #QM Disaster Victim
 - type: startingGear
-  id: ChallengeVictimQM
+  id: ChallengeVictimQM
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitQMTurtleneck
     shoes: ClothingShoesColorBrown
@@ -1800,7 +1914,8 @@
     pocket1: AppraisalTool
 
 - type: startingGear
-  id: ChallengeVictimQMAlt
+  id: ChallengeVictimQMAlt
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitQMFormal
     shoes: ClothingShoesColorBrown
@@ -1831,7 +1946,8 @@
 ### Syndicate & Hostiles
 
 - type: startingGear
-  id: PirateScoonerAltA
+  id: PirateScoonerAltA
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitPirate
     shoes: ClothingShoesBootsLaceup
@@ -1846,14 +1962,16 @@
     - Cutlass
 
 - type: startingGear
-  id: PirateScoonerAltB
+  id: PirateScoonerAltB
+  setPreference: false
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadHatPirateTricord
     outerClothing: ClothingOuterCoatGentle
 
 - type: startingGear
-  id: PirateScoonerAltC
+  id: PirateScoonerAltC
+  setPreference: false
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadBandBlack
@@ -1861,14 +1979,16 @@
     - WeaponShotgunBlunderbuss
 
 - type: startingGear
-  id: PirateScoonerAltD
+  id: PirateScoonerAltD
+  setPreference: false
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadHatPirateTricord
     pocket1: WeaponRevolverPirate
 
 - type: startingGear
-  id: PirateCaptainScooner
+  id: PirateCaptainScooner
+  setPreference: false
   parent: PirateScoonerAltA
   equipment:
     head: ClothingHeadHatPirate
@@ -1880,7 +2000,8 @@
 ### Other
 
 - type: startingGear
-  id: VisitorBlackmarketeer
+  id: VisitorBlackmarketeer
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitMercenary
     shoes: ClothingShoesBootsMercFilled
@@ -1894,7 +2015,8 @@
     pocket2: RadioHandheld
 
 - type: startingGear
-  id: CossackGear
+  id: CossackGear
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitCossack
     shoes: ClothingShoesBootsSalvage

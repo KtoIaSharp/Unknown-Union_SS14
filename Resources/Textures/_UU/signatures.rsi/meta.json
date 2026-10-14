@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Created for Space Station 14",
+    "size": {
+        "x": 64,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "sig01"
+        },
+        {
+            "name": "sig02"
+        },
+        {
+            "name": "sig03"
+        },
+        {
+            "name": "sig04"
+        },
+        {
+            "name": "sig05"
+        },
+        {
+            "name": "sig06"
+        },
+        {
+            "name": "sig07"
+        },
+        {
+            "name": "sig08"
+        },
+        {
+            "name": "sig09"
+        },
+        {
+            "name": "sig10"
+        }
+    ]
+}

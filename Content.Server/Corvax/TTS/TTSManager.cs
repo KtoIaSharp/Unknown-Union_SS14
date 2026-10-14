@@ -60,11 +60,12 @@ public sealed partial class TTSManager
     /// </summary>
     /// <param name="speaker">Identifier of speaker</param>
     /// <param name="text">SSML formatted text</param>
+    /// <param name="effect">Optional sound effect applied by the API (e.g. "Radio")</param>
     /// <returns>OGG audio bytes or null if failed</returns>
-    public async Task<byte[]?> ConvertTextToSpeech(string speaker, string text)
+    public async Task<byte[]?> ConvertTextToSpeech(string speaker, string text, string? effect = null)
     {
         WantedCount.Inc();
-        var cacheKey = GenerateCacheKey(speaker, text);
+        var cacheKey = GenerateCacheKey(speaker, text, effect);
         if (_cache.TryGetValue(cacheKey, out var data))
         {
             ReusedCount.Inc();
@@ -79,6 +80,7 @@ public sealed partial class TTSManager
             ApiToken = _apiToken,
             Text = text,
             Speaker = speaker,
+            Effect = effect,
         };
 
         var reqTime = DateTime.UtcNow;
@@ -149,9 +151,9 @@ public sealed partial class TTSManager
         _cacheKeysSeq.Clear();
     }
 
-    private string GenerateCacheKey(string speaker, string text)
+    private string GenerateCacheKey(string speaker, string text, string? effect = null)
     {
-        var key = $"{speaker}/{text}";
+        var key = $"{speaker}/{effect}/{text}";
         var bytes = System.Security.Cryptography.SHA256.HashData(Encoding.UTF8.GetBytes(key));
         return Convert.ToHexString(bytes);
     }
@@ -170,6 +172,9 @@ public sealed partial class TTSManager
 
         [JsonPropertyName("speaker")]
         public string Speaker { get; set; } = "";
+
+        [JsonPropertyName("effect")]
+        public string? Effect { get; set; } = null;
 
         [JsonPropertyName("ssml")]
         public bool SSML { get; private set; } = true;

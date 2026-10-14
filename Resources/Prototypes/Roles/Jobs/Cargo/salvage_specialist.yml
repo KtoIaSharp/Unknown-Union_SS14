@@ -1,5 +1,6 @@
 - type: job
-  id: SalvageSpecialist
+  id: SalvageSpecialist
+  setPreference: false
   name: job-name-salvagespec
   description: job-description-salvagespec
   playTimeTracker: JobSalvageSpecialist
@@ -17,7 +18,8 @@
   - External
 
 - type: startingGear
-  id: SalvageSpecialistGear
+  id: SalvageSpecialistGear
+  setPreference: false
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     id: SalvagePDA
@@ -27,7 +29,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: SalvageSpecialistChameleonOutfit
+  id: SalvageSpecialistChameleonOutfit
+  setPreference: false
   job: SalvageSpecialist
   equipment:
     head: ClothingHeadHatCargosoft

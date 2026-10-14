@@ -1,0 +1,74 @@
+- type: entity
+  parent: BaseMob
+  id: FpvDrone
+  name: FPV-дрон
+  description: Быстрый дрон с камерой на носу. Ломается от пары попаданий, но успевает уйти далеко.
+  components:
+  - type: Sprite
+    sprite: _UU/fpv_drone.rsi
+    state: icon
+    drawdepth: Mobs
+    noRot: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.25
+        density: 20
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 9
+    baseSprintSpeed: 15
+    baseAcceleration: 60
+    baseFriction: 5
+  - type: FpvDrone
+    signalRange: 25
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      25: Dead
+    showOverlays: false
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 4
+    intensitySlope: 6
+    totalIntensity: 6
+    canCreateVacuum: false
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:ExplodeBehavior
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalGlassBreak
+          params:
+            volume: -4
+      - !type:GibBehavior
+        recursive: false
+
+- type: entity
+  parent: BaseItem
+  id: FpvDroneController
+  name: Пульт FPV-дрона
+  description: Разворачивает дрон и позволяет смотреть его глазами. Нажмите Z повторно, чтобы выйти из управления.
+  components:
+  - type: FpvDroneController
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: Objects/Devices/door_remote.rsi
+    state: door_remotebase

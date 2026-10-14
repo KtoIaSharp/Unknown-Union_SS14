@@ -1,5 +1,6 @@
 - type: job
-  id: AtmosphericTechnician
+  id: AtmosphericTechnician
+  setPreference: false
   name: job-name-atmostech
   description: job-description-atmostech
   playTimeTracker: JobAtmosphericTechnician
@@ -21,7 +22,8 @@
     prototype: FireAxe
 
 - type: startingGear
-  id: AtmosphericTechnicianGear
+  id: AtmosphericTechnicianGear
+  setPreference: false
   equipment:
     eyes: ClothingEyesGlassesMeson
     id: AtmosPDA
@@ -32,7 +34,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: AtmosphericTechnicianChameleonOutfit
+  id: AtmosphericTechnicianChameleonOutfit
+  setPreference: false
   job: AtmosphericTechnician
   equipment:
     head: ClothingHeadHelmetAtmosFire

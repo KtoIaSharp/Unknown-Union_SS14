@@ -1,5 +1,6 @@
 - type: job
-  id: HeadOfSecurity
+  id: HeadOfSecurity
+  setPreference: false
   name: job-name-hos
   description: job-description-hos
   playTimeTracker: JobHeadOfSecurity
@@ -44,7 +45,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: HoSGear
+  id: HoSGear
+  setPreference: false
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: HoSPDA
@@ -57,7 +59,8 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: HeadOfSecurityChameleonOutfit
+  id: HeadOfSecurityChameleonOutfit
+  setPreference: false
   job: HeadOfSecurity
   hasMindShield: true
   equipment:

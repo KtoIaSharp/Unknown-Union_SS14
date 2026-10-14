@@ -1,5 +1,6 @@
 - type: job
-  id: Chef
+  id: Chef
+  setPreference: false
   name: job-name-chef
   description: job-description-chef
   playTimeTracker: JobChef
@@ -19,7 +20,8 @@
   - Bar
 
 - type: startingGear
-  id: ChefGear
+  id: ChefGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesChef
     id: ChefPDA
@@ -30,7 +32,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ChefChameleonOutfit
+  id: ChefChameleonOutfit
+  setPreference: false
   job: Chef
   equipment:
     head: ClothingHeadHatChef

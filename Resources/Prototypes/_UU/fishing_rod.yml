@@ -1,0 +1,16 @@
+- type: entity
+  parent: BaseItem
+  id: FishingRod
+  name: fishing rod
+  description: Pulls any loose entity toward you.
+  components:
+  - type: FishingRod
+    pullSpeed: 25
+    maxRange: 10
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: Objects/Tools/wrench.rsi
+    state: icon
+  - type: UseDelay
+    delay: 1.0

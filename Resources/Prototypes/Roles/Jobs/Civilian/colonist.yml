@@ -1,0 +1,23 @@
+- type: job
+  available: true
+  id: Colonist
+  name: job-name-colonist
+  description: job-description-colonist
+  playTimeTracker: JobColonist
+  startingGear: ColonistGear
+  icon: "JobIconPassenger"
+  supervisors: job-supervisors-everyone
+  access:
+  - Maintenance
+
+- type: startingGear
+  id: ColonistGear
+  equipment:
+    ears: ClothingHeadsetGrey
+    back: ClothingBackpack
+    jumpsuit: ClothingUniformJumpsuitColorGrey
+    shoes: ClothingShoesColorBlack
+  storage:
+    back:
+    - Pen
+    - PaperCharter

@@ -1,5 +1,6 @@
 - type: job
-  id: Librarian
+  id: Librarian
+  setPreference: false
   name: job-name-librarian
   description: job-description-librarian
   playTimeTracker: JobLibrarian
@@ -11,7 +12,8 @@
   - Maintenance
 
 - type: startingGear
-  id: LibrarianGear
+  id: LibrarianGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: LibrarianPDA
@@ -23,7 +25,8 @@
     - BookRandom
 
 - type: chameleonOutfit
-  id: LibrarianChameleonOutfit
+  id: LibrarianChameleonOutfit
+  setPreference: false
   job: Librarian
   equipment:
     head: ClothingHeadHatCanadaBeanie

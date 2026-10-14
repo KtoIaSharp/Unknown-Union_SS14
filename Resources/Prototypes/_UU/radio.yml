@@ -1,0 +1,199 @@
+- type: entity
+  parent: BaseStructure
+  id: RadioTransmitter
+  name: Передатчик
+  description: Создаёт и передаёт на радиочастотах. Можно настроить только один раз.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transmitter
+  - type: Sprite
+    sprite: Structures/Machines/server.rsi
+    state: server
+  - type: UserInterface
+    interfaces:
+      enum.FrequencyUiKey.Transmitter:
+        type: TransmitterBui
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 50
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: ApcPowerReceiver
+    powerLoad: 100
+  - type: ExtensionCableReceiver
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+  - type: ResistLocker
+    resistant: false
+
+- type: entity
+  parent: BaseItem
+  id: RadioDevice
+  name: Рация
+  description: Принимает радиопередачи. Привяжите к передатчику для получения сообщений.
+  components:
+  - type: Radio
+  - type: Item
+    size: Normal
+  - type: Sprite
+    sprite: Objects/Devices/communication.rsi
+    state: walkietalkie
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - Belt
+
+- type: entity
+  parent: Clothing
+  id: RadioEarpiece
+  name: Гарнитура
+  description: Незаметная гарнитура для приёма радиосообщений. Привяжите к передатчику.
+  components:
+  - type: Earpiece
+  - type: Item
+    size: Small
+  - type: Clothing
+    slots:
+    - ears
+  - type: Sprite
+    sprite: Clothing/Ears/Headsets/service.rsi
+    state: icon
+
+- type: entity
+  parent: BaseItem
+  id: FrequencyConfigurator
+  name: Конфигуратор частот
+  description: Копирует частоты с передатчиков. Используйте на передатчике для копирования, затем на рации или гарнитуре для передачи.
+  components:
+  - type: FrequencyConfigurator
+  - type: Item
+    size: Small
+  - type: Sprite
+    sprite: Objects/Tools/network_configurator.rsi
+    state: icon
+  - type: Tag
+    tags:
+    - Multitool
+
+- type: entity
+  parent: BaseStructure
+  id: SignalTower
+  name: Сигнальная вышка
+  description: Увеличивает дальность радио на 20 клеток.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: SignalTower
+  - type: Sprite
+    sprite: Objects/Devices/singularity_beacon.rsi
+    state: icon
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 50
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: ApcPowerReceiver
+    powerLoad: 100
+  - type: ExtensionCableReceiver
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+  - type: ResistLocker
+    resistant: false
+
+- type: entity
+  parent: BaseStructure
+  id: GeneralJammer
+  name: Глушитель
+  description: Глушит все радиопередачи в радиусе действия.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Jammer
+    jammerType: General
+    radius: 20
+  - type: Sprite
+    sprite: Structures/Power/Generation/Singularity/containment_field.rsi
+    state: field
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 50
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: ApcPowerReceiver
+    powerLoad: 100
+  - type: ExtensionCableReceiver
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+  - type: ResistLocker
+    resistant: false
+
+- type: entity
+  parent: BaseStructure
+  id: SpecificJammer
+  name: Глушитель частоты
+  description: Глушит определённую радиочастоту в радиусе действия.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Jammer
+    jammerType: Specific
+    radius: 20
+  - type: ActivatableUI
+    key: enum.FrequencyUiKey.Jammer
+    inHandsOnly: false
+  - type: UserInterface
+    interfaces:
+      enum.FrequencyUiKey.Jammer:
+        type: JammerBui
+  - type: Sprite
+    sprite: Structures/Power/Generation/Singularity/containment_field.rsi
+    state: field
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 50
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: ApcPowerReceiver
+    powerLoad: 100
+  - type: ExtensionCableReceiver
+  - type: Transform
+    anchored: true
+  - type: Anchorable
+  - type: ResistLocker
+    resistant: false

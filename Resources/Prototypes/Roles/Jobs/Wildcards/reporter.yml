@@ -1,5 +1,6 @@
 - type: job
-  id: Reporter
+  id: Reporter
+  setPreference: false
   name: job-name-reporter
   description: job-description-reporter
   playTimeTracker: JobReporter
@@ -11,7 +12,8 @@
   - Maintenance
 
 - type: startingGear
-  id: ReporterGear
+  id: ReporterGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesColorWhite
     id: ReporterPDA
@@ -21,7 +23,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ReporterChameleonOutfit
+  id: ReporterChameleonOutfit
+  setPreference: false
   job: Reporter
   equipment:
     head: ClothingHeadHatFedoraGrey

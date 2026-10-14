@@ -77,3 +77,24 @@ public sealed class EntitySpokeEvent : EntityEventArgs
         ObfuscatedMessage = obfuscatedMessage;
     }
 }
+
+/// <summary>
+/// Raised broadcast when a radio channel key is not found in TryProcessRadioMessage.
+/// Allows custom systems to handle unknown channel keys (e.g., custom frequency codes).
+/// Set Handled to true to suppress the "No such channel" popup.
+/// </summary>
+public sealed class UnknownRadioChannelEvent : EntityEventArgs
+{
+    public readonly EntityUid Source;
+    public readonly string OriginalMessage;
+    public readonly char ChannelKey;
+    public bool Handled;
+    public RadioChannelPrototype? Channel;
+
+    public UnknownRadioChannelEvent(EntityUid source, string originalMessage, char channelKey)
+    {
+        Source = source;
+        OriginalMessage = originalMessage;
+        ChannelKey = channelKey;
+    }
+}

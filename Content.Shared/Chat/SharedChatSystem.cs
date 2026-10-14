@@ -191,10 +191,45 @@ public abstract partial class SharedChatSystem : EntitySystem
             return true;
         }
 
-        if (!_keyCodes.TryGetValue(channelKey, out channel) && !quiet)
+        // Check for custom frequency codes (1-3 alphanumeric chars after :)
+        // This runs before the built-in channel check so :E doesn't get caught by Engineering etc.
+        var afterColon = input.Substring(1).TrimStart();
+        int freqPrefixLen = 0;
+        for (int i = 0; i < afterColon.Length && i < 3; i++)
         {
-            var msg = Loc.GetString("chat-manager-no-such-channel", ("key", channelKey));
-            _popup.PopupEntity(msg, source, source);
+            if (char.IsLetterOrDigit(afterColon[i]))
+                freqPrefixLen++;
+            else
+                break;
+        }
+
+        if (freqPrefixLen > 0)
+        {
+            var customEv = new UnknownRadioChannelEvent(source, input, input[1]);
+            RaiseLocalEvent(customEv);
+            if (customEv.Handled)
+            {
+                channel = customEv.Channel;
+                output = SanitizeMessageCapital(afterColon[freqPrefixLen..].TrimStart());
+                return true;
+            }
+        }
+
+        if (!_keyCodes.TryGetValue(channelKey, out channel))
+        {
+            // Raise an event to allow custom systems to handle unknown channels
+            var ev = new UnknownRadioChannelEvent(source, input, channelKey);
+            RaiseLocalEvent(ev);
+            if (ev.Handled)
+            {
+                channel = ev.Channel;
+                return true;
+            }
+            if (!quiet)
+            {
+                var msg = Loc.GetString("chat-manager-no-such-channel", ("key", channelKey));
+                _popup.PopupEntity(msg, source, source);
+            }
         }
 
         return true;

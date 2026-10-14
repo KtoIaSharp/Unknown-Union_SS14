@@ -7,7 +7,6 @@ using Content.Shared.Preferences;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
-using static Content.Client.Corvax.SponsorOnlyHelpers;
 
 namespace Content.Client.Lobby.UI;
 
@@ -160,10 +159,6 @@ public sealed partial class HumanoidProfileEditor
         for (var i = 0; i < _species.Count; i++)
         {
             var name = Loc.GetString(_species[i].Name);
-
-            if (_species[i].SponsorOnly) // Corvax-Sponsors
-                name += GetSponsorOnlySuffix();
-
             SpeciesButton.AddItem(name, i);
 
             if (Profile?.Species.Equals(_species[i].ID) == true)
@@ -193,6 +188,7 @@ public sealed partial class HumanoidProfileEditor
         // In case there's species restrictions for loadouts
         RefreshLoadouts();
         UpdateSexControls(); // update sex for new species
+        RefreshVoiceButton(); // update voices for new sex
         UpdateSpeciesGuidebookIcon();
         ReloadPreview();
     }
@@ -221,8 +217,8 @@ public sealed partial class HumanoidProfileEditor
         }
 
         UpdateGenderControls();
-        UpdateTTSVoicesControls(); // Corvax-TTS
         _markingsModel.SetOrganSexes(newSex);
+        RefreshVoiceButton();
         ReloadPreview();
     }
 

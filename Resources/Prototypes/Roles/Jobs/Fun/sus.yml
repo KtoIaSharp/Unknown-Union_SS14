@@ -1,5 +1,6 @@
 - type: chameleonOutfit
-  id: SusChameleonOutfit
+  id: SusChameleonOutfit
+  setPreference: false
   loadoutName: chameleon-outfit-sus-name
   name: job-name-passenger
   icon: "JobIconPassenger"

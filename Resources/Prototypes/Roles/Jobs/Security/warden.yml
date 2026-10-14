@@ -1,5 +1,6 @@
 - type: job
-  id: Warden
+  id: Warden
+  setPreference: false
   name: job-name-warden
   description: job-description-warden
   playTimeTracker: JobWarden
@@ -30,7 +31,8 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: WardenGear
+  id: WardenGear
+  setPreference: false
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
@@ -42,7 +44,8 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: WardenChameleonOutfit
+  id: WardenChameleonOutfit
+  setPreference: false
   job: Warden
   hasMindShield: true
   equipment:

@@ -1,5 +1,6 @@
 - type: job
-  id: Detective
+  id: Detective
+  setPreference: false
   name: job-name-detective
   description: job-description-detective
   playTimeTracker: JobDetective
@@ -26,7 +27,8 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: DetectiveGear
+  id: DetectiveGear
+  setPreference: false
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
@@ -39,7 +41,8 @@
     - ForensicScanner
 
 - type: chameleonOutfit
-  id: DetectiveChameleonOutfit
+  id: DetectiveChameleonOutfit
+  setPreference: false
   job: Detective
   hasMindShield: true
   equipment:

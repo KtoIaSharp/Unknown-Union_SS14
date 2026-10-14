@@ -1,0 +1,17 @@
+- type: entity
+  parent: Paper
+  id: PaperCharter
+  name: Государственная Бумага
+  description: Чистый лист для написания устава нового государства.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+      color: "#fff8dc"
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: Paper

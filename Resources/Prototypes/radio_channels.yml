@@ -14,55 +14,6 @@
   longRange: true
 
 - type: radioChannel
-  id: Command
-  name: chat-radio-command
-  keycode: 'к' # Corvax-Localization
-  frequency: 1353
-  color: "#fcdf03"
-
-- type: radioChannel
-  id: Engineering
-  name: chat-radio-engineering
-  keycode: 'и' # Corvax-Localization
-  frequency: 1357
-  color: "#ff733c"
-
-- type: radioChannel
-  id: Medical
-  name: chat-radio-medical
-  keycode: 'м' # Corvax-Localization
-  frequency: 1355
-  color: "#57b8f0"
-
-- type: radioChannel
-  id: Science
-  name: chat-radio-science
-  keycode: 'н' # Corvax-Localization
-  frequency: 1351
-  color: "#cd7ccd"
-
-- type: radioChannel
-  id: Security
-  name: chat-radio-security
-  keycode: 'о' # Corvax-Localization
-  frequency: 1359
-  color: "#ff4242"
-
-- type: radioChannel
-  id: Service
-  name: chat-radio-service
-  keycode: 'с' # Corvax-Localization
-  frequency: 1349
-  color: "#539c00"
-
-- type: radioChannel
-  id: Supply
-  name: chat-radio-supply
-  keycode: 'п' # Corvax-Localization
-  frequency: 1347
-  color: "#b48b57"
-
-- type: radioChannel
   id: Syndicate
   name: chat-radio-syndicate
   keycode: 'т' # Corvax-Localization

@@ -1,5 +1,6 @@
 - type: job
-  id: Botanist
+  id: Botanist
+  setPreference: false
   name: job-name-botanist
   description: job-description-botanist
   playTimeTracker: JobBotanist
@@ -19,7 +20,8 @@
     prototype: CannabisSeeds
 
 - type: startingGear
-  id: BotanistGear
+  id: BotanistGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesColorBrown
     id: BotanistPDA
@@ -30,7 +32,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: BotanistChameleonOutfit
+  id: BotanistChameleonOutfit
+  setPreference: false
   job: Botanist
   equipment:
     head: ClothingHeadBandBotany

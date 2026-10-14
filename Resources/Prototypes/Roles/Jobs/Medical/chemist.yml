@@ -1,5 +1,6 @@
 - type: job
-  id: Chemist
+  id: Chemist
+  setPreference: false
   name: job-name-chemist
   description: job-description-chemist
   playTimeTracker: JobChemist
@@ -16,13 +17,15 @@
   - Maintenance
 
 - type: startingGear
-  id: ChemistGear
+  id: ChemistGear
+  setPreference: false
   equipment:
     id: ChemistryPDA
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit
-  id: ChemistChameleonOutfit
+  id: ChemistChameleonOutfit
+  setPreference: false
   job: Chemist
   equipment:
     head: ClothingHeadHatBeretMedic

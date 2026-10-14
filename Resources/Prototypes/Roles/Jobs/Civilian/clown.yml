@@ -1,5 +1,6 @@
 - type: job
-  id: Clown
+  id: Clown
+  setPreference: false
   name: job-name-clown
   description: job-description-clown
   playTimeTracker: JobClown
@@ -31,7 +32,8 @@
     implants: [ SadTromboneImplant ]
 
 - type: startingGear
-  id: ClownGear
+  id: ClownGear
+  setPreference: false
   equipment:
     mask: ClothingMaskClown
     pocket1: BikeHorn
@@ -46,7 +48,8 @@
     - CrayonRainbow
 
 - type: chameleonOutfit
-  id: ClownChameleonOutfit
+  id: ClownChameleonOutfit
+  setPreference: false
   job: Clown
   equipment:
     head: ClothingHeadHatXmasCrown

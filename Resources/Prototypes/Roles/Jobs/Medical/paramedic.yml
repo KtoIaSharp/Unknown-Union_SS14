@@ -1,5 +1,6 @@
 - type: job
-  id: Paramedic
+  id: Paramedic
+  setPreference: false
   name: job-name-paramedic
   description: job-description-paramedic
   playTimeTracker: JobParamedic
@@ -17,13 +18,15 @@
   - Chemistry
 
 - type: startingGear
-  id: ParamedicGear
+  id: ParamedicGear
+  setPreference: false
   equipment:
     id: ParamedicPDA
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit
-  id: ParamedicChameleonOutfit
+  id: ParamedicChameleonOutfit
+  setPreference: false
   job: Paramedic
   equipment:
     head: ClothingHeadHatParamedicsoft

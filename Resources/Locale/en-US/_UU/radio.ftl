@@ -1,0 +1,40 @@
+## Radio — Entity names
+radio-transmitter-name = Radio Transmitter
+radio-transmitter-desc = Creates and transmits on radio frequencies. Can only be configured once.
+radio-device-name = Radio
+radio-device-desc = Receives radio transmissions. Bind it to a transmitter to receive messages.
+radio-earpiece-name = Radio Earpiece
+radio-earpiece-desc = A discreet earpiece for receiving radio messages. Bind it to a transmitter.
+frequency-configurator-name = Frequency Configurator
+frequency-configurator-desc = Copies frequencies from transmitters. Use on a transmitter to copy, then on a radio or earpiece to paste.
+signal-tower-name = Signal Tower
+signal-tower-desc = Extends radio range for a specific frequency by 20 tiles.
+general-jammer-name = General Jammer
+general-jammer-desc = Jams all radio transmissions in range.
+specific-jammer-name = Specific Jammer
+specific-jammer-desc = Jams a specific radio frequency in range.
+
+## Radio — UI
+radio-transmitter-title = Transmitter
+radio-no-frequency = No frequency set
+radio-enter-frequency = Enter frequency (1-3 symbols):
+radio-frequency-placeholder = e.g. ABC
+radio-set-frequency = Set
+radio-current-frequency = Current frequency: {$freq}
+radio-invalid-frequency = Invalid frequency! Use 1-3 characters.
+radio-set-success = Success!
+radio-jammed = Transmission jammed!
+radio-transmit-on = Transmit ON!
+radio-transmit-off = Transmit OFF!
+radio-enter-name = Frequency name (optional):
+radio-name-placeholder = e.g. Command
+radio-bound = Bound to frequency «{$frequency}»!
+radio-already-bound = Already bound to frequency «{$frequency}».
+radio-already-configured = Transmitter is already configured! Deconstruct it to reconfigure.
+radio-configurator-copied = Frequency «{$frequency}» copied!
+radio-configurator-pasted = Frequency «{$frequency}» transferred!
+radio-configurator-empty = Configurator is empty! Copy a frequency from a transmitter.
+radio-jammer-title = Jammer Settings
+radio-jammer-no-target = No target frequency set
+radio-jammer-target = Jamming frequency: {$frequency}
+radio-jammer-frequency-set = Jammer set to frequency «{$frequency}».

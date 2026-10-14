@@ -1,5 +1,6 @@
 - type: job
-  id: Psychologist
+  id: Psychologist
+  setPreference: false
   name: job-name-psychologist
   description: job-description-psychologist
   playTimeTracker: JobPsychologist
@@ -13,7 +14,8 @@
   - Chemistry
 
 - type: startingGear
-  id: PsychologistGear
+  id: PsychologistGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesLeather
     id: PsychologistPDA
@@ -23,7 +25,8 @@
     - RubberStampPsychologist
 
 - type: chameleonOutfit
-  id: PsychologistChameleonOutfit
+  id: PsychologistChameleonOutfit
+  setPreference: false
   job: Psychologist
   equipment:
     head: ClothingHeadHatBeretMedic

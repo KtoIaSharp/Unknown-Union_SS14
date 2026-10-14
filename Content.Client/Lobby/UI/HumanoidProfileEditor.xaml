@@ -66,7 +66,7 @@
                                 <BoxContainer HorizontalExpand="True">
                                     <Label Text="{Loc 'humanoid-profile-editor-age-label'}" />
                                     <Control HorizontalExpand="True"/>
-                                    <LineEdit Name="AgeEdit" MinSize="60 0" HorizontalAlignment="Right" /> <!-- Corvax-SpeciesAgeLore -->
+                                    <LineEdit Name="AgeEdit" MinSize="40 0" HorizontalAlignment="Right" />
                                 </BoxContainer>
                                 <!-- Sex -->
                                 <BoxContainer HorizontalExpand="True">
@@ -79,6 +79,15 @@
                                     <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />
                                     <Control HorizontalExpand="True"/>
                                     <OptionButton Name="PronounsButton" HorizontalAlignment="Right" />
+                                </BoxContainer>
+                                <!-- Voice -->
+                                <BoxContainer HorizontalExpand="True">
+                                    <Label Text="{Loc 'humanoid-profile-editor-voice-label'}" />
+                                    <Control HorizontalExpand="True"/>
+                                    <OptionButton Name="VoiceButton" MinSize="200 0" HorizontalAlignment="Right" />
+                                    <Button Name="VoicePreviewButton" Text="{Loc 'humanoid-profile-editor-voice-play'}"
+                                            MinWidth="30" Margin="4 0 0 0"
+                                            ToolTip="{Loc 'humanoid-profile-editor-voice-tooltip-play'}" />
                                 </BoxContainer>
                                 <!-- Show clothing -->
                                 <BoxContainer HorizontalExpand="True">

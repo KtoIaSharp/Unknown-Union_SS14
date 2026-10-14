@@ -1,0 +1,31 @@
+- type: entity
+  parent: [ BaseItem, BaseMinorContraband ]
+  id: NuclearPaperBomb
+  name: ядерная бомба
+  description: Обычный лист бумаги. Абсолютно точно не бомба.
+  suffix: Рофл
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/bureaucracy.rsi
+    state: paper
+  - type: Item
+    sprite: Objects/Misc/bureaucracy.rsi
+    size: Tiny
+  - type: TriggerOnActivate
+  - type: TimerTrigger
+    delay: 3
+    examinable: false
+    initialBeepDelay: 0
+    beepSound:
+      path: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+      params:
+        volume: -3
+  - type: ExplodeOnTrigger
+    keysIn:
+    - timer
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 1000
+    intensitySlope: 5
+    maxIntensity: 50
+    canCreateVacuum: true

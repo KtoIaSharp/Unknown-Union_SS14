@@ -1,5 +1,6 @@
 - type: job
-  id: Quartermaster
+  id: Quartermaster
+  setPreference: false
   name: job-name-qm
   description: job-description-qm
   playTimeTracker: JobQuartermaster
@@ -40,7 +41,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: QuartermasterGear
+  id: QuartermasterGear
+  setPreference: false
   equipment:
     id: QuartermasterPDA
     ears: ClothingHeadsetQM
@@ -51,7 +53,8 @@
     - Flash
 
 - type: chameleonOutfit
-  id: QuartermasterChameleonOutfit
+  id: QuartermasterChameleonOutfit
+  setPreference: false
   job: Quartermaster
   hasMindShield: true
   equipment:

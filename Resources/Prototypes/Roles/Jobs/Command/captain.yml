@@ -1,5 +1,6 @@
 - type: job
-  id: Captain
+  id: Captain
+  setPreference: false
   name: job-name-captain
   description: job-description-captain
   playTimeTracker: JobCaptain
@@ -40,7 +41,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: CaptainGear
+  id: CaptainGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
@@ -53,7 +55,8 @@
     # - StationCharter
 
 - type: chameleonOutfit
-  id: CaptainChameleonOutfit
+  id: CaptainChameleonOutfit
+  setPreference: false
   job: Captain
   hasMindShield: true
   equipment:

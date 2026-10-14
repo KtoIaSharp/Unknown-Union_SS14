@@ -1,4 +1,5 @@
 using Content.Client.Humanoid;
+using Content.Client.Corvax.TTS;
 using Content.Client.Message;
 using Content.Client.Players.PlayTimeTracking;
 using Content.Client.Sprite;
@@ -164,6 +165,24 @@ namespace Content.Client.Lobby.UI
 
             #endregion Sex
 
+            #region Voice
+
+            VoiceButton.OnItemSelected += args =>
+            {
+                VoiceButton.SelectId(args.Id);
+                if (args.Id >= 0 && args.Id < _voices.Count)
+                    SetVoice(_voices[args.Id].ID);
+            };
+
+            VoicePreviewButton.OnPressed += _ =>
+            {
+                var id = VoiceButton.SelectedId;
+                if (id >= 0 && id < _voices.Count)
+                    _entManager.System<TTSSystem>().RequestPreviewTTS(_voices[id].ID);
+            };
+
+            #endregion Voice
+
             #region Age
 
             AgeEdit.OnTextChanged += args =>
@@ -277,8 +296,6 @@ namespace Content.Client.Lobby.UI
 
             RefreshTraits();
 
-            TabContainer.SetTabTitle(3, Loc.GetString("humanoid-profile-editor-traits-tab")); // Corvax-TTS-Edit
-
             #region Markings
 
             TabContainer.SetTabTitle(4, Loc.GetString("humanoid-profile-editor-markings-tab"));
@@ -290,7 +307,7 @@ namespace Content.Client.Lobby.UI
 
             RefreshFlavorText();
 
-            RefreshVoiceTab(); // Corvax-TTS
+            RefreshVoiceButton();
 
             #region Dummy
 
@@ -317,6 +334,10 @@ namespace Content.Client.Lobby.UI
             SpeciesInfoButton.OnPressed += OnSpeciesInfoButtonPressed;
 
             UpdateSpeciesGuidebookIcon();
+
+            // Signature picker tab
+            RefreshSignaturePicker();
+
             IsDirty = false;
         }
 
@@ -380,7 +401,6 @@ namespace Content.Client.Lobby.UI
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateMarkings();
-            UpdateTTSVoicesControls(); // Corvax-TTS
 
             RefreshAntags();
             RefreshJobs();
@@ -388,6 +408,7 @@ namespace Content.Client.Lobby.UI
             RefreshSpecies();
             RefreshTraits();
             RefreshFlavorText();
+            RefreshVoiceButton();
             ReloadPreview();
 
             if (Profile != null)

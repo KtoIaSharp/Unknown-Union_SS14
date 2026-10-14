@@ -20,6 +20,7 @@ public sealed partial class TTSSystem : EntitySystem
     [Dependency] private TTSManager _ttsManager = default!;
     [Dependency] private SharedTransformSystem _xforms = default!;
     [Dependency] private IRobustRandom _rng = default!;
+    [Dependency] private Content.Server._UU.Radio.RadioChannelSystem _radio = default!;
 
     private readonly List<string> _sampleText =
         new()
@@ -118,6 +119,10 @@ public sealed partial class TTSSystem : EntitySystem
         var fullTtsEvent = new PlayTTSEvent(fullSoundData, GetNetEntity(uid), true);
         var obfTtsEvent = new PlayTTSEvent(obfSoundData, GetNetEntity(uid), true);
 
+        // Radio broadcast auto-whisper: listeners with the frequency hear the radio TTS
+        // instead, so the whisper is delivered only to those without it.
+        var isRadioBroadcast = _radio.WasRecentlyBroadcast(uid, out var freqs);
+
         // TODO: Check obstacles
         var xformQuery = GetEntityQuery<TransformComponent>();
         var sourcePos = _xforms.GetWorldPosition(xformQuery.GetComponent(uid), xformQuery);
@@ -125,6 +130,10 @@ public sealed partial class TTSSystem : EntitySystem
         foreach (var session in receptions)
         {
             if (!session.AttachedEntity.HasValue) continue;
+
+            if (isRadioBroadcast && _radio.HasFrequency(session.AttachedEntity.Value, freqs))
+                continue;
+
             var xform = xformQuery.GetComponent(session.AttachedEntity.Value);
             var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
             if (distance > ChatSystem.VoiceRange)
@@ -135,7 +144,7 @@ public sealed partial class TTSSystem : EntitySystem
     }
 
     // ReSharper disable once InconsistentNaming
-    private async Task<byte[]?> GenerateTTS(string text, string speaker, bool isWhisper = false)
+    private async Task<byte[]?> GenerateTTS(string text, string speaker, bool isWhisper = false, string? effect = null)
     {
         var textSanitized = Sanitize(text);
         if (textSanitized == "") return null;
@@ -147,6 +156,37 @@ public sealed partial class TTSSystem : EntitySystem
             ssmlTraits = SoundTraits.PitchVerylow;
         var textSsml = ToSsmlText(textSanitized, ssmlTraits);
 
-        return await _ttsManager.ConvertTextToSpeech(speaker, textSsml);
+        return await _ttsManager.ConvertTextToSpeech(speaker, textSsml, effect);
+    }
+
+    /// <summary>
+    /// Generates TTS audio for the given message using the speaker's voice and delivers it
+    /// to the specified recipients. Used for radio broadcasts where listeners sit outside
+    /// the speaker's PVS - the audio is played globally (non-positional) on each client.
+    /// </summary>
+    public async Task<bool> GenerateRadioTTS(EntityUid speaker, string message, IEnumerable<ICommonSession> recipients)
+    {
+        if (!_isEnabled || message.Length > MaxMessageChars)
+            return false;
+
+        if (!TryComp<TTSComponent>(speaker, out var component) || string.IsNullOrEmpty(component.VoicePrototypeId))
+            return false;
+
+        var voiceId = component.VoicePrototypeId;
+        var voiceEv = new TransformSpeakerVoiceEvent(speaker, voiceId);
+        RaiseLocalEvent(speaker, voiceEv);
+        voiceId = voiceEv.VoiceId;
+
+        if (!_prototypeManager.TryIndex<TTSVoicePrototype>(voiceId, out var protoVoice))
+            return false;
+
+        var soundData = await GenerateTTS(message, protoVoice.Speaker, effect: "Radio");
+        if (soundData is null)
+            return false;
+
+        foreach (var session in recipients)
+            RaiseNetworkEvent(new PlayTTSEvent(soundData), session);
+
+        return true;
     }
 }

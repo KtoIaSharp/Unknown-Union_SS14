@@ -123,4 +123,5 @@ JobStationAi = станционный ИИ
 JobStationEngineer = инженер
 JobTechnicalAssistant = технический ассистент
 JobVisitor = посетитель
+job-name-colonist = Колонист
 JobWarden = смотритель

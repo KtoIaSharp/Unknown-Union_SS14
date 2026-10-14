@@ -1,5 +1,6 @@
 - type: job
-  id: Mime
+  id: Mime
+  setPreference: false
   name: job-name-mime
   description: job-description-mime
   playTimeTracker: JobMime
@@ -20,7 +21,8 @@
     - type: FrenchAccent
 
 - type: startingGear
-  id: MimeGear
+  id: MimeGear
+  setPreference: false
   equipment:
     gloves: ClothingHandsGlovesColorWhite
     shoes: ClothingShoesColorWhite
@@ -33,7 +35,8 @@
 
 - type: entity
   parent: BaseAction
-  id: ActionMimeInvisibleWall
+  id: ActionMimeInvisibleWall
+  setPreference: false
   name: Create Invisible Wall
   description: Create an invisible wall in front of you, if placeable there.
   components:
@@ -47,7 +50,8 @@
     event: !type:InvisibleWallActionEvent
 
 - type: chameleonOutfit
-  id: MimeChameleonOutfit
+  id: MimeChameleonOutfit
+  setPreference: false
   job: Mime
   equipment:
     head: ClothingHeadHatMimesoft

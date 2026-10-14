@@ -1,0 +1,20 @@
+# Локальная правка движка RobustToolbox (submodule), НЕ входит в upstream space-wizards.
+# Файл: RobustToolbox/Robust.Shared/Reflection/ReflectionManager.cs
+# Причина: _sawmill может быть null в момент обхода enum-ссылок, из-за чего валится NRE.
+# Применение:
+#   git -C RobustToolbox apply ..\Tools\patches\robust-reflectionmanager-null-guard.patch
+#
+diff --git a/Robust.Shared/Reflection/ReflectionManager.cs b/Robust.Shared/Reflection/ReflectionManager.cs
+index b1ce6ec66..cee0a3d50 100644
+--- a/Robust.Shared/Reflection/ReflectionManager.cs
++++ b/Robust.Shared/Reflection/ReflectionManager.cs
+@@ -301,7 +301,8 @@ namespace Robust.Shared.Reflection
+                     @enum = (Enum)Enum.Parse(type, value);
+                     if (!_reverseEnumCache.TryAdd(@enum, reference))
+                     {
+-                        _sawmill.Warning($"Conflicting enum references encountered. Enum: {@enum}. Existing: {_reverseEnumCache[@enum]}. New: {reference}");
++                        if (_sawmill != null)
++                            _sawmill.Warning($"Conflicting enum references encountered. Enum: {@enum}. Existing: {_reverseEnumCache[@enum]}. New: {reference}");
+                     }
+                     _enumCache.Add(reference, @enum);
+                     return true;

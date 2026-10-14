@@ -1,0 +1,40 @@
+## Radio — Названия предметов
+radio-transmitter-name = Передатчик
+radio-transmitter-desc = Создаёт и передаёт на радиочастотах. Можно настроить только один раз.
+radio-device-name = Рация
+radio-device-desc = Принимает радиопередачи. Привяжите к передатчику для получения сообщений.
+radio-earpiece-name = Гарнитура
+radio-earpiece-desc = Незаметная гарнитура для приёма радиосообщений. Привяжите к передатчику.
+frequency-configurator-name = Конфигуратор частот
+frequency-configurator-desc = Копирует частоты с передатчиков. Используйте на передатчике для копирования, затем на рации или гарнитуре для передачи.
+signal-tower-name = Сигнальная вышка
+signal-tower-desc = Увеличивает дальность радио на 20 клеток.
+general-jammer-name = Глушитель
+general-jammer-desc = Глушит все радиопередачи в радиусе действия.
+specific-jammer-name = Глушитель частоты
+specific-jammer-desc = Глушит определённую радиочастоту в радиусе действия.
+
+## Radio — Интерфейс
+radio-transmitter-title = Передатчик
+radio-no-frequency = Частота не задана
+radio-enter-frequency = Введите частоту (1-3 символа):
+radio-frequency-placeholder = напр. АБВ
+radio-set-frequency = Задать
+radio-current-frequency = Текущая частота: {$freq}
+radio-invalid-frequency = Некорректная частота! Используйте 1-3 символа.
+radio-set-success = Успешно!
+radio-jammed = Передача заглушена!
+radio-transmit-on = Передача включена!
+radio-transmit-off = Передача выключена!
+radio-enter-name = Имя частоты (необязательно):
+radio-name-placeholder = напр. Командный
+radio-bound = Привязано к частоте «{$frequency}»!
+radio-already-bound = Уже привязано к частоте «{$frequency}».
+radio-already-configured = Передатчик уже настроен! Разберите его чтобы перенастроить.
+radio-configurator-copied = Частота «{$frequency}» скопирована!
+radio-configurator-pasted = Частота «{$frequency}» передана!
+radio-configurator-empty = Конфигуратор пуст! Скопируйте частоту с передатчика.
+radio-jammer-title = Настройка глушителя
+radio-jammer-no-target = Целевая частота не задана
+radio-jammer-target = Глушит частоту: {$frequency}
+radio-jammer-frequency-set = Глушитель настроен на частоту «{$frequency}».

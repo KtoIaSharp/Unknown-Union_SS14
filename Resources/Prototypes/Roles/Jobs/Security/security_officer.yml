@@ -1,5 +1,6 @@
 - type: job
-  id: SecurityOfficer
+  id: SecurityOfficer
+  setPreference: false
   name: job-name-security
   description: job-description-security
   playTimeTracker: JobSecurityOfficer
@@ -25,7 +26,8 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: SecurityOfficerGear
+  id: SecurityOfficerGear
+  setPreference: false
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetSecurity
@@ -36,7 +38,8 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: SecurityOfficerChameleonOutfit
+  id: SecurityOfficerChameleonOutfit
+  setPreference: false
   job: SecurityOfficer
   hasMindShield: true
   equipment:

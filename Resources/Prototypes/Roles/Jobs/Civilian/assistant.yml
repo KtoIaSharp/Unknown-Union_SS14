@@ -1,5 +1,6 @@
 - type: job
-  id: Passenger
+  id: Passenger
+  setPreference: false
   name: job-name-passenger
   description: job-description-passenger
   playTimeTracker: JobPassenger
@@ -10,7 +11,8 @@
   - Maintenance
 
 - type: startingGear
-  id: PassengerGear
+  id: PassengerGear
+  setPreference: false
   equipment:
     id: PassengerPDA
     ears: ClothingHeadsetGrey
@@ -19,7 +21,8 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: PassengerChameleonOutfit
+  id: PassengerChameleonOutfit
+  setPreference: false
   job: Passenger
   equipment:
     head: ClothingHeadHatWelding

@@ -22,6 +22,12 @@ public partial struct StampDisplayInfo
 
     [DataField("stampedColor")]
     public Color StampedColor;
+
+    /// <summary>
+    ///     Optional sprite state from RSI for custom stamp image (e.g., signatures).
+    /// </summary>
+    [DataField("spriteState")]
+    public string? SpriteState;
 };
 
 [RegisterComponent]

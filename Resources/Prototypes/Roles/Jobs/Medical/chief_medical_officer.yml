@@ -1,7 +1,8 @@
 # Best job.
 
 - type: job
-  id: ChiefMedicalOfficer
+  id: ChiefMedicalOfficer
+  setPreference: false
   name: job-name-cmo
   description: job-description-cmo
   playTimeTracker: JobChiefMedicalOfficer
@@ -41,7 +42,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: CMOGear
+  id: CMOGear
+  setPreference: false
   equipment:
     id: CMOPDA
     ears: ClothingHeadsetCMO
@@ -50,7 +52,8 @@
     - Flash
 
 - type: chameleonOutfit
-  id: ChiefMedicalOfficerChameleonOutfit
+  id: ChiefMedicalOfficerChameleonOutfit
+  setPreference: false
   job: ChiefMedicalOfficer
   hasMindShield: true
   equipment:

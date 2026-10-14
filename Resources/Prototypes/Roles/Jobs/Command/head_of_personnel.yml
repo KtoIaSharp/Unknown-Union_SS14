@@ -1,5 +1,6 @@
 - type: job
-  id: HeadOfPersonnel
+  id: HeadOfPersonnel
+  setPreference: false
   name: job-name-hop
   description: job-description-hop
   playTimeTracker: JobHeadOfPersonnel
@@ -66,7 +67,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: HoPGear
+  id: HoPGear
+  setPreference: false
   equipment:
     shoes: ClothingShoesColorBrown
     id: HoPPDA
@@ -79,7 +81,8 @@
     - Flash
 
 - type: chameleonOutfit
-  id: HeadOfPersonnelChameleonOutfit
+  id: HeadOfPersonnelChameleonOutfit
+  setPreference: false
   job: HeadOfPersonnel
   hasMindShield: true
   equipment:

@@ -1,5 +1,6 @@
 - type: job
-  id: ChiefEngineer
+  id: ChiefEngineer
+  setPreference: false
   name: job-name-ce
   description: job-description-ce
   playTimeTracker: JobChiefEngineer
@@ -40,7 +41,8 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: ChiefEngineerGear
+  id: ChiefEngineerGear
+  setPreference: false
   equipment:
     id: CEPDA
     eyes: ClothingEyesGlassesMeson
@@ -51,7 +53,8 @@
     - Flash
 
 - type: chameleonOutfit
-  id: ChiefEngineerChameleonOutfit
+  id: ChiefEngineerChameleonOutfit
+  setPreference: false
   job: ChiefEngineer
   hasMindShield: true
   equipment:

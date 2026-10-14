@@ -1,0 +1,9 @@
+- type: emote
+  id: Dance
+  name: emote-name-dance
+  category: General
+  chatMessages: ["emote-chat-dance"]
+  chatTriggers:
+    - dance
+    - dances
+    - dancing

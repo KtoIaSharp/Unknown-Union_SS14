@@ -1,0 +1,8 @@
+- type: entity
+  parent: BaseAction
+  id: ActionLeaveCell
+  name: Покинуть ячейку
+  description: Выйти из текущей ячейки.
+  components:
+  - type: InstantAction
+    event: !type:LeaveCellActionEvent
