@@ -310,8 +310,6 @@
           type: WiresBoundUserInterface
   - type: Appearance
   - type: ActiveRadio
-    channels:
-    - Science
   - type: GenericVisualizer
     visuals:
       enum.PowerDeviceVisuals.Powered:

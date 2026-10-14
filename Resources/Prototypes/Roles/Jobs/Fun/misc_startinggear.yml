@@ -2,8 +2,7 @@
 
 #Skeleton Biker - Just a skeleton now
 - type: startingGear
-  id: SkeletonBiker
-  setPreference: false
+  id: SkeletonBiker
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBlack
     back: ClothingBackpack
@@ -20,8 +19,7 @@
 
 # Syndicate Operative Outfit - Civilian
 - type: startingGear
-  id: SyndicateOperativeGearCivilian
-  setPreference: false
+  id: SyndicateOperativeGearCivilian
   equipment:
     jumpsuit: ClothingUniformJumpsuitSyndieFormal
     back: ClothingBackpackDuffelSyndicate
@@ -32,8 +30,7 @@
 
 # Syndicate Footsoldier Gear - No Headset
 - type: startingGear
-  id: SyndicateFootsoldierGearRuin
-  setPreference: false
+  id: SyndicateFootsoldierGearRuin
   equipment:
     jumpsuit: ClothingUniformJumpsuitOperative
     head: ClothingHeadHelmetSwatSyndicate
@@ -49,8 +46,7 @@
 
 # Syndicate Footsoldier Gear
 - type: startingGear
-  id: SyndicateFootsoldierGear
-  setPreference: false
+  id: SyndicateFootsoldierGear
   parent: SyndicateOperativeGearCivilian
   equipment:
     jumpsuit: ClothingUniformJumpsuitOperative
@@ -65,8 +61,7 @@
     - BoxSurvivalSyndicate
 
 - type: startingGear
-  id: SyndicateFootsoldierTeamLeaderGear
-  setPreference: false
+  id: SyndicateFootsoldierTeamLeaderGear
   parent: SyndicateFootsoldierGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSyndieFormal
@@ -78,8 +73,7 @@
 
 # Nanotrasen Paramilitary Unit Gear
 - type: startingGear
-  id: NanotrasenParamilitaryGear
-  setPreference: false
+  id: NanotrasenParamilitaryGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSec
     back: ClothingBackpackSecurity
@@ -97,14 +91,12 @@
     - MagazinePistol
 
 - type: startingGear
-  id: BoxingKangarooGear
-  setPreference: false
+  id: BoxingKangarooGear
   equipment:
     gloves: ClothingHandsGlovesBoxingBlue
 
 - type: startingGear
-  id: MobMonkeyGear
-  setPreference: false
+  id: MobMonkeyGear
   equipment:
     head: ClothingHeadHatTophat
     ears: ClothingHeadsetService
@@ -112,24 +104,21 @@
     id: PunPunIDCard
 
 - type: startingGear
-  id: MobPollyGear
-  setPreference: false
+  id: MobPollyGear
   equipment:
     ears: ClothingHeadsetEngineering
 
 # Emotional Support Scurret
 
 - type: startingGear
-  id: EmotionalSupportScurretGear
-  setPreference: false
+  id: EmotionalSupportScurretGear
   equipment:
     id: ScurretPDA
 
 # DeathMatch Gear
 
 - type: startingGear
-  id: DeathMatchGear
-  setPreference: false
+  id: DeathMatchGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
     shoes: ClothingShoesBootsJack
@@ -158,8 +147,7 @@
 
 # Aghost
 - type: startingGear
-  id: MobAghostGear
-  setPreference: false
+  id: MobAghostGear
   equipment:
     back: ClothingBackpackSatchelAdmin
     id: AdminPDA
@@ -172,8 +160,7 @@
 
 #Gladiator with spear
 - type: startingGear
-  id: GladiatorGear
-  setPreference: false
+  id: GladiatorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitGladiator
     back: SpearBone
@@ -182,8 +169,7 @@
 
 #Ash Walker
 - type: startingGear
-  id: AshWalker
-  setPreference: false
+  id: AshWalker
   equipment:
     jumpsuit: ClothingUniformJumpsuitGladiator
     outerClothing: ClothingOuterArmorBone
@@ -193,8 +179,7 @@
 
 #Banana Clown
 - type: startingGear
-  id: BananaClown
-  setPreference: false
+  id: BananaClown
   equipment:
     id: VisitorPDA
     back: ClothingBackpackClown
@@ -206,8 +191,7 @@
 
 # Passenger but without the ID, bag, or headset
 - type: startingGear
-  id: LimitedPassengerGear
-  setPreference: false
+  id: LimitedPassengerGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorGrey
     shoes: ClothingShoesColorBlack

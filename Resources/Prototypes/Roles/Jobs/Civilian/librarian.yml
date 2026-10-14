@@ -1,5 +1,5 @@
 - type: job
-  id: Librarian
+  id: Librarian
   setPreference: false
   name: job-name-librarian
   description: job-description-librarian
@@ -12,8 +12,7 @@
   - Maintenance
 
 - type: startingGear
-  id: LibrarianGear
-  setPreference: false
+  id: LibrarianGear
   equipment:
     shoes: ClothingShoesBootsLaceup
     id: LibrarianPDA
@@ -25,8 +24,7 @@
     - BookRandom
 
 - type: chameleonOutfit
-  id: LibrarianChameleonOutfit
-  setPreference: false
+  id: LibrarianChameleonOutfit
   job: Librarian
   equipment:
     head: ClothingHeadHatCanadaBeanie

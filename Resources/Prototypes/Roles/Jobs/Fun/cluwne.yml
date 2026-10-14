@@ -1,6 +1,5 @@
 - type: startingGear
-  id: CluwneGear
-  setPreference: false
+  id: CluwneGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCluwne
     back: ClothingBackpackCluwne
@@ -11,14 +10,12 @@
     pocket1: CluwneHorn
 
 - type: startingGear
-  id: HoloClownGear
-  setPreference: false
+  id: HoloClownGear
   equipment:
     pocket1: BikeHorn
 
 - type: chameleonOutfit
-  id: CluwneChameleonOutfit
-  setPreference: false
+  id: CluwneChameleonOutfit
   name: job-title-cluwne
   startingGear: CluwneGear
   icon: JobIconCluwne

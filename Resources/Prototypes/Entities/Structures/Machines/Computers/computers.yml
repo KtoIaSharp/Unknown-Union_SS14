@@ -486,8 +486,6 @@
   - type: ResearchClient
   - type: ResearchConsole
   - type: ActiveRadio
-    channels:
-    - Science
   - type: TechnologyDatabase
   - type: ActivatableUI
     key: enum.ResearchConsoleUiKey.Key
@@ -882,8 +880,6 @@
   - type: CargoOrderConsole
     removeLimitAccess: [ "Quartermaster" ]
   - type: ActiveRadio
-    channels:
-    - Supply
   - type: ActivatableUI
     key: enum.CargoConsoleUiKey.Orders
   - type: UserInterface
@@ -934,12 +930,10 @@
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Engineering
-    announcementChannel: Engineering
+    announcementChannel: Common
     removeLimitAccess: [ "ChiefEngineer" ]
     mode: SendToPrimary
   - type: ActiveRadio
-    channels:
-    - Engineering
   - type: Computer
     board: CargoRequestEngineeringComputerCircuitboard
   - type: PointLight
@@ -968,12 +962,10 @@
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Medical
-    announcementChannel: Medical
+    announcementChannel: Common
     removeLimitAccess: [ "ChiefMedicalOfficer" ]
     mode: SendToPrimary
   - type: ActiveRadio
-    channels:
-    - Medical
   - type: Computer
     board: CargoRequestMedicalComputerCircuitboard
   - type: PointLight
@@ -1002,12 +994,10 @@
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Science
-    announcementChannel: Science
+    announcementChannel: Common
     removeLimitAccess: [ "ResearchDirector" ]
     mode: SendToPrimary
   - type: ActiveRadio
-    channels:
-    - Science
   - type: Computer
     board: CargoRequestScienceComputerCircuitboard
   - type: PointLight
@@ -1035,12 +1025,10 @@
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Security
-    announcementChannel: Security
+    announcementChannel: Common
     removeLimitAccess: [ "HeadOfSecurity" ]
     mode: SendToPrimary
   - type: ActiveRadio
-    channels:
-    - Security
   - type: Computer
     board: CargoRequestSecurityComputerCircuitboard
   - type: PointLight
@@ -1068,12 +1056,10 @@
       state: generic_panel_open
   - type: CargoOrderConsole
     account: Service
-    announcementChannel: Service
+    announcementChannel: Common
     removeLimitAccess: [ "HeadOfPersonnel" ]
     mode: SendToPrimary
   - type: ActiveRadio
-    channels:
-    - Service
   - type: Computer
     board: CargoRequestServiceComputerCircuitboard
   - type: PointLight
@@ -1238,7 +1224,6 @@
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: ActiveRadio
-    channels: [ Supply ]
   - type: Computer
     board: SalvageJobBoardComputerCircuitboard
   - type: PointLight
@@ -1541,8 +1526,6 @@
   - type: RoboticsConsole
     allowBorgControl: false
   - type: ActiveRadio
-    channels:
-    - Science
   - type: ActivatableUI
     key: enum.RoboticsConsoleUiKey.Key
   - type: UserInterface

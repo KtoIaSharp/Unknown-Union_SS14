@@ -60,14 +60,14 @@ public sealed class FrequencyBuiState : BoundUserInterfaceState
 {
     public readonly string? Frequency;
     public readonly string? FrequencyName;
-    public readonly List<string> AvailableFrequencies;
     public readonly bool Configured;
 
-    public FrequencyBuiState(string? frequency, List<string> available, string? name = null,
+    // Раньше здесь передавался весь глобальный реестр частот сервера.
+    // Клиент его никогда не использовал, а любой игрок получал список секретных частот — убрано.
+    public FrequencyBuiState(string? frequency, string? name = null,
         bool configured = false)
     {
         Frequency = frequency;
-        AvailableFrequencies = available;
         FrequencyName = name;
         Configured = configured;
     }

@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using Content.Shared.DeviceLinking;
 using Content.Shared.Radio;
 using Robust.Shared.GameStates;
@@ -102,7 +102,7 @@ public sealed partial class EmitterComponent : Component
     /// The radio channel to broadcast on when something happens to this emitter
     /// </summary>
     [DataField]
-    public ProtoId<RadioChannelPrototype> RadioChannel = "Engineering";
+    public ProtoId<RadioChannelPrototype> RadioChannel = "Common";
 
     /// <summary>
     /// Whether a radio channel should be alerted if anything happens to this emitter (i.e. emitters near singularity/tesla containment)

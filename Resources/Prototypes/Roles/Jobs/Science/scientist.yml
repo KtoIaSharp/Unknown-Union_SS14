@@ -1,5 +1,5 @@
 - type: job
-  id: Scientist
+  id: Scientist
   setPreference: false
   name: job-name-scientist
   description: job-description-scientist
@@ -16,8 +16,7 @@
   - Maintenance
 
 - type: startingGear
-  id: ScientistGear
-  setPreference: false
+  id: ScientistGear
   equipment:
     ears: ClothingHeadsetScience
   #storage:
@@ -25,8 +24,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ScientistChameleonOutfit
-  setPreference: false
+  id: ScientistChameleonOutfit
   job: Scientist
   equipment:
     head: ClothingHeadBandSkull

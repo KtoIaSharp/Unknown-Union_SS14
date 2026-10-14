@@ -1,7 +1,6 @@
 #Wizard outfit startingGear definitions.
 - type: startingGear
-  id: WizardBlueGear
-  setPreference: false
+  id: WizardBlueGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorDarkBlue
     head: ClothingHeadHatWizard
@@ -15,8 +14,7 @@
     pocket2: WizardsGrimoire
 
 - type: startingGear
-  id: WizardRedGear
-  setPreference: false
+  id: WizardRedGear
   parent: WizardBlueGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorRed
@@ -24,8 +22,7 @@
     outerClothing: ClothingOuterWizardRed
 
 - type: startingGear
-  id: WizardVioletGear
-  setPreference: false
+  id: WizardVioletGear
   parent: WizardBlueGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorPurple
@@ -33,8 +30,7 @@
     outerClothing: ClothingOuterWizardViolet
 
 - type: chameleonOutfit
-  id: WizardChameleonOutfit
-  setPreference: false
+  id: WizardChameleonOutfit
   name: roles-antag-wizard-name
   startingGear: WizardBlueGear
   icon: "JobIconWizard"

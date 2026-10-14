@@ -1,5 +1,5 @@
 - type: job
-  id: ChiefEngineer
+  id: ChiefEngineer
   setPreference: false
   name: job-name-ce
   description: job-description-ce
@@ -41,8 +41,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: ChiefEngineerGear
-  setPreference: false
+  id: ChiefEngineerGear
   equipment:
     id: CEPDA
     eyes: ClothingEyesGlassesMeson
@@ -53,8 +52,7 @@
     - Flash
 
 - type: chameleonOutfit
-  id: ChiefEngineerChameleonOutfit
-  setPreference: false
+  id: ChiefEngineerChameleonOutfit
   job: ChiefEngineer
   hasMindShield: true
   equipment:

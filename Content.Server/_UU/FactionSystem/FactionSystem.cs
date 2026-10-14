@@ -4,6 +4,7 @@ using Content.Server.Administration;
 using Content.Server.Chat.Systems;
 using Content.Shared._UU.Faction;
 using Content.Shared.Examine;
+using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Paper;
@@ -15,6 +16,7 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server._UU.FactionSystem;
 
@@ -31,6 +33,11 @@ public sealed class FactionSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
 
     private const string WriteTag = "Write";
+
+    // Правка: название государства — свободный пользовательский ввод из QuickDialog, который
+    // уходит в глобальные анонсы, метаданные бумаги и сетевое состояние. Ограничиваем длину.
+    private const int MaxFactionNameLength = 48;
+
     private int _nextFactionId = 1;
 
     public override void Initialize()
@@ -41,6 +48,26 @@ public sealed class FactionSystem : EntitySystem
         SubscribeLocalEvent<FactionComponent, GetVerbsEvent<Verb>>(OnFactionVerb);
         SubscribeLocalEvent<FactionSignableComponent, ExaminedEvent>(OnSignableExamine);
         SubscribeLocalEvent<PaperComponent, GetVerbsEvent<Verb>>(OnPaperVerb);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestartCleanup);
+    }
+
+    private void OnRoundRestartCleanup(RoundRestartCleanupEvent ev)
+    {
+        // Правка: счётчик ID государств — статическое поле системы, живёт между раундами,
+        // поэтому его обязательно сбрасываем при рестарте (состояние на компонентах не трогаем).
+        _nextFactionId = 1;
+    }
+
+    /// <summary>
+    /// Обрезает пользовательский ввод до разумной длины. Возвращает null, если текста нет.
+    /// </summary>
+    private static string? ClampFactionName(string? raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw))
+            return null;
+
+        var trimmed = raw.Trim();
+        return trimmed.Length > MaxFactionNameLength ? trimmed[..MaxFactionNameLength] : trimmed;
     }
 
     private void OnSignableExamine(Entity<FactionSignableComponent> ent, ref ExaminedEvent args)
@@ -51,7 +78,8 @@ public sealed class FactionSystem : EntitySystem
         foreach (var sig in ent.Comp.Signatures)
         {
             var key = string.IsNullOrEmpty(sig.SignKey) ? "faction-signed-male" : sig.SignKey;
-            args.PushMarkup(Loc.GetString(key, ("name", (object)sig.Name), ("date", (object)sig.Date)));
+            // Правка: имя подписанта вставляется в markup-сообщение — экранируем.
+            args.PushMarkup(Loc.GetString(key, ("name", (object)FormattedMessage.EscapeText(sig.Name)), ("date", (object)sig.Date)));
         }
     }
 
@@ -64,12 +92,12 @@ public sealed class FactionSystem : EntitySystem
             args.PushMarkup(Loc.GetString("faction-none"));
         else
         {
-            args.PushMarkup(Loc.GetString("faction-examine", ("faction", (object)ent.Comp.Faction)));
+            args.PushMarkup(Loc.GetString("faction-examine", ("faction", (object)FormattedMessage.EscapeText(ent.Comp.Faction!))));
             if (!string.IsNullOrEmpty(ent.Comp.Title) &&
                 TryComp<FactionComponent>(args.Examiner, out var examinerFaction) &&
                 examinerFaction.FactionId == ent.Comp.FactionId)
             {
-                args.PushMarkup(Loc.GetString("faction-title-examine", ("title", (object)ent.Comp.Title)));
+                args.PushMarkup(Loc.GetString("faction-title-examine", ("title", (object)FormattedMessage.EscapeText(ent.Comp.Title!))));
             }
         }
     }
@@ -107,10 +135,10 @@ public sealed class FactionSystem : EntitySystem
                 Dirty(citizen, citizen.Comp);
 
                 _popup.PopupEntity(
-                    Loc.GetString("faction-expelled", ("name", (object)targetName), ("faction", (object)factionName)),
+                    Loc.GetString("faction-expelled", ("name", (object)FormattedMessage.EscapeText(targetName)), ("faction", (object)FormattedMessage.EscapeText(factionName))),
                     citizen, leader);
                 _popup.PopupEntity(
-                    Loc.GetString("faction-expelled-you", ("faction", (object)factionName)),
+                    Loc.GetString("faction-expelled-you", ("faction", (object)FormattedMessage.EscapeText(factionName))),
                     citizen, citizen);
             },
         });
@@ -268,6 +296,13 @@ public sealed class FactionSystem : EntitySystem
                     if (signable.Signatures.Any(s => s.Name == userName))
                         return;
 
+                    // Правка: список подписей — сетевое поле, его рост без лимита раздувает сетевой стейт.
+                    if (signable.Signatures.Count >= FactionSignatureLimits.MaxSignatures)
+                    {
+                        _popup.PopupEntity(Loc.GetString("faction-sign-limit-reached"), user, user);
+                        return;
+                    }
+
                     var sprite = SignatureHelper.GetOrAssignSignatureSprite(user, _random, EntityManager);
 
                     signable.Signatures.Add(new SignatureInfo
@@ -310,7 +345,7 @@ public sealed class FactionSystem : EntitySystem
                     };
                     _paper.TryStamp(paper, stampInfo, "paper_stamp-generic");
 
-                    _popup.PopupEntity(Loc.GetString("faction-state-signed", ("name", (object)factionName)), user, user);
+                    _popup.PopupEntity(Loc.GetString("faction-state-signed", ("name", (object)FormattedMessage.EscapeText(factionName))), user, user);
                 },
             });
         }
@@ -337,8 +372,8 @@ public sealed class FactionSystem : EntitySystem
 
         WriteDocumentText(paper, "faction-doc-leave", ("name", (object)name), comment);
 
-        _meta.SetEntityName(paper, Loc.GetString("faction-leave-document-name", ("name", (object)name)));
-        _popup.PopupEntity(Loc.GetString("faction-left", ("name", (object)name)), player, player);
+        _meta.SetEntityName(paper, Loc.GetString("faction-leave-document-name", ("name", (object)FormattedMessage.EscapeText(name))));
+        _popup.PopupEntity(Loc.GetString("faction-left", ("name", (object)FormattedMessage.EscapeText(name))), player, player);
     }
 
     private void CreateEntryDocument(EntityUid player, int factionId, string factionName, Entity<PaperComponent> paper)
@@ -356,13 +391,13 @@ public sealed class FactionSystem : EntitySystem
         paper.Comp.EditingDisabled = true;
         DirtyEntity(paper);
 
-        _meta.SetEntityName(paper, Loc.GetString("faction-entry-document-name", ("name", (object)factionName)));
-        _meta.SetEntityDescription(paper, Loc.GetString("faction-entry-document-description", ("name", (object)factionName)));
+        _meta.SetEntityName(paper, Loc.GetString("faction-entry-document-name", ("name", (object)FormattedMessage.EscapeText(factionName))));
+        _meta.SetEntityDescription(paper, Loc.GetString("faction-entry-document-description", ("name", (object)FormattedMessage.EscapeText(factionName))));
 
-        var stampInfo = new StampDisplayInfo { StampedName = factionName, StampedColor = Color.FromHex("#FFD700") };
+        var stampInfo = new StampDisplayInfo { StampedName = FormattedMessage.EscapeText(factionName), StampedColor = Color.FromHex("#FFD700") };
         _paper.TryStamp(paper, stampInfo, "paper_stamp-generic");
 
-        _popup.PopupEntity(Loc.GetString("faction-entry-document-created", ("name", (object)factionName)), player, player);
+        _popup.PopupEntity(Loc.GetString("faction-entry-document-created", ("name", (object)FormattedMessage.EscapeText(factionName))), player, player);
     }
 
     private void CreateGovernDocument(EntityUid player, int factionId, string factionName, Entity<PaperComponent> paper)
@@ -380,20 +415,26 @@ public sealed class FactionSystem : EntitySystem
         paper.Comp.EditingDisabled = true;
         DirtyEntity(paper);
 
-        _meta.SetEntityName(paper, Loc.GetString("faction-govern-document-name", ("name", (object)factionName)));
-        _meta.SetEntityDescription(paper, Loc.GetString("faction-govern-document-description", ("name", (object)factionName)));
+        _meta.SetEntityName(paper, Loc.GetString("faction-govern-document-name", ("name", (object)FormattedMessage.EscapeText(factionName))));
+        _meta.SetEntityDescription(paper, Loc.GetString("faction-govern-document-description", ("name", (object)FormattedMessage.EscapeText(factionName))));
 
-        var stampInfo = new StampDisplayInfo { StampedName = factionName, StampedColor = Color.FromHex("#FFD700") };
+        var stampInfo = new StampDisplayInfo { StampedName = FormattedMessage.EscapeText(factionName), StampedColor = Color.FromHex("#FFD700") };
         _paper.TryStamp(paper, stampInfo, "paper_stamp-generic");
 
-        _popup.PopupEntity(Loc.GetString("faction-govern-document-created", ("name", (object)factionName)), player, player);
+        _popup.PopupEntity(Loc.GetString("faction-govern-document-created", ("name", (object)FormattedMessage.EscapeText(factionName))), player, player);
     }
 
     private void CreateCellDocument(EntityUid player, string cellName, Entity<PaperComponent> paper)
     {
         var comment = paper.Comp.Content;
 
-        _cellSystem.CreateCell(player, cellName);
+        // Правка: ячейка может не создаться (лимит ячеек) — тогда и документ выдавать нельзя,
+        // иначе на руках остаётся бумага о несуществующей ячейке.
+        if (!_cellSystem.CreateCell(player, cellName, out cellName))
+            return;
+
+        // Правка: название из QuickDialog не должно уходить в бумагу без ограничения длины.
+        cellName = ClampFactionName(cellName) ?? cellName;
 
         WriteDocumentText(paper, "faction-doc-cell", ("name", (object)cellName), comment);
 
@@ -401,11 +442,14 @@ public sealed class FactionSystem : EntitySystem
         paper.Comp.EditingDisabled = true;
         DirtyEntity(paper);
 
-        _meta.SetEntityName(paper, Loc.GetString("cell-create-document-name", ("name", (object)cellName)));
+        _meta.SetEntityName(paper, Loc.GetString("cell-create-document-name", ("name", (object)FormattedMessage.EscapeText(cellName))));
     }
 
     private void CreateFaction(EntityUid player, string factionName, Entity<PaperComponent> paper)
     {
+        // Правка: режем пользовательский ввод из QuickDialog до разумной длины (см. MaxFactionNameLength).
+        factionName = ClampFactionName(factionName) ?? factionName;
+
         var factionId = _nextFactionId++;
         var comment = paper.Comp.Content;
 
@@ -425,39 +469,30 @@ public sealed class FactionSystem : EntitySystem
         EnsureComp<BlockWritingComponent>(paper);
         RemCompDeferred<EdibleComponent>(paper);
 
-        _meta.SetEntityName(paper, Loc.GetString("faction-document-name", ("name", (object)factionName)));
-        _meta.SetEntityDescription(paper, Loc.GetString("faction-document-description", ("name", (object)factionName)));
+        _meta.SetEntityName(paper, Loc.GetString("faction-document-name", ("name", (object)FormattedMessage.EscapeText(factionName))));
+        _meta.SetEntityDescription(paper, Loc.GetString("faction-document-description", ("name", (object)FormattedMessage.EscapeText(factionName))));
         DirtyEntity(paper);
 
-        var stampInfo = new StampDisplayInfo { StampedName = factionName, StampedColor = Color.FromHex("#FFD700") };
+        var stampInfo = new StampDisplayInfo { StampedName = FormattedMessage.EscapeText(factionName), StampedColor = Color.FromHex("#FFD700") };
         _paper.TryStamp(paper, stampInfo, "paper_stamp-generic");
 
-        _popup.PopupEntity(Loc.GetString("faction-created", ("name", (object)factionName)), player, player);
+        _popup.PopupEntity(Loc.GetString("faction-created", ("name", (object)FormattedMessage.EscapeText(factionName))), player, player);
 
         _chat.DispatchGlobalAnnouncement(
-            Loc.GetString("faction-created-announcement", ("name", (object)factionName), ("player", (object)Name(player))),
+            Loc.GetString("faction-created-announcement", ("name", (object)FormattedMessage.EscapeText(factionName)), ("player", (object)Name(player))),
             sender: Loc.GetString("faction-announcement-sender"),
             playSound: false,
             colorOverride: Color.FromHex("#FFD700"));
     }
 
-    // Helper: get faction name by ID (for cross-system use)
-    public string? GetFactionName(int factionId)
-    {
-        var query = EntityQuery<FactionComponent>();
-        foreach (var comp in query)
-        {
-            if (comp.FactionId == factionId)
-                return comp.Faction;
-        }
-        return null;
-    }
-
     private void WriteDocumentText(Entity<PaperComponent> paper, string localeKey, (string, object) nameParam, string? comment)
     {
-        var text = Loc.GetString(localeKey, nameParam);
+        // Правка: и текст шаблона, и комментарий автора попадают в markup бумаги — экранируем
+        // пользовательские значения, чтобы их нельзя было разметить внутри документа.
+        var safeName = (nameParam.Item1, (object)FormattedMessage.EscapeText(nameParam.Item2?.ToString() ?? string.Empty));
+        var text = Loc.GetString(localeKey, safeName);
         if (!string.IsNullOrWhiteSpace(comment))
-            text += $"\n\n--- {Loc.GetString("faction-doc-comment-label")} ---\n{comment}";
+            text += $"\n\n--- {Loc.GetString("faction-doc-comment-label")} ---\n{FormattedMessage.EscapeText(comment)}";
 
         paper.Comp.Content = text;
         DirtyEntity(paper);

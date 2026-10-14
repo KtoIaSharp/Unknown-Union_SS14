@@ -187,13 +187,6 @@
       supportedChannels:
       - Common
       - CentCom
-      - Command
-      - Engineering
-      - Medical
-      - Science
-      - Security
-      - Service
-      - Supply
 
 - type: entity
   parent: BaseOneTimeXenoArtifactEffect

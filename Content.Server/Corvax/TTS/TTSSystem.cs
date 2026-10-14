@@ -105,6 +105,11 @@ public sealed partial class TTSSystem : EntitySystem
     {
         var soundData = await GenerateTTS(message, speaker);
         if (soundData is null) return;
+
+        // За время HTTP-запроса сущность могли удалить — тогда отправлять уже некому.
+        if (TerminatingOrDeleted(uid))
+            return;
+
         RaiseNetworkEvent(new PlayTTSEvent(soundData, GetNetEntity(uid)), Filter.Pvs(uid));
     }
 
@@ -116,6 +121,10 @@ public sealed partial class TTSSystem : EntitySystem
         var obfSoundData = await GenerateTTS(obfMessage, speaker, true);
         if (obfSoundData is null) return;
 
+        // За время HTTP-запросов источник могли удалить.
+        if (TerminatingOrDeleted(uid))
+            return;
+
         var fullTtsEvent = new PlayTTSEvent(fullSoundData, GetNetEntity(uid), true);
         var obfTtsEvent = new PlayTTSEvent(obfSoundData, GetNetEntity(uid), true);
 
@@ -125,16 +134,23 @@ public sealed partial class TTSSystem : EntitySystem
 
         // TODO: Check obstacles
         var xformQuery = GetEntityQuery<TransformComponent>();
-        var sourcePos = _xforms.GetWorldPosition(xformQuery.GetComponent(uid), xformQuery);
+        if (!xformQuery.TryGetComponent(uid, out var sourceXform))
+            return;
+
+        var sourcePos = _xforms.GetWorldPosition(sourceXform, xformQuery);
         var receptions = Filter.Pvs(uid).Recipients;
         foreach (var session in receptions)
         {
-            if (!session.AttachedEntity.HasValue) continue;
-
-            if (isRadioBroadcast && _radio.HasFrequency(session.AttachedEntity.Value, freqs))
+            // GetComponent здесь падал, если игрок вышел или сущность удалили за время запроса.
+            if (session.AttachedEntity is not { Valid: true } attached)
                 continue;
 
-            var xform = xformQuery.GetComponent(session.AttachedEntity.Value);
+            if (isRadioBroadcast && _radio.HasFrequency(attached, freqs))
+                continue;
+
+            if (!xformQuery.TryGetComponent(attached, out var xform))
+                continue;
+
             var distance = (sourcePos - _xforms.GetWorldPosition(xform, xformQuery)).Length();
             if (distance > ChatSystem.VoiceRange)
                 continue;

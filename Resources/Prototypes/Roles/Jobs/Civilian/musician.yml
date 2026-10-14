@@ -1,5 +1,5 @@
 - type: job
-  id: Musician
+  id: Musician
   setPreference: false
   name: job-name-musician
   description: job-description-musician
@@ -16,8 +16,7 @@
     prototype: BoxPerformer
 
 - type: startingGear
-  id: MusicianGear
-  setPreference: false
+  id: MusicianGear
   equipment:
     eyes: ClothingEyesGlassesSunglasses
     shoes: ClothingShoesBootsLaceup
@@ -28,8 +27,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: MusicianChameleonOutfit
-  setPreference: false
+  id: MusicianChameleonOutfit
   job: Musician
   equipment:
     head: ClothingHeadHatTophat

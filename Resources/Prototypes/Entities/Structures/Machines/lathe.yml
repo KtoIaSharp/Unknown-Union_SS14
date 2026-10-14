@@ -413,7 +413,7 @@
     whitelist: *StandardMaterialWhitelist
   - type: OreSiloClient
   - type: LatheAnnouncing
-    channels: [Security]
+    channels: [Common]
 
 - type: entity
   id: AmmoTechFab
@@ -490,7 +490,7 @@
     stealGroup: MedicalTechFabCircuitboard
   - type: OreSiloClient
   - type: LatheAnnouncing
-    channels: [Medical]
+    channels: [Common]
   - type: AmbientMusicMarkerMedical
 
 - type: entity

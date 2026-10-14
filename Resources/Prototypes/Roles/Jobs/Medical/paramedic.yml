@@ -1,5 +1,5 @@
 - type: job
-  id: Paramedic
+  id: Paramedic
   setPreference: false
   name: job-name-paramedic
   description: job-description-paramedic
@@ -18,15 +18,13 @@
   - Chemistry
 
 - type: startingGear
-  id: ParamedicGear
-  setPreference: false
+  id: ParamedicGear
   equipment:
     id: ParamedicPDA
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit
-  id: ParamedicChameleonOutfit
-  setPreference: false
+  id: ParamedicChameleonOutfit
   job: Paramedic
   equipment:
     head: ClothingHeadHatParamedicsoft

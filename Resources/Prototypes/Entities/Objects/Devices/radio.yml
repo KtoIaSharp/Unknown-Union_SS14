@@ -32,11 +32,9 @@
   id: RadioHandheldSecurity
   components:
   - type: RadioMicrophone
-    broadcastChannel: Security
+    broadcastChannel: Common
     listenRange: 1
   - type: RadioSpeaker
-    channels:
-    - Security
   - type: Sprite
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item

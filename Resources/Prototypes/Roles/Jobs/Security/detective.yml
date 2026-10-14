@@ -1,5 +1,5 @@
 - type: job
-  id: Detective
+  id: Detective
   setPreference: false
   name: job-name-detective
   description: job-description-detective
@@ -27,8 +27,7 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: DetectiveGear
-  setPreference: false
+  id: DetectiveGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: DetectivePDA
@@ -41,8 +40,7 @@
     - ForensicScanner
 
 - type: chameleonOutfit
-  id: DetectiveChameleonOutfit
-  setPreference: false
+  id: DetectiveChameleonOutfit
   job: Detective
   hasMindShield: true
   equipment:

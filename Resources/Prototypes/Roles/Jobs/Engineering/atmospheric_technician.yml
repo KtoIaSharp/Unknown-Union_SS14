@@ -1,5 +1,5 @@
 - type: job
-  id: AtmosphericTechnician
+  id: AtmosphericTechnician
   setPreference: false
   name: job-name-atmostech
   description: job-description-atmostech
@@ -22,8 +22,7 @@
     prototype: FireAxe
 
 - type: startingGear
-  id: AtmosphericTechnicianGear
-  setPreference: false
+  id: AtmosphericTechnicianGear
   equipment:
     eyes: ClothingEyesGlassesMeson
     id: AtmosPDA
@@ -34,8 +33,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: AtmosphericTechnicianChameleonOutfit
-  setPreference: false
+  id: AtmosphericTechnicianChameleonOutfit
   job: AtmosphericTechnician
   equipment:
     head: ClothingHeadHelmetAtmosFire

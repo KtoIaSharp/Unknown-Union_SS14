@@ -1,7 +1,6 @@
 #Cult outfit startingGear definitions.
 - type: startingGear
-  id: CultLeaderGear
-  setPreference: false
+  id: CultLeaderGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBlack
     back: ClothingBackpack
@@ -16,8 +15,7 @@
     - BoxSurvival
 
 - type: startingGear
-  id: CultistGear
-  setPreference: false
+  id: CultistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBlack
     back: ClothingBackpack

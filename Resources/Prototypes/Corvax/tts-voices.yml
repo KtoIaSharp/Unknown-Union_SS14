@@ -68,3 +68,69 @@
   sex: Unsexed
   speaker: training_robot
   roundStart: false
+
+# Legacy NPC voices referenced by entity prototypes (toys, mobs, silicon).
+# Kept hidden so old prototypes resolve; the TTS API falls back to a base speaker for them.
+
+- type: ttsVoice
+  id: Meepo
+  name: tts-voice-name-meepo
+  sex: Male
+  speaker: meepo
+  roundStart: false
+
+- type: ttsVoice
+  id: Zibb
+  name: tts-voice-name-zibb
+  sex: Male
+  speaker: zibb
+  roundStart: false
+
+- type: ttsVoice
+  id: Omu
+  name: tts-voice-name-omu
+  sex: Female
+  speaker: omu
+  roundStart: false
+
+- type: ttsVoice
+  id: Chen
+  name: tts-voice-name-chen
+  sex: Male
+  speaker: chen
+  roundStart: false
+
+- type: ttsVoice
+  id: Dryad
+  name: tts-voice-name-dryad
+  sex: Female
+  speaker: dryad
+  roundStart: false
+
+- type: ttsVoice
+  id: Meiow
+  name: tts-voice-name-meiow
+  sex: Female
+  speaker: meiow
+  roundStart: false
+
+- type: ttsVoice
+  id: Rat
+  name: tts-voice-name-stronghold_rat
+  sex: Male
+  speaker: stronghold_rat
+  roundStart: false
+
+- type: ttsVoice
+  id: Kelthuzad
+  name: tts-voice-name-kelthuzad
+  sex: Male
+  speaker: kelthuzad
+  roundStart: false
+
+- type: ttsVoice
+  id: Machine_spirit_4
+  name: tts-voice-name-marine2_machine_spirit_4
+  sex: Female
+  speaker: marine2_machine_spirit_4
+  roundStart: false

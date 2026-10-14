@@ -18,8 +18,6 @@
   - BorgModuleInflatable
   - BorgModuleArtifact
   - BorgModuleAnomaly
-  radioChannels:
-  - Science
 
   # Visual
   inventoryTemplateId: borgShort
@@ -54,9 +52,6 @@
   - BorgModuleRCD
   - BorgModuleCable
 
-  radioChannels:
-  - Engineering
-  - Science
 
   # Visual
   inventoryTemplateId: borgShort
@@ -91,9 +86,6 @@
   - BorgModuleTraversal
   - BorgModuleAppraisal
 
-  radioChannels:
-  - Supply
-  - Science
 
   # Visual
   inventoryTemplateId: borgTall
@@ -127,9 +119,6 @@
   - BorgModuleCleaning
   - BorgModuleCustodial
 
-  radioChannels:
-  - Science
-  - Service
 
   # Visual
   inventoryTemplateId: borgShort
@@ -164,9 +153,6 @@
   - BorgModuleTopicals
   - BorgModuleRescue
 
-  radioChannels:
-  - Science
-  - Medical
 
   addComponents:
   - type: SolutionScanner
@@ -215,9 +201,6 @@
   - BorgModuleClowning
   - BorgModuleGardening
   - BorgModuleHarvesting
-  radioChannels:
-  - Science
-  - Service
 
   # Visual
   inventoryTemplateId: borgTall

@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Shared._UU.Radio;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
@@ -59,7 +60,9 @@ public sealed class TransmitterSystem : EntitySystem
 
         var freq = args.Frequency.Trim();
 
-        if (string.IsNullOrWhiteSpace(freq) || freq.Length > 3)
+        // Только буквы и цифры: частота попадает в чат и интерфейс,
+        // произвольные символы позволяли бы ломать разметку сообщений.
+        if (string.IsNullOrWhiteSpace(freq) || freq.Length > 3 || !freq.All(char.IsLetterOrDigit))
         {
             _popup.PopupEntity(Loc.GetString("radio-invalid-frequency"), ent.Owner, ent.Owner);
             return;
@@ -85,7 +88,6 @@ public sealed class TransmitterSystem : EntitySystem
     {
         var state = new FrequencyBuiState(
             ent.Comp.Frequency,
-            _radio.GetAvailableFrequencies(),
             ent.Comp.FrequencyName,
             configured: ent.Comp.Configured);
         _ui.SetUiState(ent.Owner, FrequencyUiKey.Transmitter, state);

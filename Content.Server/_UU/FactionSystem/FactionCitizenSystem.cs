@@ -10,6 +10,7 @@ using Content.Shared.Verbs;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Server._UU.FactionSystem;
 
@@ -42,7 +43,8 @@ public sealed class FactionCitizenSystem : EntitySystem
         foreach (var sig in ent.Comp.Signatures)
         {
             var key = string.IsNullOrEmpty(sig.SignKey) ? "faction-signed-male" : sig.SignKey;
-            args.PushMarkup(Loc.GetString(key, ("name", (object)sig.Name), ("date", (object)sig.Date)));
+            // Правка: имя подписанта вставляется в markup-сообщение — экранируем.
+            args.PushMarkup(Loc.GetString(key, ("name", (object)FormattedMessage.EscapeText(sig.Name)), ("date", (object)sig.Date)));
         }
     }
 
@@ -60,6 +62,12 @@ public sealed class FactionCitizenSystem : EntitySystem
         var factionId = ent.Comp.FactionId;
         var factionName = ent.Comp.FactionName;
         if (factionId == null || string.IsNullOrWhiteSpace(factionName))
+            return;
+
+        // Правка: после роспуска государства вступительный документ сохраняет прежний FactionId,
+        // поэтому проверяем, что государство ещё существует. Выбран минимально инвазивный вариант:
+        // не переписываем уже выданные бумаги, а просто отсекаем вступление по «мёртвому» ID.
+        if (!FactionExists(factionId.Value))
             return;
 
         var user = args.User;
@@ -93,6 +101,13 @@ public sealed class FactionCitizenSystem : EntitySystem
                 if (ent.Comp.Signatures.Any(s => s.Name == userName))
                     return;
 
+                // Правка: список подписей — сетевое поле, его рост без лимита раздувает сетевой стейт.
+                if (ent.Comp.Signatures.Count >= FactionSignatureLimits.MaxSignatures)
+                {
+                    _popup.PopupEntity(Loc.GetString("faction-sign-limit-reached"), user, user);
+                    return;
+                }
+
                 var sprite = SignatureHelper.GetOrAssignSignatureSprite(user, _random, EntityManager);
 
                 ent.Comp.Signatures.Add(new SignatureInfo
@@ -115,8 +130,23 @@ public sealed class FactionCitizenSystem : EntitySystem
                     }, "paper_stamp-generic");
                 }
 
-                _popup.PopupEntity(Loc.GetString("faction-joined", ("name", (object)factionName)), user, user);
+                _popup.PopupEntity(Loc.GetString("faction-joined", ("name", (object)FormattedMessage.EscapeText(factionName))), user, user);
             },
         });
+    }
+
+    /// <summary>
+    /// Проверяет, существует ли ещё государство с таким ID (хотя бы один носитель FactionComponent).
+    /// </summary>
+    private bool FactionExists(int factionId)
+    {
+        var query = EntityQuery<FactionComponent>();
+        foreach (var comp in query)
+        {
+            if (comp.FactionId == factionId)
+                return true;
+        }
+
+        return false;
     }
 }

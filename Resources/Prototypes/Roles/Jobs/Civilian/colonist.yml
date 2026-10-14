@@ -1,5 +1,4 @@
 - type: job
-  available: true
   id: Colonist
   name: job-name-colonist
   description: job-description-colonist

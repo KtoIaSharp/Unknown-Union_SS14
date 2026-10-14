@@ -1,5 +1,5 @@
 - type: job
-  id: CargoTechnician
+  id: CargoTechnician
   setPreference: false
   name: job-name-cargotech
   description: job-description-cargotech
@@ -18,8 +18,7 @@
     prototype: BoxCardboard
 
 - type: startingGear
-  id: CargoTechGear
-  setPreference: false
+  id: CargoTechGear
   equipment:
     ears: ClothingHeadsetCargo
     pocket1: AppraisalTool
@@ -28,8 +27,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: CargoTechnicianChameleonOutfit
-  setPreference: false
+  id: CargoTechnicianChameleonOutfit
   job: CargoTechnician
   equipment:
     head: ClothingHeadHatCargosoft

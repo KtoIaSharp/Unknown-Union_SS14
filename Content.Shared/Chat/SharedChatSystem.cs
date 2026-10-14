@@ -191,8 +191,12 @@ public abstract partial class SharedChatSystem : EntitySystem
             return true;
         }
 
+        // Built-in channel keycodes take precedence over custom frequency codes.
+        // Otherwise Cyrillic keycodes (к/и/м/н/о/с/п) get swallowed by the frequency parser below.
+        if (_keyCodes.TryGetValue(channelKey, out channel))
+            return true;
+
         // Check for custom frequency codes (1-3 alphanumeric chars after :)
-        // This runs before the built-in channel check so :E doesn't get caught by Engineering etc.
         var afterColon = input.Substring(1).TrimStart();
         int freqPrefixLen = 0;
         for (int i = 0; i < afterColon.Length && i < 3; i++)
@@ -215,21 +219,19 @@ public abstract partial class SharedChatSystem : EntitySystem
             }
         }
 
-        if (!_keyCodes.TryGetValue(channelKey, out channel))
+        // Raise an event to allow custom systems to handle unknown channels
+        var unknownEv = new UnknownRadioChannelEvent(source, input, channelKey);
+        RaiseLocalEvent(unknownEv);
+        if (unknownEv.Handled)
         {
-            // Raise an event to allow custom systems to handle unknown channels
-            var ev = new UnknownRadioChannelEvent(source, input, channelKey);
-            RaiseLocalEvent(ev);
-            if (ev.Handled)
-            {
-                channel = ev.Channel;
-                return true;
-            }
-            if (!quiet)
-            {
-                var msg = Loc.GetString("chat-manager-no-such-channel", ("key", channelKey));
-                _popup.PopupEntity(msg, source, source);
-            }
+            channel = unknownEv.Channel;
+            return true;
+        }
+
+        if (!quiet)
+        {
+            var msg = Loc.GetString("chat-manager-no-such-channel", ("key", channelKey));
+            _popup.PopupEntity(msg, source, source);
         }
 
         return true;

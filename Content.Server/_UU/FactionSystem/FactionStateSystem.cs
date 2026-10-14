@@ -6,6 +6,7 @@ using Content.Shared.Tag;
 using Content.Shared.Verbs;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Player;
+using Robust.Shared.Utility;
 
 namespace Content.Server._UU.FactionSystem;
 
@@ -17,6 +18,9 @@ public sealed class FactionStateSystem : EntitySystem
     [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
 
     private const string WriteTag = "Write";
+
+    // Правка: новое название государства — свободный ввод из QuickDialog, ограничиваем длину.
+    private const int MaxFactionNameLength = 48;
 
     public override void Initialize()
     {
@@ -42,6 +46,11 @@ public sealed class FactionStateSystem : EntitySystem
         var factionId = userFaction.FactionId;
         var factionName = userFaction.Faction;
         if (factionId == null || string.IsNullOrWhiteSpace(factionName))
+            return;
+
+        // Правка: управляющий документ должен принадлежать тому же государству, что и докладывающий.
+        // Иначе любой лидер получал бы вербы переименования/роспуска по чужому документу.
+        if (ent.Comp.FactionId != factionId)
             return;
 
         if (!TryComp<ActorComponent>(user, out var actor))
@@ -94,8 +103,23 @@ public sealed class FactionStateSystem : EntitySystem
         });
     }
 
+    /// <summary>
+    /// Обрезает пользовательский ввод до разумной длины. Возвращает null, если текста нет.
+    /// </summary>
+    private static string? ClampFactionName(string? raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw))
+            return null;
+
+        var trimmed = raw.Trim();
+        return trimmed.Length > MaxFactionNameLength ? trimmed[..MaxFactionNameLength] : trimmed;
+    }
+
     private void RenameFaction(int factionId, string oldName, string newName)
     {
+        // Правка: имя из QuickDialog режем по длине, иначе оно уходит в анонс и бумагу без ограничений.
+        newName = ClampFactionName(newName) ?? newName;
+
         var query = EntityQuery<FactionComponent>();
         foreach (var comp in query)
         {
@@ -116,7 +140,7 @@ public sealed class FactionStateSystem : EntitySystem
             if (comp.FactionId == factionId) { comp.FactionName = newName; Dirty(comp.Owner, comp); }
 
         _chat.DispatchGlobalAnnouncement(
-            Loc.GetString("faction-renamed-announcement", ("old", (object)oldName), ("new", (object)newName)),
+            Loc.GetString("faction-renamed-announcement", ("old", (object)FormattedMessage.EscapeText(oldName)), ("new", (object)FormattedMessage.EscapeText(newName))),
             sender: Loc.GetString("faction-announcement-sender"),
             playSound: false,
             colorOverride: Color.FromHex("#FFD700"));
@@ -138,7 +162,7 @@ public sealed class FactionStateSystem : EntitySystem
         }
 
         _chat.DispatchGlobalAnnouncement(
-            Loc.GetString("faction-disbanded-announcement", ("name", (object)factionName)),
+            Loc.GetString("faction-disbanded-announcement", ("name", (object)FormattedMessage.EscapeText(factionName))),
             sender: Loc.GetString("faction-announcement-sender"),
             playSound: false,
             colorOverride: Color.FromHex("#FFD700"));

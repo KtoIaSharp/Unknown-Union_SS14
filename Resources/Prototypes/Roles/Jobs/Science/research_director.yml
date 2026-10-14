@@ -1,5 +1,5 @@
 - type: job
-  id: ResearchDirector
+  id: ResearchDirector
   setPreference: false
   name: job-name-rd
   description: job-description-rd
@@ -34,8 +34,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: ResearchDirectorGear
-  setPreference: false
+  id: ResearchDirectorGear
   equipment:
     id: RnDPDA
     ears: ClothingHeadsetRD
@@ -44,8 +43,7 @@
     - Flash
 
 - type: chameleonOutfit
-  id: ResearchDirectorChameleonOutfit
-  setPreference: false
+  id: ResearchDirectorChameleonOutfit
   job: ResearchDirector
   hasMindShield: true
   equipment:

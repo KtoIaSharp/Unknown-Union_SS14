@@ -70,6 +70,7 @@ faction-state-signed = Документ подписан от имени {$name}
 ## Faction — Личная подпись
 verb-personal-sign = Подписать
 faction-personal-signed = Вы подписали документ.
+faction-sign-limit-reached = На документе уже нет места для новых подписей.
 
 ## Faction — Титулы
 faction-title-leader = Глава государства

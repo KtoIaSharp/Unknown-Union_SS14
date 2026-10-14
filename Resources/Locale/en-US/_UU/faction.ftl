@@ -70,6 +70,7 @@ faction-state-signed = Document signed on behalf of {$name}!
 ## Faction — Personal sign
 verb-personal-sign = Sign
 faction-personal-signed = You signed the document.
+faction-sign-limit-reached = There is no room left for more signatures on this document.
 
 ## Faction — Titles
 faction-title-leader = Head of State

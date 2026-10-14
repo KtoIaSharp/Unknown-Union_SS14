@@ -1,5 +1,5 @@
 - type: job
-  id: SecurityOfficer
+  id: SecurityOfficer
   setPreference: false
   name: job-name-security
   description: job-description-security
@@ -26,8 +26,7 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: SecurityOfficerGear
-  setPreference: false
+  id: SecurityOfficerGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     ears: ClothingHeadsetSecurity
@@ -38,8 +37,7 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: SecurityOfficerChameleonOutfit
-  setPreference: false
+  id: SecurityOfficerChameleonOutfit
   job: SecurityOfficer
   hasMindShield: true
   equipment:

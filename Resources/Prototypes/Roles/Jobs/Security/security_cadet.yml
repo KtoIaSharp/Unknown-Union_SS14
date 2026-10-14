@@ -1,5 +1,5 @@
 - type: job
-  id: SecurityCadet
+  id: SecurityCadet
   setPreference: false
   name: job-name-cadet
   description: job-description-cadet
@@ -29,8 +29,7 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: SecurityCadetGear
-  setPreference: false
+  id: SecurityCadetGear
   equipment:
     shoes: ClothingShoesBootsJackSec # Corvax-Resprite-MRP
     outerClothing: ClothingOuterArmorBasic
@@ -45,8 +44,7 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: SecurityCadetChameleonOutfit
-  setPreference: false
+  id: SecurityCadetChameleonOutfit
   job: SecurityCadet
   hasMindShield: true
   equipment:

@@ -1,5 +1,5 @@
 - type: job
-  id: StationEngineer
+  id: StationEngineer
   setPreference: false
   name: job-name-engineer
   description: job-description-engineer
@@ -19,8 +19,7 @@
   - Atmospherics
 
 - type: startingGear
-  id: StationEngineerGear
-  setPreference: false
+  id: StationEngineerGear
   equipment:
     eyes: ClothingEyesGlassesMeson
     belt: ClothingBeltUtilityEngineering
@@ -30,8 +29,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: StationEngineerChameleonOutfit
-  setPreference: false
+  id: StationEngineerChameleonOutfit
   job: StationEngineer
   equipment:
     head: ClothingHeadHatHardhatYellow

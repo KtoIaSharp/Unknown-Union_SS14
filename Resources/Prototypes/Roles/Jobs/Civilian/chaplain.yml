@@ -1,5 +1,5 @@
 - type: job
-  id: Chaplain
+  id: Chaplain
   setPreference: false
   name: job-name-chaplain
   description: job-description-chaplain
@@ -16,8 +16,7 @@
     - type: BibleUser #Lets them heal with bibles
 
 - type: startingGear
-  id: ChaplainGear
-  setPreference: false
+  id: ChaplainGear
   equipment:
     shoes: ClothingShoesColorBlack
     id: ChaplainPDA
@@ -27,8 +26,7 @@
     - RubberStampChaplain
 
 - type: chameleonOutfit
-  id: ChaplainChameleonOutfit
-  setPreference: false
+  id: ChaplainChameleonOutfit
   job: Chaplain
   equipment:
     head: ClothingHeadHatPlaguedoctor

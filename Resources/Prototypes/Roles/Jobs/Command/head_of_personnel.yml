@@ -1,5 +1,5 @@
 - type: job
-  id: HeadOfPersonnel
+  id: HeadOfPersonnel
   setPreference: false
   name: job-name-hop
   description: job-description-hop
@@ -67,8 +67,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: HoPGear
-  setPreference: false
+  id: HoPGear
   equipment:
     shoes: ClothingShoesColorBrown
     id: HoPPDA
@@ -81,8 +80,7 @@
     - Flash
 
 - type: chameleonOutfit
-  id: HeadOfPersonnelChameleonOutfit
-  setPreference: false
+  id: HeadOfPersonnelChameleonOutfit
   job: HeadOfPersonnel
   hasMindShield: true
   equipment:

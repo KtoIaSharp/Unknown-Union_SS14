@@ -1,5 +1,5 @@
 - type: job
-  id: Janitor
+  id: Janitor
   setPreference: false
   name: job-name-janitor
   description: job-description-janitor
@@ -17,8 +17,7 @@
     prototype: WeaponRevolverInspector
 
 - type: startingGear
-  id: JanitorGear
-  setPreference: false
+  id: JanitorGear
   equipment:
     shoes: ClothingShoesGaloshes
     id: JanitorPDA
@@ -29,8 +28,7 @@
     #- Stuff
 
 - type: startingGear
-  id: JanitorMaidGear
-  setPreference: false
+  id: JanitorMaidGear
   equipment:
     jumpsuit: ClothingUniformJumpskirtJanimaid
     id: JanitorPDA
@@ -40,8 +38,7 @@
     belt: ClothingBeltJanitorFilled
 
 - type: chameleonOutfit
-  id: JanitorChameleonOutfit
-  setPreference: false
+  id: JanitorChameleonOutfit
   job: Janitor
   equipment:
     head: ClothingHeadHatPurplesoft

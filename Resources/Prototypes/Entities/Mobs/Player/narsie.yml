@@ -73,14 +73,7 @@
     channels:
     - Binary
     - Common
-    - Command
     - CentCom
-    - Engineering
-    - Medical
-    - Science
-    - Security
-    - Service
-    - Supply
     - Syndicate
     globalReceive: true
   - type: Physics

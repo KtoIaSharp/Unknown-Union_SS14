@@ -58,8 +58,6 @@
   - type: Injurable
     damageContainer: StructuralInorganic
   - type: ActiveRadio
-    channels:
-    - Engineering
   - type: Destructible
     thresholds:
     - trigger:

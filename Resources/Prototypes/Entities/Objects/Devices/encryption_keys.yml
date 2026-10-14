@@ -36,9 +36,6 @@
   description: An encryption key used by supply employees.
   components:
   - type: EncryptionKey
-    channels:
-    - Supply
-    defaultChannel: Supply
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -71,15 +68,8 @@
   - type: EncryptionKey
     channels:
     - Common
-    - Command
-    - Engineering
-    - Medical
-    - Science
-    - Security
-    - Service
-    - Supply
     - Legal #Corvax Magistrate
-    defaultChannel: Command
+    defaultChannel: Common
   - type: Sprite
     layers:
     - state: crypt_gold
@@ -92,9 +82,6 @@
   description: An encryption key used by crew's bosses.
   components:
   - type: EncryptionKey
-    channels:
-    - Command
-    defaultChannel: Command
   - type: Sprite
     layers:
     - state: crypt_silver
@@ -110,9 +97,6 @@
   description: An encryption key used by the engineers.
   components:
   - type: EncryptionKey
-    channels:
-    - Engineering
-    defaultChannel: Engineering
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -128,9 +112,6 @@
   description: An encryption key used by those who save lives.
   components:
   - type: EncryptionKey
-    channels:
-    - Medical
-    defaultChannel: Medical
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -146,10 +127,6 @@
   description: An encryption key used by someone who hasn't decided which side to take.
   components:
   - type: EncryptionKey
-    channels:
-    - Medical
-    - Science
-    defaultChannel: Science
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -162,9 +139,6 @@
   description: An encryption key used by scientists. Maybe it is plasmaproof?
   components:
   - type: EncryptionKey
-    channels:
-    - Science
-    defaultChannel: Science
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -180,9 +154,6 @@
   description: An encryption key used by robototech engineers. Maybe it has a LAH-6000 on it?
   components:
   - type: EncryptionKey
-    channels:
-    - Science
-    defaultChannel: Science
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -195,9 +166,6 @@
   description: An encryption key used by security.
   components:
   - type: EncryptionKey
-    channels:
-    - Security
-    defaultChannel: Security
   - type: Sprite
     layers:
     - state: crypt_gray
@@ -213,9 +181,6 @@
   description: An encryption key used by the service staff, tasked with keeping the station full, happy and clean.
   components:
   - type: EncryptionKey
-    channels:
-    - Service
-    defaultChannel: Service
   - type: Sprite
     layers:
     - state: crypt_gray

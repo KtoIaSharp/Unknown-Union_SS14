@@ -1,5 +1,5 @@
 - type: job
-  id: Bartender
+  id: Bartender
   setPreference: false
   name: job-name-bartender
   description: job-description-bartender
@@ -20,8 +20,7 @@
   - Hydroponics
 
 - type: startingGear
-  id: BartenderGear
-  setPreference: false
+  id: BartenderGear
   equipment:
     shoes: ClothingShoesColorBlack
     id: BartenderPDA
@@ -31,8 +30,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: BartenderChameleonOutfit
-  setPreference: false
+  id: BartenderChameleonOutfit
   job: Bartender
   equipment:
     head: ClothingHeadHatTophat

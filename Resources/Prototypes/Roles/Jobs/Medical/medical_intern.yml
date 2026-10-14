@@ -1,5 +1,5 @@
 - type: job
-  id: MedicalIntern
+  id: MedicalIntern
   setPreference: false
   name: job-name-intern
   description: job-description-intern
@@ -17,8 +17,7 @@
   - Maintenance
 
 - type: startingGear
-  id: MedicalInternGear
-  setPreference: false
+  id: MedicalInternGear
   equipment:
     shoes: ClothingShoesColorWhite
     id: MedicalInternPDA
@@ -26,8 +25,7 @@
     pocket2: BookMedicalReferenceBook
 
 - type: chameleonOutfit
-  id: MedicalInternChameleonOutfit
-  setPreference: false
+  id: MedicalInternChameleonOutfit
   job: MedicalIntern
   equipment:
     head: ClothingHeadHatBeretMedic

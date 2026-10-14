@@ -1,5 +1,5 @@
 - type: job
-  id: Quartermaster
+  id: Quartermaster
   setPreference: false
   name: job-name-qm
   description: job-description-qm
@@ -41,8 +41,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: QuartermasterGear
-  setPreference: false
+  id: QuartermasterGear
   equipment:
     id: QuartermasterPDA
     ears: ClothingHeadsetQM
@@ -53,8 +52,7 @@
     - Flash
 
 - type: chameleonOutfit
-  id: QuartermasterChameleonOutfit
-  setPreference: false
+  id: QuartermasterChameleonOutfit
   job: Quartermaster
   hasMindShield: true
   equipment:

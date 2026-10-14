@@ -1,5 +1,5 @@
 - type: job
-  id: Warden
+  id: Warden
   setPreference: false
   name: job-name-warden
   description: job-description-warden
@@ -31,8 +31,7 @@
     implants: [ MindShieldImplant ]
 
 - type: startingGear
-  id: WardenGear
-  setPreference: false
+  id: WardenGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: WardenPDA
@@ -44,8 +43,7 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: WardenChameleonOutfit
-  setPreference: false
+  id: WardenChameleonOutfit
   job: Warden
   hasMindShield: true
   equipment:

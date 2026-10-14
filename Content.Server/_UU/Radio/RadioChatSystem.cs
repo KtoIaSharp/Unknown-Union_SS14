@@ -145,7 +145,7 @@ public sealed class RadioChatSystem : EntitySystem
     {
         var sourceMap = _xform.GetMapCoordinates(source);
         var name = MetaData(source).EntityName;
-        var freqName = _radio.GetFrequencyName(freq) ?? freq;
+        var freqName = FormattedMessage.EscapeText(_radio.GetFrequencyName(freq) ?? freq);
         var wrappedMessage = $"[color=#ff8800]\\[{freqName}\\] [bold]{FormattedMessage.EscapeText(name)}[/bold]: {FormattedMessage.EscapeText(message)}[/color]";
 
         // Collect eligible recipients
@@ -208,7 +208,9 @@ public sealed class RadioChatSystem : EntitySystem
         var earpieceQuery = EntityQueryEnumerator<EarpieceComponent, TransformComponent>();
         while (earpieceQuery.MoveNext(out var uid, out var comp, out var xform))
         {
-            if (comp.Frequencies.Contains(freq) && BelongsTo(uid, owner))
+            // Гарнитура даёт право передачи только когда надета в слот ушей,
+            // иначе достаточно было бы носить её в рюкзаке.
+            if (comp.Frequencies.Contains(freq) && _radio.IsEarpieceActive(uid) && BelongsTo(uid, owner))
                 return true;
         }
 

@@ -1,5 +1,5 @@
 - type: job
-  id: HeadOfSecurity
+  id: HeadOfSecurity
   setPreference: false
   name: job-name-hos
   description: job-description-hos
@@ -45,8 +45,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: HoSGear
-  setPreference: false
+  id: HoSGear
   equipment:
     eyes: ClothingEyesGlassesSecurity
     id: HoSPDA
@@ -59,8 +58,7 @@
     - MagazinePistol
 
 - type: chameleonOutfit
-  id: HeadOfSecurityChameleonOutfit
-  setPreference: false
+  id: HeadOfSecurityChameleonOutfit
   job: HeadOfSecurity
   hasMindShield: true
   equipment:

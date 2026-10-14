@@ -1,5 +1,5 @@
 - type: job
-  id: ResearchAssistant
+  id: ResearchAssistant
   setPreference: false
   name: job-name-research-assistant
   description: job-description-research-assistant
@@ -17,8 +17,7 @@
   - Maintenance
 
 - type: startingGear
-  id: ResearchAssistantGear
-  setPreference: false
+  id: ResearchAssistantGear
   equipment:
     shoes: ClothingShoesColorWhite
     id: ResearchAssistantPDA
@@ -29,8 +28,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ResearchAssistantChameleonOutfit
-  setPreference: false
+  id: ResearchAssistantChameleonOutfit
   job: ResearchAssistant
   equipment:
     head: ClothingHeadHatCardborg

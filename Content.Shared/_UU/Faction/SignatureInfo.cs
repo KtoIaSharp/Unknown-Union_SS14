@@ -19,3 +19,14 @@ public partial struct SignatureInfo
     [DataField("sprite")]
     public string Sprite;
 }
+
+/// <summary>
+/// Общие лимиты для списков подписей.
+/// Правка: Signatures — сетевое поле (AutoNetworkedField), без ограничения его рост
+/// неограниченно раздувает сетевой стейт, поэтому число записей жёстко ограничено.
+/// </summary>
+public static class FactionSignatureLimits
+{
+    /// <summary>Максимальное число подписей на документе или носителе.</summary>
+    public const int MaxSignatures = 24;
+}

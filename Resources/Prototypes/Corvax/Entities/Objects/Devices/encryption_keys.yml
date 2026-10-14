@@ -7,8 +7,6 @@
     - type: EncryptionKey
       channels:
       - Common
-      - Command
-      - Security
       - Legal
       defaultChannel: Legal
     - type: Sprite

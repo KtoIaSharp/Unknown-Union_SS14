@@ -34,8 +34,6 @@
     anchored: true
   - type: Anchorable
   - type: ResistLocker
-    resistant: false
-
 - type: entity
   parent: BaseItem
   id: RadioDevice
@@ -117,8 +115,6 @@
     anchored: true
   - type: Anchorable
   - type: ResistLocker
-    resistant: false
-
 - type: entity
   parent: BaseStructure
   id: GeneralJammer
@@ -153,8 +149,6 @@
     anchored: true
   - type: Anchorable
   - type: ResistLocker
-    resistant: false
-
 - type: entity
   parent: BaseStructure
   id: SpecificJammer
@@ -196,4 +190,3 @@
     anchored: true
   - type: Anchorable
   - type: ResistLocker
-    resistant: false

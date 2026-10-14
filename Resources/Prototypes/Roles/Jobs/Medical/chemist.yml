@@ -1,5 +1,5 @@
 - type: job
-  id: Chemist
+  id: Chemist
   setPreference: false
   name: job-name-chemist
   description: job-description-chemist
@@ -17,15 +17,13 @@
   - Maintenance
 
 - type: startingGear
-  id: ChemistGear
-  setPreference: false
+  id: ChemistGear
   equipment:
     id: ChemistryPDA
     ears: ClothingHeadsetMedical
 
 - type: chameleonOutfit
-  id: ChemistChameleonOutfit
-  setPreference: false
+  id: ChemistChameleonOutfit
   job: Chemist
   equipment:
     head: ClothingHeadHatBeretMedic

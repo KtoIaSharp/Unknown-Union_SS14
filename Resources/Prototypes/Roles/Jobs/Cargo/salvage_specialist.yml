@@ -1,5 +1,5 @@
 - type: job
-  id: SalvageSpecialist
+  id: SalvageSpecialist
   setPreference: false
   name: job-name-salvagespec
   description: job-description-salvagespec
@@ -18,8 +18,7 @@
   - External
 
 - type: startingGear
-  id: SalvageSpecialistGear
-  setPreference: false
+  id: SalvageSpecialistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     id: SalvagePDA
@@ -29,8 +28,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: SalvageSpecialistChameleonOutfit
-  setPreference: false
+  id: SalvageSpecialistChameleonOutfit
   job: SalvageSpecialist
   equipment:
     head: ClothingHeadHatCargosoft

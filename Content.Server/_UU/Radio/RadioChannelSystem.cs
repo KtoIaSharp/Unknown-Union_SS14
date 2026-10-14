@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._UU.Radio;
+using Content.Shared.GameTicking;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
 using Robust.Shared.Map;
@@ -33,6 +34,15 @@ public sealed class RadioChannelSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<TransmitterComponent, MapInitEvent>(OnTransmitterInit);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+    }
+
+    private void OnRoundRestart(RoundRestartCleanupEvent ev)
+    {
+        // Реестр частот и отметки о недавних передачах — серверные синглтоны, их нельзя тащить в новый раунд.
+        _frequencies.Clear();
+        _frequencyNames.Clear();
+        _recentlyBroadcast.Clear();
     }
 
     private void OnTransmitterInit(Entity<TransmitterComponent> ent, ref MapInitEvent args)
@@ -40,10 +50,6 @@ public sealed class RadioChannelSystem : EntitySystem
         if (ent.Comp.Frequency != null)
             _frequencies.Add(ent.Comp.Frequency);
     }
-
-    public bool IsFrequencyTaken(string freq) => _frequencies.Contains(freq);
-
-    public List<string> GetAvailableFrequencies() => _frequencies.ToList();
 
     public bool TryRegisterFrequency(string freq, string? name = null)
     {
@@ -123,7 +129,7 @@ public sealed class RadioChannelSystem : EntitySystem
         var earpieceQuery = EntityQueryEnumerator<EarpieceComponent, TransformComponent>();
         while (earpieceQuery.MoveNext(out var uid, out var comp, out _))
         {
-            if (!BelongsTo(uid, owner))
+            if (!IsEarpieceActive(uid) || !BelongsTo(uid, owner))
                 continue;
             if (comp.Frequencies.Any(freqs.Contains))
                 return true;
@@ -279,6 +285,20 @@ public sealed class RadioChannelSystem : EntitySystem
             return true;
 
         return false;
+    }
+
+    /// <summary>
+    /// Гарнитура работает только когда надета в слот ушей.
+    /// Иначе её можно было бы использовать для передачи, просто держа в рюкзаке.
+    /// </summary>
+    public bool IsEarpieceActive(EntityUid earpieceUid)
+    {
+        var parent = Transform(earpieceUid).ParentUid;
+        if (!parent.IsValid())
+            return false;
+
+        return _inventory.TryGetSlotContainer(parent, "ears", out var slot, out _)
+               && slot.ContainedEntity == earpieceUid;
     }
 
     private MapCoordinates GetMapCoordinates(EntityUid uid, TransformComponent xform)

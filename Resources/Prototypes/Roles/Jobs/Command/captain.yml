@@ -1,5 +1,5 @@
 - type: job
-  id: Captain
+  id: Captain
   setPreference: false
   name: job-name-captain
   description: job-description-captain
@@ -41,8 +41,7 @@
       - type: CommandStaff
 
 - type: startingGear
-  id: CaptainGear
-  setPreference: false
+  id: CaptainGear
   equipment:
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
@@ -55,8 +54,7 @@
     # - StationCharter
 
 - type: chameleonOutfit
-  id: CaptainChameleonOutfit
-  setPreference: false
+  id: CaptainChameleonOutfit
   job: Captain
   hasMindShield: true
   equipment:

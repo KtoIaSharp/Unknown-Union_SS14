@@ -1,5 +1,5 @@
 - type: job
-  id: Reporter
+  id: Reporter
   setPreference: false
   name: job-name-reporter
   description: job-description-reporter
@@ -12,8 +12,7 @@
   - Maintenance
 
 - type: startingGear
-  id: ReporterGear
-  setPreference: false
+  id: ReporterGear
   equipment:
     shoes: ClothingShoesColorWhite
     id: ReporterPDA
@@ -23,8 +22,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ReporterChameleonOutfit
-  setPreference: false
+  id: ReporterChameleonOutfit
   job: Reporter
   equipment:
     head: ClothingHeadHatFedoraGrey

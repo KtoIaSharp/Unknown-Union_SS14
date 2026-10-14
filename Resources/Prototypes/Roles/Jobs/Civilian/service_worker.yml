@@ -1,5 +1,5 @@
 - type: job
-  id: ServiceWorker
+  id: ServiceWorker
   setPreference: false
   name: job-name-serviceworker
   description: job-description-serviceworker
@@ -20,8 +20,7 @@
   - Hydroponics
 
 - type: startingGear
-  id: ServiceWorkerGear
-  setPreference: false
+  id: ServiceWorkerGear
   equipment:
     shoes: ClothingShoesColorBlack
     id: ServiceWorkerPDA
@@ -31,8 +30,7 @@
     #- Stuff
 
 - type: chameleonOutfit
-  id: ServiceWorkerChameleonOutfit
-  setPreference: false
+  id: ServiceWorkerChameleonOutfit
   job: ServiceWorker
   equipment:
     head: ClothingHeadHatBowlerHat
