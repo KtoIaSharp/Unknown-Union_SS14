@@ -1,13 +1,38 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                Title="{Loc 'radio-transmitter-title'}"
-               MinSize="350 170">
-    <BoxContainer Orientation="Vertical" SeparationOverride="4">
-        <Label Name="CurrentLabel" Text="{Loc 'radio-no-frequency'}" />
-        <Control MinSize="0 6" />
-        <Label Text="{Loc 'radio-enter-frequency'}" />
-        <LineEdit Name="FreqInput" PlaceHolder="{Loc 'radio-frequency-placeholder'}" />
-        <Label Text="{Loc 'radio-enter-name'}" />
-        <LineEdit Name="NameInput" PlaceHolder="{Loc 'radio-name-placeholder'}" />
-        <Button Name="SetButton" Text="{Loc 'radio-set-frequency'}" />
+               MinSize="400 230">
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+
+        <!-- Шапка терминала: иконка устройства + моноширинный заголовок -->
+        <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
+            <TextureRect TexturePath="/Textures/Objects/Devices/communication.rsi/walkietalkie.png"
+                         SetSize="28 28" Margin="0 0 8 0" VerticalAlignment="Center" />
+            <Label Text="{Loc 'radio-transmitter-title'}"
+                   StyleClasses="ConsoleHeading"
+                   HorizontalExpand="True"
+                   VerticalAlignment="Center" />
+        </BoxContainer>
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
+
+        <BoxContainer Orientation="Vertical" Margin="10 0 10 0" HorizontalExpand="True">
+            <Label Name="CurrentLabel" StyleClasses="ConsoleText" HorizontalAlignment="Center" />
+            <Control MinSize="0 10" />
+            <Label Text="{Loc 'radio-enter-frequency'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="FreqInput" PlaceHolder="{Loc 'radio-frequency-placeholder'}" HorizontalExpand="True" />
+            <Control MinSize="0 6" />
+            <Label Text="{Loc 'radio-enter-name'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="NameInput" PlaceHolder="{Loc 'radio-name-placeholder'}" HorizontalExpand="True" />
+            <Control MinSize="0 12" />
+            <Button Name="SetButton" Text="{Loc 'radio-set-frequency'}"
+                    StyleClasses="ButtonColorRed"
+                    HorizontalAlignment="Center" MinWidth="180" />
+        </BoxContainer>
+
+        <Control MinSize="0 10" />
+        <Label Text="{Loc 'radio-transmitter-footer'}"
+               StyleClasses="LabelSubText"
+               HorizontalAlignment="Center"
+               Margin="10 0 10 8" />
     </BoxContainer>
 </DefaultWindow>

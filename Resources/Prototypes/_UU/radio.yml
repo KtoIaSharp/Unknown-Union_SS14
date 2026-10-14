@@ -1,15 +1,16 @@
 - type: entity
   parent: BaseStructure
   id: RadioTransmitter
-  name: Передатчик
-  description: Создаёт и передаёт на радиочастотах. Можно настроить только один раз.
+  name: Transmitter
+  description: Creates and transmits on radio frequencies. Can only be configured once.
   placement:
     mode: SnapgridCenter
   components:
   - type: Transmitter
   - type: Sprite
-    sprite: Structures/Machines/server.rsi
-    state: server
+    # В тему сервера: это радиооборудование станции, а не абстрактный серверный шкаф.
+    sprite: Structures/Machines/telecomms.rsi
+    state: telecom-on
   - type: UserInterface
     interfaces:
       enum.FrequencyUiKey.Transmitter:
@@ -37,8 +38,8 @@
 - type: entity
   parent: BaseItem
   id: RadioDevice
-  name: Рация
-  description: Принимает радиопередачи. Привяжите к передатчику для получения сообщений.
+  name: Radio
+  description: Receives radio transmissions. Bind it to a transmitter to receive messages.
   components:
   - type: Radio
   - type: Item
@@ -54,8 +55,8 @@
 - type: entity
   parent: Clothing
   id: RadioEarpiece
-  name: Гарнитура
-  description: Незаметная гарнитура для приёма радиосообщений. Привяжите к передатчику.
+  name: Earpiece
+  description: A discreet earpiece for receiving radio messages. Bind it to a transmitter.
   components:
   - type: Earpiece
   - type: Item
@@ -70,8 +71,8 @@
 - type: entity
   parent: BaseItem
   id: FrequencyConfigurator
-  name: Конфигуратор частот
-  description: Копирует частоты с передатчиков. Используйте на передатчике для копирования, затем на рации или гарнитуре для передачи.
+  name: Frequency Configurator
+  description: Copies frequencies from transmitters. Use on a transmitter to copy, then on a radio or earpiece to paste.
   components:
   - type: FrequencyConfigurator
   - type: Item
@@ -86,14 +87,15 @@
 - type: entity
   parent: BaseStructure
   id: SignalTower
-  name: Сигнальная вышка
-  description: Увеличивает дальность радио на 20 клеток.
+  name: Signal Tower
+  description: Extends radio range for a specific frequency by 20 tiles.
   placement:
     mode: SnapgridCenter
   components:
   - type: SignalTower
   - type: Sprite
-    sprite: Objects/Devices/singularity_beacon.rsi
+    # В тему сервера: маяк-ретранслятор вместо маяка сингулярности.
+    sprite: Objects/Devices/station_beacon.rsi
     state: icon
   - type: Fixtures
     fixtures:
@@ -118,8 +120,8 @@
 - type: entity
   parent: BaseStructure
   id: GeneralJammer
-  name: Глушитель
-  description: Глушит все радиопередачи в радиусе действия.
+  name: Jammer
+  description: Jams all radio transmissions in range.
   placement:
     mode: SnapgridCenter
   components:
@@ -127,8 +129,9 @@
     jammerType: General
     radius: 20
   - type: Sprite
-    sprite: Structures/Power/Generation/Singularity/containment_field.rsi
-    state: field
+    # В тему сервера: настоящий спрайт глушилки, а не поле удержания сингулярности.
+    sprite: Objects/Devices/jammer.rsi
+    state: jammer
   - type: Fixtures
     fixtures:
       fix1:
@@ -152,8 +155,8 @@
 - type: entity
   parent: BaseStructure
   id: SpecificJammer
-  name: Глушитель частоты
-  description: Глушит определённую радиочастоту в радиусе действия.
+  name: Frequency Jammer
+  description: Jams a specific radio frequency in range.
   placement:
     mode: SnapgridCenter
   components:
@@ -168,8 +171,9 @@
       enum.FrequencyUiKey.Jammer:
         type: JammerBui
   - type: Sprite
-    sprite: Structures/Power/Generation/Singularity/containment_field.rsi
-    state: field
+    # В тему сервера: настоящий спрайт глушилки, а не поле удержания сингулярности.
+    sprite: Objects/Devices/jammer.rsi
+    state: jammer
   - type: Fixtures
     fixtures:
       fix1:

@@ -109,35 +109,47 @@ Frequently needed attributes: `HorizontalExpand`, `VerticalExpand`, `HorizontalA
 
 ## StyleClasses
 
-A class exists only if it is registered by a stylesheet or sheetlet. Class names come
-from two places, and **grepping one of them is not enough** — `AngleRect` for example is
-declared as `public const string ClassAngleRect` in `StyleNano.cs:170`, not as a literal,
-so a naive string grep misses it.
+A class exists only if it is registered by a stylesheet or sheetlet. Names reach
+`.Class(...)` in three different ways, and **checking only one of them gives wrong
+answers** — `AngleRect` is declared as `public const string ClassAngleRect` in
+`StyleNano.cs:170`, so a literal string grep misses it; many others arrive as
+`.Class(StyleClass.Foo)`.
 
-Regenerate the authoritative list (85 names in this working copy) with:
+Regenerate the authoritative list (95 names in this working copy) with:
 
 ```powershell
-$names = [System.Collections.Generic.HashSet[string]]::new()
-$sc = 'Content.Client/Stylesheets/StyleClass.cs'
-[regex]::Matches([IO.File]::ReadAllText($sc), 'public const string \w+\s*=\s*"([^"]+)"') |
-    ForEach-Object { $names.Add($_.Groups[1].Value) }
+$constMap = @{}
 Get-ChildItem 'Content.Client/Stylesheets' -Recurse -File -Filter *.cs | ForEach-Object {
-    [regex]::Matches([IO.File]::ReadAllText($_.FullName), '\.Class\("([^"]+)"\)') |
-        ForEach-Object { $names.Add($_.Groups[1].Value) }
+    [regex]::Matches([IO.File]::ReadAllText($_.FullName), 'public const string (\w+)\s*=\s*"([^"]+)"') |
+        ForEach-Object { $constMap[$_.Groups[1].Value] = $_.Groups[2].Value }
 }
-$names | Sort-Object
+$registered = [System.Collections.Generic.HashSet[string]]::new()
+Get-ChildItem 'Content.Client/Stylesheets' -Recurse -File -Filter *.cs | ForEach-Object {
+    $txt = [IO.File]::ReadAllText($_.FullName)
+    [regex]::Matches($txt, '\.Class\(\s*"([^"]+)"\s*\)') |
+        ForEach-Object { $registered.Add($_.Groups[1].Value) }
+    [regex]::Matches($txt, '\.Class\(\s*([\w\.]+)\s*\)') | ForEach-Object {
+        $id = ($_.Groups[1].Value -split '\.')[-1]
+        if ($constMap.ContainsKey($id)) { $registered.Add($constMap[$id]) }
+    }
+}
+$registered | Sort-Object
 ```
 
-The full verified list is in [reference.md](reference.md). Two practical cautions:
+Verified-registered classes that are useful for window work: `ConsoleHeading`,
+`ConsoleSubHeading`, `ConsoleText`, `LabelSubText`, `LabelHeading`, `LowDivider`,
+`HighDivider`, `PdaBackground`, `PdaBackgroundRect`, `PdaBorderRect`,
+`PdaContentBackground`, `PdaWindowFooterText`, `WindowFooterText`, `AngleRect`,
+`ButtonColorRed`, `ButtonColorGreen`, `ButtonSmall`, `windowHeaderAlert`.
 
-- Prefer the plain control. Most repo windows (`IdCardConsoleWindow.xaml`) set no
-  StyleClasses at all and rely on the type selectors of the base stylesheet. That always
-  looks correct; a guessed class silently looks broken.
-- `Content.Client/Stylesheets/StyleClass.cs` documents renames in comments
-  (`AngleRect` → `BackgroundPanel`, `Inset` → `BackgroundPanelDark`,
-  `LabelSecondaryColor` → `LabelWeak`, `BackgroundPanel` is what the sheetlets register
-  while `AngleRect` survives in `StyleNano` for older windows). Prefer the constant over a
-  raw string in code-behind, and keep existing markup working by not mass-renaming.
+Known trap: **`SecApartmentWindow.xaml` uses `ConsoleHeadingBig`, `ConsoleSubText`,
+`ConsoleLineEdit` and `ButtonRed`, none of which are registered anywhere** — those
+elements silently render unstyled. Do not copy class names out of a window without
+checking them with the command above.
+
+Style names that need a bespoke look (as `SecApartmentStyles` does) can be registered
+from C# with `StylesheetHelpers` and merged into the active stylesheet; copy that pattern
+rather than inventing names in XAML.
 
 ## Localization
 
@@ -149,6 +161,26 @@ The full verified list is in [reference.md](reference.md). Two practical caution
   This fork keeps `ru-RU` and `en-US`; add the key to both or the English client shows
   the raw key.
 - Escape untrusted text before it reaches markup: `FormattedMessage.EscapeText(...)`.
+
+### Entity names and descriptions do NOT use keys referenced from YAML
+
+The engine resolves them itself: `LocalizationManager.Entity.cs:61` builds
+`ent-{prototypeId}` (or `prototype.CustomLocalizationID`) and reads the Fluent
+**message attributes** for the rest:
+
+```
+ent-RadioTransmitter = Передатчик
+    .desc = Создаёт и передаёт на радиочастотах...
+```
+
+Consequences worth remembering:
+
+- A `name: some-loc-key` in a prototype is a **literal string**, not a lookup. Keys like
+  `radio-transmitter-name` referenced from YAML never apply — that is dead localization.
+- The YAML `name:`/`description:` values stay as English fallbacks (upstream convention);
+  Russian comes from `ent-<Id>` in `ru-RU`.
+- Localization is inherited along the prototype's parent chain, so a child entity can
+  override only `.desc` while keeping the parent's name.
 
 ## Verification loop (there is no designer)
 

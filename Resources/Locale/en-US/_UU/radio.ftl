@@ -1,18 +1,28 @@
 ## Radio — Entity names
-radio-transmitter-name = Radio Transmitter
-radio-transmitter-desc = Creates and transmits on radio frequencies. Can only be configured once.
-radio-device-name = Radio
-radio-device-desc = Receives radio transmissions. Bind it to a transmitter to receive messages.
-radio-earpiece-name = Radio Earpiece
-radio-earpiece-desc = A discreet earpiece for receiving radio messages. Bind it to a transmitter.
-frequency-configurator-name = Frequency Configurator
-frequency-configurator-desc = Copies frequencies from transmitters. Use on a transmitter to copy, then on a radio or earpiece to paste.
-signal-tower-name = Signal Tower
-signal-tower-desc = Extends radio range for a specific frequency by 20 tiles.
-general-jammer-name = General Jammer
-general-jammer-desc = Jams all radio transmissions in range.
-specific-jammer-name = Specific Jammer
-specific-jammer-desc = Jams a specific radio frequency in range.
+## Entity names/descriptions are resolved by the engine through ent-<ProtoId>
+## (see Robust.Shared/Localization/LocalizationManager.Entity.cs), so radio-*-name
+## style keys referenced from YAML would never apply.
+ent-RadioTransmitter = Transmitter
+    .desc = Creates and transmits on radio frequencies. Can only be configured once.
+
+ent-RadioDevice = Radio
+    .desc = Receives radio transmissions. Bind it to a transmitter to receive messages.
+
+ent-RadioEarpiece = Earpiece
+    .desc = A discreet earpiece for receiving radio messages. Bind it to a transmitter.
+
+ent-FrequencyConfigurator = Frequency Configurator
+    .desc = Copies frequencies from transmitters. Use on a transmitter to copy, then on a radio or earpiece to paste.
+
+ent-SignalTower = Signal Tower
+    .desc = Extends radio range for a specific frequency by 20 tiles.
+
+ent-GeneralJammer = Jammer
+    .desc = Jams all radio transmissions in range.
+
+ent-SpecificJammer = Frequency Jammer
+    .desc = Jams a specific radio frequency in range.
+
 
 ## Radio — UI
 radio-transmitter-title = Transmitter
@@ -38,3 +48,6 @@ radio-jammer-title = Jammer Settings
 radio-jammer-no-target = No target frequency set
 radio-jammer-target = Jamming frequency: {$frequency}
 radio-jammer-frequency-set = Jammer set to frequency «{$frequency}».
+
+radio-transmitter-footer = One-time setup. To change the frequency, deconstruct the transmitter.
+radio-jammer-footer = Jams only the selected frequency within range.
