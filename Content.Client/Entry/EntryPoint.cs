@@ -2,6 +2,7 @@ using Content.Client.Administration.Managers;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Corvax.ExportSprites;
+using Content.Client._UU.UiPreview;
 using Content.Client.DebugMon;
 using Content.Client.Corvax.TTS;
 using Content.Client.Options;
@@ -83,6 +84,7 @@ namespace Content.Client.Entry
         [Dependency] private ClientsidePlaytimeTrackingManager _clientsidePlaytimeManager = default!;
         [Dependency] private ClientFeedbackManager _feedbackManager = null!;
         [Dependency] private EntityScreenshotGenerator _entityScreenshotGenerator = default!; // Corvax-Wiki
+        [Dependency] private UiPreviewGenerator _uiPreview = default!; // UU-UI
 
         public override void PreInit()
         {
@@ -139,6 +141,7 @@ namespace Content.Client.Entry
             _componentFactory.GenerateNetIds();
             _adminManager.Initialize();
             _entityScreenshotGenerator.Initialize(); // Corvax-Wiki
+            _uiPreview.Initialize(); // UU-UI
             _screenshotHook.Initialize();
             _fullscreenHook.Initialize();
             _changelogManager.Initialize();
@@ -192,6 +195,9 @@ namespace Content.Client.Entry
             // Disable engine-default viewport since we use our own custom viewport control.
             _userInterfaceManager.MainViewport.Visible = false;
 
+            if (_uiPreview.PostInit()) // UU-UI
+                return;
+
             if (_entityScreenshotGenerator.PostInit()) // Corvax-Wiki
                 return;
 
@@ -235,6 +241,7 @@ namespace Content.Client.Entry
         public override void Update(ModUpdateLevel level, FrameEventArgs frameEventArgs)
         {
             _entityScreenshotGenerator.Update(); // Corvax-Wiki
+            _uiPreview.Update(); // UU-UI
 
             if (level == ModUpdateLevel.FramePreEngine)
             {

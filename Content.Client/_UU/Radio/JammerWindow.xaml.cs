@@ -15,6 +15,9 @@ public sealed partial class JammerWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
+        // В шапке терминала — тот же спрайт, что и у устройства в мире.
+        DeviceView.SetPrototype("SpecificJammer");
+
         SetButton.OnPressed += _ =>
         {
             var freq = FreqInput.Text.Trim().ToUpper();

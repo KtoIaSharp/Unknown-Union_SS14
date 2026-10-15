@@ -15,6 +15,9 @@ public sealed partial class TransmitterWindow : DefaultWindow
     {
         RobustXamlLoader.Load(this);
 
+        // В шапке терминала — тот же спрайт, что и у устройства в мире.
+        DeviceView.SetPrototype("RadioTransmitter");
+
         SetButton.OnPressed += _ =>
         {
             var freq = FreqInput.Text.Trim().ToUpper();

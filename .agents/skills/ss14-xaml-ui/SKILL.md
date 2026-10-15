@@ -182,6 +182,53 @@ Consequences worth remembering:
 - Localization is inherited along the prototype's parent chain, so a child entity can
   override only `.desc` while keeping the parent's name.
 
+## Sprites in the UI
+
+Two ways to show art; pick deliberately.
+
+**1. `EntityPrototypeView` — prefer this for game objects.** It renders an entity's real
+sprite, directional RSIs included, exactly as in the world, so the terminal shows the same
+device the player placed:
+
+```xml
+<EntityPrototypeView Name="DeviceView" Scale="1.5 1.5" MinSize="48 48" />
+```
+
+```csharp
+DeviceView.SetPrototype("RadioTransmitter"); // takes EntProtoId?
+```
+
+Defined in `RobustToolbox/Robust.Client/UserInterface/Controls/EntityPrototypeView.cs`
+(`: SpriteView`, `SetPrototype(EntProtoId?)`). Real usages:
+`Content.Client/Construction/UI/FlatpackCreatorMenu.xaml` (`Scale="4 4"`),
+`Content.Client/Silicons/Borgs/BorgSelectTypeMenu.xaml`, `ConstructionMenu.xaml.cs`.
+
+**2. `TexturePath` on `TextureRect` for plain files.** `/Textures/.../file.rsi/state.png`
+is a valid resource path (`ResourceCache` special-cases `.rsi/`) and is used in
+prototypes, e.g. `Resources/Prototypes/Parallaxes/test.yml`. Caveat: for a state with
+`directions: 4` you get the raw sheet, not one frame — use `EntityPrototypeView` there.
+
+### RSI facts to know before touching art
+
+- `meta.json` declares `size` (one frame, in pixels) and `states`.
+- **Width = `size.x` × directions, height = `size.y` × frames.** Verified:
+
+  | file | size | dirs | png | layout |
+  |---|---|---|---|---|
+  | `_UU/transmitter.rsi/icon.png` | 32×32 | 4 | 128×32 | 1 frame, 4 dirs |
+  | `Tiles/Planet/lava.rsi/lava0.png` | 32×32 | 4 | 128×128 | 4 frames, 4 dirs |
+  | `Structures/Wallmounts/service_light.rsi/glow.png` | 32×32 | 4 | 128×64 | 2 frames, 4 dirs |
+
+- A directional state follows the entity's rotation when the layer is not `noRot` — the
+  intercom proves the pattern:
+  `Resources/Prototypes/Entities/Structures/Wallmounts/WallmountMachines/intercom.yml`
+  declares `- type: Sprite` + `noRot: false` and one layer, nothing else.
+- There is **no automated Aseprite → RSI step** in this repo. What exists:
+  `Tools/SS14 Aseprite Plugins/*.lua`, `Tools/SS14 Aseprite Templates/IconSmoothingTemplate.aseprite`,
+  plus two ad-hoc helpers — `Tools/fix_rsis.py` (drops `meta.json` states whose PNG is
+  missing; note it contains a hardcoded absolute path) and `Tools/sync_textures.py`
+  (interactive copy of exported PNGs over the repo, dry-run by default).
+
 ## Verification loop (there is no designer)
 
 1. `dotnet build Content.Client/Content.Client.csproj` — XamlIL failures surface here

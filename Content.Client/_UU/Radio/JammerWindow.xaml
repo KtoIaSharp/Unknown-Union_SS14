@@ -1,12 +1,16 @@
 <DefaultWindow xmlns="https://spacestation14.io"
                Title="{Loc 'radio-jammer-title'}"
-               MinSize="380 190">
+               MinSize="380 210">
+    <!-- Тёмная основа в стиле UU: тёмный компактный sci-fi интерфейс -->
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
     <BoxContainer Orientation="Vertical" HorizontalExpand="True">
 
-        <!-- Шапка терминала: иконка устройства + моноширинный заголовок -->
+        <!-- Шапка терминала: показываем само устройство, а не отдельную иконку -->
         <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
-            <TextureRect TexturePath="/Textures/Objects/Devices/jammer.rsi/jammer.png"
-                         SetSize="28 28" Margin="0 0 8 0" VerticalAlignment="Center" />
+            <EntityPrototypeView Name="DeviceView" Scale="1.5 1.5" MinSize="48 48"
+                                 Margin="0 0 8 0" VerticalAlignment="Center" />
             <Label Text="{Loc 'radio-jammer-title'}"
                    StyleClasses="ConsoleHeading"
                    HorizontalExpand="True"

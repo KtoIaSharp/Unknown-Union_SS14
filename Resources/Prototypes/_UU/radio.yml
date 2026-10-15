@@ -8,9 +8,12 @@
   components:
   - type: Transmitter
   - type: Sprite
-    # В тему сервера: это радиооборудование станции, а не абстрактный серверный шкаф.
-    sprite: Structures/Machines/telecomms.rsi
-    state: telecom-on
+    # Собственный арт UU: 32x32, 4 направленных варианта (Resources/Textures/_UU/transmitter.rsi),
+    # ровно тот ретранслятор, который описан в дизайн-документе проекта.
+    noRot: false
+    sprite: _UU/transmitter.rsi
+    layers:
+    - state: icon
   - type: UserInterface
     interfaces:
       enum.FrequencyUiKey.Transmitter:
