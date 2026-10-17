@@ -97,9 +97,11 @@
   components:
   - type: SignalTower
   - type: Sprite
-    # В тему сервера: маяк-ретранслятор вместо маяка сингулярности.
-    sprite: Objects/Devices/station_beacon.rsi
-    state: icon
+    # Собственный арт UU: решётчатая вышка с маяком, 32x32, 4 направления.
+    noRot: false
+    sprite: _UU/signal_tower.rsi
+    layers:
+    - state: icon
   - type: Fixtures
     fixtures:
       fix1:
@@ -132,9 +134,11 @@
     jammerType: General
     radius: 20
   - type: Sprite
-    # В тему сервера: настоящий спрайт глушилки, а не поле удержания сингулярности.
-    sprite: Objects/Devices/jammer.rsi
-    state: jammer
+    # Собственный арт UU: корпус с предупреждающей полосой и излучателями помех.
+    noRot: false
+    sprite: _UU/jammer.rsi
+    layers:
+    - state: icon
   - type: Fixtures
     fixtures:
       fix1:
@@ -174,9 +178,11 @@
       enum.FrequencyUiKey.Jammer:
         type: JammerBui
   - type: Sprite
-    # В тему сервера: настоящий спрайт глушилки, а не поле удержания сингулярности.
-    sprite: Objects/Devices/jammer.rsi
-    state: jammer
+    # Собственный арт UU: та же глушилка, но с частотным дисплеем.
+    noRot: false
+    sprite: _UU/jammer.rsi
+    layers:
+    - state: specific
   - type: Fixtures
     fixtures:
       fix1:
