@@ -44,13 +44,11 @@ radio-already-configured = Передатчик уже настроен! Раз�
 radio-configurator-copied = Частота «{$frequency}» скопирована!
 radio-configurator-pasted = Частота «{$frequency}» передана!
 radio-configurator-empty = Конфигуратор пуст! Скопируйте частоту с передатчика.
-radio-jammer-title = Настройка глушителя
-radio-jammer-no-target = Целевая частота не задана
+radio-jammer-no-target = Целевая частота не задана. Настройте глушитель конфигуратором частот.
 radio-jammer-target = Глушит частоту: {$frequency}
-radio-jammer-frequency-set = Глушитель настроен на частоту «{$frequency}».
+radio-jammer-frequency-set = Глушитель нацелен на частоту «{$frequency}».
 
 radio-transmitter-footer = Одноразовая настройка. Для смены частоты разберите передатчик.
-radio-jammer-footer = Глушит только выбранную частоту в радиусе действия.
 
 
 ## Сигнальная вышка

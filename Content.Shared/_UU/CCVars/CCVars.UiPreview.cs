@@ -13,7 +13,7 @@ public sealed partial class CCVars
 
     /// <summary>
     /// Список типов окон через запятую: полное имя типа или короткое имя класса Control.
-    /// Пример: Content.Client._UU.Radio.TransmitterWindow,Content.Client._UU.Radio.JammerWindow
+    /// Пример: Content.Client._UU.Radio.TransmitterWindow,Content.Client._UU.Radio.TowerWindow
     /// </summary>
     public static readonly CVarDef<string> UiPreviewWindows =
         CVarDef.Create("uu.ui_preview.windows", string.Empty, CVar.CLIENTONLY);

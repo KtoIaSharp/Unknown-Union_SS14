@@ -187,13 +187,7 @@
   - type: Jammer
     jammerType: Specific
     radius: 20
-  - type: ActivatableUI
-    key: enum.FrequencyUiKey.Jammer
-    inHandsOnly: false
-  - type: UserInterface
-    interfaces:
-      enum.FrequencyUiKey.Jammer:
-        type: JammerBui
+  # Своего окна у глушителя нет: частоту задаёт только конфигуратор частот.
   - type: Sprite
     # Собственный арт UU: та же глушилка, но с частотным дисплеем.
     noRot: false

@@ -74,12 +74,12 @@ public sealed class FrequencyConfiguratorSystem : EntitySystem
             return;
         }
 
-        // Paste onto specific jammer (sets its target frequency)
+        // Paste onto specific jammer (sets its target frequency) — своего окна у глушителя нет
         if (TryComp<JammerComponent>(target, out var jammer) && jammer.JammerType == JammerType.Specific)
         {
             jammer.TargetFrequency = freq;
             Dirty(target, jammer);
-            _popup.PopupEntity(Loc.GetString("radio-configurator-pasted", ("frequency", (object)freq)),
+            _popup.PopupEntity(Loc.GetString("radio-jammer-frequency-set", ("frequency", (object)freq)),
                 args.User, args.User);
             args.Handled = true;
             return;

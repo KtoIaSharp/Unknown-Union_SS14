@@ -178,9 +178,10 @@ public sealed class RadioChannelSystem : EntitySystem
     }
 
     /// <summary>
-    /// Вышки, которые реально ретранслируют частоту: стоят под питанием и либо в зоне
-    /// передатчика, либо в зоне уже активной вышки (цепочка разрешается итеративно).
-    /// Обесточенная вышка сигнал не проводит.
+    /// Вышки, которые ретранслируют частоту: стоят под питанием и либо в зоне передатчика,
+    /// либо в зоне уже активной вышки (цепочка разрешается итеративно).
+    /// Обесточенная вышка сигнал не проводит. Заглушенная вышка тоже: глушат железо, а не точку,
+    /// поэтому помеха на самой вышке обрывает цепочку за ней.
     /// </summary>
     public HashSet<EntityUid> GetActiveTowers(string freq, MapId mapId)
     {
@@ -195,7 +196,12 @@ public sealed class RadioChannelSystem : EntitySystem
             if (!_power.IsPowered(uid))
                 continue;
 
-            if (GetMapCoordinates(uid, xform).MapId != mapId)
+            var towerCoords = GetMapCoordinates(uid, xform);
+            if (towerCoords.MapId != mapId)
+                continue;
+
+            // Глушилка на самой вышке — она не ретранслирует
+            if (IsJammedAt(freq, towerCoords))
                 continue;
 
             pending.Add(uid);
@@ -240,6 +246,11 @@ public sealed class RadioChannelSystem : EntitySystem
 
             var mapCoords = GetMapCoordinates(uid, xform);
             if (mapCoords.MapId != point.MapId)
+                continue;
+
+            // Глушат источник, а не область: заглушенный передатчик не излучает вообще,
+            // поэтому его зона пропадает целиком, вместе с вышками, которые он питал сигналом.
+            if (IsJammedAt(freq, mapCoords))
                 continue;
 
             if ((mapCoords.Position - point.Position).Length() < BaseRange)

@@ -44,13 +44,11 @@ radio-already-configured = Transmitter is already configured! Deconstruct it to 
 radio-configurator-copied = Frequency «{$frequency}» copied!
 radio-configurator-pasted = Frequency «{$frequency}» transferred!
 radio-configurator-empty = Configurator is empty! Copy a frequency from a transmitter.
-radio-jammer-title = Jammer Settings
-radio-jammer-no-target = No target frequency set
+radio-jammer-no-target = No target frequency. Tune it with a frequency configurator.
 radio-jammer-target = Jamming frequency: {$frequency}
-radio-jammer-frequency-set = Jammer set to frequency «{$frequency}».
+radio-jammer-frequency-set = Jammer tuned to frequency «{$frequency}».
 
 radio-transmitter-footer = One-time setup. To change the frequency, deconstruct the transmitter.
-radio-jammer-footer = Jams only the selected frequency within range.
 
 
 ## Signal tower
