@@ -9,15 +9,24 @@
       uiWindowPos: 2,1
       strippingWindowPos: 2,4
       displayName: Back
-    - name: id
-      slotTexture: id
+    - name: passport
+      slotTexture: passport
       fullTextureName: template_small
-      slotFlags: IDCARD
+      slotFlags: PASSPORT
       slotGroup: SecondHotbar
       stripTime: 6
-      uiWindowPos: 2,2
-      strippingWindowPos: 2,3
-      displayName: ID
+      uiWindowPos: 2,1
+      strippingWindowPos: 2,4
+      displayName: Passport
+    - name: position
+      slotTexture: position
+      fullTextureName: template_small
+      slotFlags: POSITION
+      slotGroup: SecondHotbar
+      stripTime: 6
+      uiWindowPos: 3,2
+      strippingWindowPos: 3,1
+      displayName: Position
 
     # For drip reasons.
     - name: head

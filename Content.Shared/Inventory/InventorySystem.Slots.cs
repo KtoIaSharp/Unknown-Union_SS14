@@ -11,6 +11,22 @@ namespace Content.Shared.Inventory;
 
 public partial class InventorySystem : EntitySystem
 {
+    /// <summary>
+    ///     UU: паспортный карман — документы личности (паспорт, ID-карта, КПК).
+    /// </summary>
+    public const string PassportSlotName = "passport";
+
+    /// <summary>
+    ///     UU: должностной карман — документ, подтверждающий должность.
+    /// </summary>
+    public const string PositionSlotName = "position";
+
+    /// <summary>
+    ///     UU: старое имя слота под КПК. Слот убран из шаблонов инвентаря, но код и стартовое
+    ///     снаряжение профессий всё ещё ищут "id", поэтому запрос подменяется на паспортный карман.
+    /// </summary>
+    public const string LegacyIdSlotName = "id";
+
     [Dependency] private IViewVariablesManager _vvm = default!;
 
     private void InitializeSlots()
@@ -166,6 +182,18 @@ public partial class InventorySystem : EntitySystem
                 continue;
             slotDefinition = slotDef;
             return true;
+        }
+
+        // UU: старый слот "id" больше не существует — отдаём паспортный карман.
+        if (slot == LegacyIdSlotName)
+        {
+            foreach (var slotDef in inventory.Slots)
+            {
+                if (!slotDef.Name.Equals(PassportSlotName))
+                    continue;
+                slotDefinition = slotDef;
+                return true;
+            }
         }
 
         return false;

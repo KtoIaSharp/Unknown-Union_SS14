@@ -39,15 +39,26 @@
     uiWindowPos: 1,0
     strippingWindowPos: 0,2
     displayName: Jumpsuit
-  - name: id
-    slotTexture: id
+  - name: passport
+    slotTexture: passport
     fullTextureName: template_small
-    slotFlags: IDCARD
+    slotFlags: PASSPORT
+    dependsOn: jumpsuit
     slotGroup: SecondHotbar
     stripTime: 6
     uiWindowPos: 2,1
     strippingWindowPos: 2,4
-    displayName: ID
+    displayName: Passport
+  - name: position
+    slotTexture: position
+    fullTextureName: template_small
+    slotFlags: POSITION
+    dependsOn: jumpsuit
+    slotGroup: SecondHotbar
+    stripTime: 6
+    uiWindowPos: 3,2
+    strippingWindowPos: 3,1
+    displayName: Position
   - name: suitstorage
     slotTexture: suit_storage
     slotFlags:   SUITSTORAGE

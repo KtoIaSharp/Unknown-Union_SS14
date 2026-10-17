@@ -53,11 +53,19 @@ public sealed partial class OutfitSystem : EntitySystem
             {
                 _invSystem.TryUnequip(target, slot.Name, true, true, false, inventoryComponent);
                 var gearStr = ((IEquipmentLoadout) startingGear).GetGear(slot.Name);
+
+                // UU: слот под КПК заменён паспортным карманом, поэтому стартовое снаряжение
+                // по-прежнему описано в прототипах профессий под именем "id".
+                var isDocumentSlot = slot.Name == InventorySystem.PassportSlotName ||
+                                     slot.Name == InventorySystem.PositionSlotName;
+                if (gearStr == string.Empty && slot.Name == InventorySystem.PassportSlotName)
+                    gearStr = ((IEquipmentLoadout) startingGear).GetGear(InventorySystem.LegacyIdSlotName);
+
                 if (gearStr == string.Empty)
                     continue;
 
                 var equipmentEntity = Spawn(gearStr, Comp<TransformComponent>(target).Coordinates);
-                if (slot.Name == "id" &&
+                if (isDocumentSlot &&
                     TryComp(equipmentEntity, out PdaComponent? pdaComponent) &&
                     TryComp<IdCardComponent>(pdaComponent.ContainedId, out var id))
                 {

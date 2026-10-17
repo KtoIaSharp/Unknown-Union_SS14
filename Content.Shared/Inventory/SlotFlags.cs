@@ -26,6 +26,16 @@ public enum SlotFlags
     LEGS = 1 << 13,
     FEET = 1 << 14,
     SUITSTORAGE = 1 << 15,
+
+    /// <summary>
+    ///     UU: паспортный карман — документы личности (паспорт, ID-карта).
+    /// </summary>
+    PASSPORT = 1 << 16,
+
+    /// <summary>
+    ///     UU: должностной карман — документ, подтверждающий должность.
+    /// </summary>
+    POSITION = 1 << 17,
     All = ~NONE,
 
     WITHOUT_POCKET = All & ~POCKET

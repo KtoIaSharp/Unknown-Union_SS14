@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared.Access.Components;
 using Content.Shared.Armor;
 using Content.Shared.Clothing.Components;
 using Content.Shared.DoAfter;
@@ -10,6 +11,8 @@ using Content.Shared.Interaction;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
 using Content.Shared.Movement.Systems;
+using Content.Shared.Paper;
+using Content.Shared.PDA;
 using Content.Shared.Popups;
 using Content.Shared.Strip;
 using Content.Shared.Strip.Components;
@@ -306,8 +309,17 @@ public abstract partial class InventorySystem
         var fittingInPocket = slotDefinition.SlotFlags.HasFlag(SlotFlags.POCKET) &&
                               item != null &&
                               _item.GetSizePrototype(item.Size) <= _item.GetSizePrototype(PocketableItemSize);
-        if (clothing == null && !fittingInPocket
-            || clothing != null && !clothing.Slots.HasFlag(slotDefinition.SlotFlags) && !fittingInPocket)
+
+        // UU: в паспортный и должностной карманы встают документы — бумага, ID-карты,
+        // а пока нет отдельного паспорта, и КПК. ClothingComponent им для этого не нужен.
+        var fittingInDocumentSlot = (slotDefinition.SlotFlags.HasFlag(SlotFlags.PASSPORT) ||
+                                     slotDefinition.SlotFlags.HasFlag(SlotFlags.POSITION)) &&
+                                    (HasComp<PaperComponent>(itemUid) ||
+                                     HasComp<IdCardComponent>(itemUid) ||
+                                     HasComp<PdaComponent>(itemUid));
+
+        if (clothing == null && !fittingInPocket && !fittingInDocumentSlot
+            || clothing != null && !clothing.Slots.HasFlag(slotDefinition.SlotFlags) && !fittingInPocket && !fittingInDocumentSlot)
         {
             reason = "inventory-component-can-equip-does-not-fit";
             return false;
