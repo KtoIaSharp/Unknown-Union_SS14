@@ -29,4 +29,10 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<int> UiPreviewWarmupFrames =
         CVarDef.Create("uu.ui_preview.warmup_frames", 5, CVar.CLIENTONLY);
+
+    /// <summary>
+    /// Закрывать клиент сразу после отрисовки — чтобы инструмент годился для скриптов.
+    /// </summary>
+    public static readonly CVarDef<bool> UiPreviewQuitAfter =
+        CVarDef.Create("uu.ui_preview.quit_after", true, CVar.CLIENTONLY);
 }

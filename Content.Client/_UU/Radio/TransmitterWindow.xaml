@@ -5,7 +5,7 @@
     <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
     <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
 
-    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+    <BoxContainer Orientation="Vertical">
 
         <!-- Шапка терминала: показываем само устройство, а не отдельную иконку -->
         <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
