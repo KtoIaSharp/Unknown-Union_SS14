@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Unknown Union">
+  <title>Unknown Union — знак для светлого фона</title>
+
+  <defs>
+    <linearGradient id="uu-purple-dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7B5CE8"/>
+      <stop offset="1" stop-color="#503AAE"/>
+    </linearGradient>
+  </defs>
+
+  <!-- плита -->
+  <rect x="16" y="16" width="480" height="480" rx="104" fill="#F2F4F8" stroke="#D6DBE4" stroke-width="4"/>
+
+  <!-- две U -->
+  <g fill="none" stroke="url(#uu-purple-dark)" stroke-width="26" stroke-linecap="round">
+    <path d="M124 150 V282 Q124 332 176 332 Q228 332 228 282 V150"/>
+    <path d="M284 150 V282 Q284 332 336 332 Q388 332 388 282 V150"/>
+  </g>
+
+  <!-- брендовая линия -->
+  <g stroke-width="6" stroke-linecap="round">
+    <line x1="112" y1="386" x2="306" y2="386" stroke="#20242D"/>
+    <line x1="318" y1="386" x2="400" y2="386" stroke="#6B4FD8"/>
+  </g>
+</svg>
