@@ -1,36 +1,133 @@
-<div class="header" align="center">
-<img alt="Space Station 14" width="880" height="300" src="https://raw.githubusercontent.com/space-wizards/asset-dump/de329a7898bb716b9d5ba9a0cd07f38e61f1ed05/github-logo.svg">
-</div>
+# Unknown Union (UU)
 
-Space Station 14 это ремейк SS13, который работает на собственном движке [Robust Toolbox](https://github.com/space-wizards/RobustToolbox), написанном на C#.
+Русскоязычный RP-сервер на базе Space Station 14. Технически это форк
+[Corvax](https://github.com/space-syndicate/space-station-14) (ответвление
+[Space Station 14](https://github.com/space-wizards/space-station-14)) на движке
+[RobustToolbox](https://github.com/space-wizards/RobustToolbox) версии 278.0.0.
 
-Это репозиторий первого русскоязычного сервера по Space Station 14, целью которого является полный перевод игры на русский язык, поддержка актуальных изменений из основного репозитория, а так же добавление собственных изменений по необходимости.
+**Сектор UU141, планета Аксис.** Геополитическая RP-песочница: государства и их границы,
+документы, подписи и архивы, союзы и предательства, колонисты и экономика. Бумага — это власть.
+RP здесь обязателен; токсичность и «просто пострелять» — не сюда.
 
-## Ссылки
+## Чем этот репозиторий отличается от апстрима
 
-[Наш Discord](https://discord.station14.ru) | [Наша Вики](https://wiki.station14.ru) | [Steam](https://store.steampowered.com/app/1255460/Space_Station_14/) | [Клиент без Steam](https://spacestation14.io/about/nightlies/) | [Основной репозиторий](https://github.com/space-wizards/space-station-14)
+Собственный контент лежит в `_UU`-папках и не пересекается с апстримом:
+
+| Система | Где |
+| --- | --- |
+| Радиосвязь на частотах: передатчики, рации, гарнитуры, конфигуратор частот, сигнальные вышки с кодом доступа, глушители | `Content.Server/_UU/Radio`, `Content.Client/_UU/Radio`, `Content.Shared/_UU/Radio` |
+| Фракции | `Content.Server/_UU/FactionSystem`, `Content.Shared/_UU/Faction` |
+| Ячейки и назначения | `Content.Server/_UU/CellSystem`, `Content.Client/_UU/Cell`, `Content.Shared/_UU/Cell`, `Content.Server/_UU/AppointmentsSystem` |
+| FPV-дрон | `Content.Server/_UU/FantasikTest` |
+| Рыбалка | `Content.Server/_UU/FishingRod`, `Content.Shared/_UU/FishingRod` |
+| Инструмент предпросмотра XAML-окон | `Content.Client/_UU/UiPreview` |
+
+Плюс слой Corvax, унаследованный от форка: TTS-озвучка (`Content.Server/Corvax/TTS`), IPC,
+окно службы безопасности, цели станции, генератор гайдбука, административные документы.
+
+Прототипы — `Resources/Prototypes/_UU`, локализация — `Resources/Locale/{ru-RU,en-US}/_UU`,
+спрайты — `Resources/Textures/_UU`.
+
+### Радиосистема коротко
+
+- Частоты свободные (1–3 символа), передача — `:ЧАСТОТА` в чате. Департаментских каналов нет.
+- Передатчик задаёт частоту один раз; конфигуратор частот копирует её и раздаёт по устройствам.
+- Сигнальные вышки ретранслируют частоту по цепочке. Без питания вышка не работает, а код доступа
+  ограничивает круг тех, кто может её перенастроить.
+- Глушитель настраивается только конфигуратором. Глушение бьёт по источнику: накрытый помехой
+  передатчик не излучает вообще, накрытая вышка рвёт цепочку за собой.
+
+## Требования
+
+- [.NET SDK 10.0.100](https://dotnet.microsoft.com/) (`global.json` разрешает обновления в пределах 10.0.x)
+- Git с поддержкой сабмодулей
+- Python 3.5+ — для `RUN_THIS.py`
+- Docker — только если нужен TTS (контейнер `ss14tts`)
+
+## Сборка и запуск
+
+```bash
+git clone --recursive https://github.com/KtoIaSharp/Unknown-Union_SS14.git
+cd Unknown-Union_SS14
+python RUN_THIS.py          # инициализация сабмодулей и движка
+dotnet build                # или run-build-debug.bat
+```
+
+Дальше:
+
+- `run-server-debug.bat` — сервер
+- `run-client-debug.bat` — клиент
+- `duo.bat` — сервер и два клиента сразу (плюс TTS, если поднят Docker)
+- `tts_start.bat` — поднять контейнер TTS
+
+**Собирайте в Debug.** Конфигурация Release сейчас падает на анализаторах по всему проекту
+(`RA0049`/`RA0051`: `[Dependency]`-поля объявлены `readonly`, системы не помечены `partial`).
+Это известно и не связано с `_UU`-кодом.
+
+### Конфигурация сервера
+
+Пресеты — `Resources/ConfigPresets/Corvax/`:
+
+- `common.toml` — `tickrate = 30`
+- `main.toml` — мейн, 190 слотов (soft cap 105)
+- `wl.toml` — вайтлист, 80 слотов
+- `elysium.toml` — Элизиум, 180 слотов
+- `mrp.toml` — MRP
+
+Пресеты всё ещё несут брендинг Corvax (`hostname`, `lobby_name`) — это остаток форка, а не UU.
+Правится там же, где и остальные настройки сервера.
+
+## Проверки перед коммитом
+
+```bash
+dotnet build Content.Server/Content.Server.csproj -c Debug
+dotnet build Content.Client/Content.Client.csproj -c Debug
+dotnet run --project Content.YAMLLinter/Content.YAMLLinter.csproj -c Debug
+```
+
+YAML-линтер — авторитет по `!type:` и полям C#-компонентов: он ловит опечатки в прототипах,
+которых не видит обычная сборка.
+
+### Предпросмотр окон без запуска игры
+
+```bash
+dotnet run --project Content.Client/Content.Client.csproj -c Debug --no-build -- \
+  --cvar uu.ui_preview.enabled=true \
+  --cvar uu.ui_preview.windows=Content.Client._UU.Radio.TowerWindow \
+  --cvar uu.ui_preview.quit_after=true
+```
+
+PNG-ки складываются в `%APPDATA%\Space Station 14\data\UiPreview`. Инструмент рендерит окно
+настоящим клиентом — со стилями, шрифтами и RSI, — и обрезает кадр по самому окну.
+
+## Инструменты
+
+- `Tools/gen_radio_sprites.py` — генератор спрайтов радио-набора (4 направления, `meta.json`),
+  `--preview` пишет увеличенные превью в `sprites_preview/`
+- `Tools/fix_rsis.py`, `Tools/sync_textures.py` — массовая починка и синхронизация RSI
+- `Tools/patches/robust-reflectionmanager-null-guard.patch` — единственная правка движка
+  (null-guard в `ReflectionManager`); после обновления сабмодуля патч надо накатить заново
+
+## Лицензия и авторство
+
+Код репозитория — [MIT](LICENSE.TXT). Большинство ассетов — [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/),
+если в `meta.json` не указано иное; часть ассетов некоммерческая (CC-BY-NC-SA 3.0 и аналогичные) —
+их нужно удалить, если планируется коммерческое использование.
+
+Это форк: значительная часть кода, контента и спрайтов написана командами
+[Space Wizards](https://github.com/space-wizards) и [Corvax](https://github.com/space-syndicate).
+При переносе чужого контента сохраняйте лицензии в `meta.json` и указывайте авторство.
 
 ## Документация
 
-На официальном сайте с [документацией](https://docs.spacestation14.io/) имеется вся необходимая информация о контенте SS14, движке, дизайне игры и многом другом. Также имеется много информации для начинающих разработчиков.
+- [Документация SS14](https://docs.spacestation14.io/) — контент, движок, дизайн, ECS
+- [Руководство по PR](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html)
 
-## Контрибьют
+## Известные проблемы
 
-Мы рады принять вклад от любого человека. Заходите в Discord, если хотите помочь. У нас есть [список проблем](https://github.com/space-syndicate/space-station-14-content/issues), которые нужно решить, и любой может за них взяться. Не бойтесь просить о помощи!
-Только убедитесь, что ваши изменения и PRы соответствуют [руководству по контрибьюту](https://docs.spacestation14.com/en/general-development/codebase-info/pull-request-guidelines.html).
-
-## Сборка
-
-1. Склонируйте этот репозиторий локально
-2. Запустите `RUN_THIS.py` для инициализации подмодулей и скачивания движка.
-3. Скомпилируйте проект.
-
-[Более подробная инструкция по запуску проекта.](https://docs.spacestation14.com/en/general-development/setup.html)
-
-## Лицензия
-
-Весь код репозитория лицензирован под [MIT](https://github.com/space-syndicate/space-station-14/blob/master/LICENSE.TXT).
-
-Большинство ассетов лицензированы под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Ассеты имеют свою лицензию и авторские права в файле метаданных. [Пример](https://github.com/space-syndicate/space-station-14/blob/master/Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
-
-Обратите внимание, что некоторые ассеты лицензированы на некоммерческой основе [CC-BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/) или аналогичной некоммерческой лицензией, и их необходимо удалить, если вы хотите использовать этот проект в коммерческих целях.
+- Release-сборка не проходит из-за анализаторов (см. выше) — используйте Debug.
+- Ручной `RadioJammer` из апстрима всё ещё глушит удалённые департаментские каналы, то есть
+  фактически бесполезен и дублирует стационарные глушители. Решение по нему не принято.
+- У окна `SecApartmentWindow.xaml` четыре незарегистрированных style-класса, из-за чего оно
+  выглядит не так, как задумано.
+- Гайдбук-запись по радиосистеме пока не написана.
