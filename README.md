@@ -1,9 +1,14 @@
 # Unknown Union (UU)
 
-Русскоязычный RP-сервер на базе Space Station 14. Технически это форк
+Русскоязычный RP-сервер на базе Space Station 14. Исторически это форк
 [Corvax](https://github.com/space-syndicate/space-station-14) (ответвление
 [Space Station 14](https://github.com/space-wizards/space-station-14)) на движке
-[RobustToolbox](https://github.com/space-wizards/RobustToolbox) версии 278.0.0.
+[RobustToolbox](https://github.com/space-wizards/RobustToolbox) версии 293.0.1.
+
+Контент дальше развивается самостоятельно: UU — отдельный сервер, а не ветка Corvax.
+Из апстрима тянем **только движок** (сабмодуль `RobustToolbox`), контент и прототипы —
+свои. Поэтому спорные апстримные решения (например, департаментские радиоканалы) у нас
+не восстанавливаются: расхождения с апстримом — это нормальное состояние репозитория.
 
 **Сектор UU141, планета Аксис.** Геополитическая RP-песочница: государства и их границы,
 документы, подписи и архивы, союзы и предательства, колонисты и экономика. Бумага — это власть.
@@ -100,8 +105,29 @@ dotnet run --project Content.Client/Content.Client.csproj -c Debug --no-build --
 PNG-ки складываются в `%APPDATA%\Space Station 14\data\UiPreview`. Инструмент рендерит окно
 настоящим клиентом — со стилями, шрифтами и RSI, — и обрезает кадр по самому окну.
 
+## Обновление движка
+
+Движок обновляется одним скриптом — он подтягивает сабмодуль, заново накатывает нашу
+правку `ReflectionManager`, пересобирает и прогоняет YAML-линтер:
+
+```powershell
+pwsh Tools/update_engine.ps1                 # до текущего origin/master движка
+pwsh Tools/update_engine.ps1 -Ref v293.0.1   # до конкретного тега
+```
+
+Если PowerShell 7 не установлен, тот же скрипт запускается из Windows PowerShell 5.1:
+`powershell -NoProfile -ExecutionPolicy Bypass -File Tools\update_engine.ps1 -Ref v293.0.1`.
+
+Если патч не ложится — движок переписал код вокруг него. Скрипт остановится и скажет,
+что делать: перенести null-guard в новое место и перевыпустить
+`Tools/patches/robust-reflectionmanager-null-guard.patch`. Сборка в этом случае не запускается.
+
+После обновления прогоните сервер хотя бы на минуту и посмотрите на `[ERRO]` в логе:
+часть поломок (например, потерянные регистрации в IoC) видна только в рантайме, а не при сборке.
+
 ## Инструменты
 
+- `Tools/update_engine.ps1` — обновление движка (см. выше)
 - `Tools/gen_radio_sprites.py` — генератор спрайтов радио-набора (4 направления, `meta.json`),
   `--preview` пишет увеличенные превью в `sprites_preview/`
 - `Tools/fix_rsis.py`, `Tools/sync_textures.py` — массовая починка и синхронизация RSI
