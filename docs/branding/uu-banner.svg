@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="Unknown Union">
+  <title>Unknown Union — шапка</title>
+
+  <defs>
+    <linearGradient id="uu-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12141A"/>
+      <stop offset="0.55" stop-color="#0E1015"/>
+      <stop offset="1" stop-color="#161A24"/>
+    </linearGradient>
+    <linearGradient id="uu-plate" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#181D26"/>
+      <stop offset="1" stop-color="#0E1015"/>
+    </linearGradient>
+    <linearGradient id="uu-purple" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#A98CFF"/>
+      <stop offset="1" stop-color="#6B4FD8"/>
+    </linearGradient>
+    <radialGradient id="uu-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6B4FD8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6B4FD8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- фон -->
+  <rect width="1280" height="320" fill="url(#uu-bg)"/>
+  <ellipse cx="150" cy="160" rx="260" ry="200" fill="url(#uu-glow)"/>
+  <line x1="0" y1="1" x2="1280" y2="1" stroke="#8A6CF0" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- знак -->
+  <g transform="translate(64 56) scale(0.42)">
+    <rect x="16" y="16" width="480" height="480" rx="104" fill="url(#uu-plate)" stroke="#2A2F3A" stroke-width="4"/>
+    <g fill="none" stroke="url(#uu-purple)" stroke-width="26" stroke-linecap="round">
+      <path d="M124 150 V282 Q124 332 176 332 Q228 332 228 282 V150"/>
+      <path d="M284 150 V282 Q284 332 336 332 Q388 332 388 282 V150"/>
+    </g>
+    <g stroke-width="6" stroke-linecap="round">
+      <line x1="112" y1="386" x2="306" y2="386" stroke="#F2F4F8" stroke-opacity="0.9"/>
+      <line x1="318" y1="386" x2="400" y2="386" stroke="#8A6CF0"/>
+    </g>
+  </g>
+
+  <!-- название -->
+  <g font-family="'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="700">
+    <text x="316" y="140" font-size="62" letter-spacing="8" fill="#F2F4F8">UNKNOWN</text>
+    <text x="316" y="212" font-size="62" letter-spacing="8" fill="#F2F4F8">UNION</text>
+  </g>
+
+  <!-- брендовая линия -->
+  <g stroke-linecap="round">
+    <line x1="318" y1="240" x2="1120" y2="240" stroke="#20242D" stroke-width="3"/>
+    <line x1="318" y1="240" x2="424" y2="240" stroke="#8A6CF0" stroke-width="3"/>
+  </g>
+
+  <!-- подпись -->
+  <text x="318" y="278" font-family="'Inter','Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+        font-size="20" letter-spacing="7" fill="#8A93A3">SECTOR UU141 · AXIS · ГЕОПОЛИТИЧЕСКАЯ RP-ПЕСОЧНИЦА</text>
+</svg>
