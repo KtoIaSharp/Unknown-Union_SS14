@@ -199,8 +199,7 @@
   - BorgModuleMusique
   - BorgModuleService
   - BorgModuleClowning
-  - BorgModuleGardening
-  - BorgModuleHarvesting
+  - BorgModuleBotany
 
   # Visual
   inventoryTemplateId: borgTall

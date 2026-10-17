@@ -1,7 +1,7 @@
 # No idea why it's in sci but we ball.
 # Why is this one file?
 - type: job
-  id: StationAi
+  id: StationAi
   setPreference: false
   name: job-name-station-ai
   description: job-description-station-ai
@@ -10,7 +10,6 @@
   - !type:RoleTimeRequirement
     role: JobBorg
     time: 5h
-  weight: 10
   icon: JobIconStationAi
   supervisors: job-supervisors-rd
   jobEntity: StationAiBrain
@@ -18,7 +17,7 @@
   applyTraits: false
 
 - type: job
-  id: Borg
+  id: Borg
   setPreference: false
   name: job-name-borg
   description: job-description-borg

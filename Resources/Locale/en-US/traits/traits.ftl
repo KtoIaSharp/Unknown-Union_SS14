@@ -36,11 +36,26 @@ trait-frontal-lisp-desc = You thpeak with a lithp.
 trait-socialanxiety-name = Stutter
 trait-socialanxiety-desc = You speak with a stutter.
 
+trait-southern-name = Southern drawl
+trait-southern-desc = You have a different way of speakin'.
+
 trait-snoring-name = Snoring
 trait-snoring-desc = You will snore while sleeping.
 
 trait-liar-name = Pathological liar
 trait-liar-desc = You can hardly bring yourself to tell the truth. Sometimes you lie anyway.
+
+trait-german-name = German accent
+trait-german-desc = You seem to come from space Germany.
+
+trait-french-name = French accent
+trait-french-desc = Your accent seems to have a certain «je ne sais quoi».
+
+trait-spanish-name = Spanish accent
+trait-spanish-desc = Hola señor, ¿dónde está la biblioteca?
+
+trait-scottish-name = Scottish accent
+trait-scottish-desc = Ye're speaking like ae proper Scot!
 
 trait-painnumbness-name = Numb
 trait-painnumbness-desc = You lack any sense of feeling pain, being unaware of how hurt you may be.
@@ -50,3 +65,6 @@ trait-hemophilia-desc = Your body fails to make blood clots.
 
 trait-impaired-mobility-name = Impaired Mobility
 trait-impaired-mobility-desc = You have difficulty moving without a mobility aid.
+
+trait-blink-dyspraxia-name = Blink Dyspraxia
+trait-blink-dyspraxia-desc = Your eyelids lack coordination. Blinking requires conscious effort, and sometimes your eyes just refuse to sync up.

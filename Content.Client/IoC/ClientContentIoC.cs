@@ -1,9 +1,9 @@
 using Content.Client.Administration.Managers;
+using Content.Client.Audio.Midi;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Clickable;
 using Content.Client.Corvax.ExportSprites;
-using Content.Client._UU.UiPreview;
 using Content.Client.DebugMon;
 using Content.Client.Eui;
 using Content.Client.FeedbackPopup;
@@ -21,6 +21,7 @@ using Content.Client.Screenshot;
 using Content.Client.Stylesheets;
 using Content.Client.Viewport;
 using Content.Client.Voting;
+using Content.Client._UU.UiPreview;
 using Content.Shared.Administration.Logs;
 using Content.Client.Lobby;
 using Content.Client.Players.RateLimiting;
@@ -42,7 +43,6 @@ namespace Content.Client.IoC
             collection.Register<GeneratedParallaxCache>();
             collection.Register<EntityScreenshotRenderService>(); // Corvax-Wiki
             collection.Register<EntityScreenshotGenerator>(); // Corvax-Wiki
-            collection.Register<UiPreviewGenerator>(); // UU-UI
             collection.Register<IChatManager, ChatManager>();
             collection.Register<ISharedChatManager, ChatManager>();
             collection.Register<IClientPreferencesManager, ClientPreferencesManager>();
@@ -71,6 +71,8 @@ namespace Content.Client.IoC
             collection.Register<ClientsidePlaytimeTrackingManager>();
             collection.Register<ClientFeedbackManager>();
             collection.Register<ISharedFeedbackManager, ClientFeedbackManager>();
+            collection.Register<MidiFileCollectionManager>();
+            collection.Register<UiPreviewGenerator>(); // UU-UI
         }
     }
 }

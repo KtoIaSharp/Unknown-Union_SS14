@@ -20,7 +20,7 @@ public sealed partial class TTSManager
         "Timings of TTS API requests",
         new HistogramConfiguration()
         {
-            LabelNames = new[] {"type"},
+            LabelNames = new[] { "type" },
             Buckets = Histogram.ExponentialBuckets(.1, 1.5, 10),
         });
 
@@ -60,12 +60,11 @@ public sealed partial class TTSManager
     /// </summary>
     /// <param name="speaker">Identifier of speaker</param>
     /// <param name="text">SSML formatted text</param>
-    /// <param name="effect">Optional sound effect applied by the API (e.g. "Radio")</param>
     /// <returns>OGG audio bytes or null if failed</returns>
-    public async Task<byte[]?> ConvertTextToSpeech(string speaker, string text, string? effect = null)
+    public async Task<byte[]?> ConvertTextToSpeech(string speaker, string text)
     {
         WantedCount.Inc();
-        var cacheKey = GenerateCacheKey(speaker, text, effect);
+        var cacheKey = GenerateCacheKey(speaker, text);
         if (_cache.TryGetValue(cacheKey, out var data))
         {
             ReusedCount.Inc();
@@ -80,7 +79,6 @@ public sealed partial class TTSManager
             ApiToken = _apiToken,
             Text = text,
             Speaker = speaker,
-            Effect = effect,
         };
 
         var reqTime = DateTime.UtcNow;
@@ -102,9 +100,10 @@ public sealed partial class TTSManager
             }
 
             var json = await response.Content.ReadFromJsonAsync<GenerateVoiceResponse>(cancellationToken: cts.Token);
-            if (json.Results == null || json.Results.Count == 0)
+            if (json.Results.Count == 0)
             {
-                _sawmill.Error($"TTS API returned empty results for '{text}'");
+                var rawJson = await response.Content.ReadAsStringAsync(cancellationToken: cts.Token);
+                _sawmill.Error($"TTS API returned empty results for '{text}'. Response: {rawJson}");
                 return null;
             }
 
@@ -151,10 +150,13 @@ public sealed partial class TTSManager
         _cacheKeysSeq.Clear();
     }
 
-    private string GenerateCacheKey(string speaker, string text, string? effect = null)
+    private string GenerateCacheKey(string speaker, string text)
     {
-        var key = $"{speaker}/{effect}/{text}";
-        var bytes = System.Security.Cryptography.SHA256.HashData(Encoding.UTF8.GetBytes(key));
+        var rawKey = $"{speaker}/{text.ToLowerInvariant()}";
+        if (rawKey.Length <= 32)
+            return rawKey;
+
+        var bytes = System.Security.Cryptography.MD5.HashData(Encoding.UTF8.GetBytes(rawKey));
         return Convert.ToHexString(bytes);
     }
 
@@ -172,9 +174,6 @@ public sealed partial class TTSManager
 
         [JsonPropertyName("speaker")]
         public string Speaker { get; set; } = "";
-
-        [JsonPropertyName("effect")]
-        public string? Effect { get; set; } = null;
 
         [JsonPropertyName("ssml")]
         public bool SSML { get; private set; } = true;

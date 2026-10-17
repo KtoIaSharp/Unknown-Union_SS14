@@ -36,11 +36,26 @@ trait-frontal-lisp-desc = У ваф имеютшя проблемы ш прои�
 trait-socialanxiety-name = Заикание
 trait-socialanxiety-desc = Вы заикаетесь.
 
+trait-southern-name = Диалект юга США
+trait-southern-desc = У вас другая манера речи. Работает только с английским.
+
 trait-snoring-name = Храп
 trait-snoring-desc = Вы храпите во время сна.
 
 trait-liar-name = Патологический лжец
 trait-liar-desc = Вы с трудом заставляете себя говорить правду. Иногда вы всё равно лжёте.
+
+trait-german-name = Немецкий акцент
+trait-german-desc = Вы, кажется, родом из Космической Германии.
+
+trait-french-name = Французский акцент
+trait-french-desc = Ваш акцент, похоже, имеет определённый «je ne sais quoi».
+
+trait-spanish-name = Испанский акцент
+trait-spanish-desc = Hola señor, ¿как пройти в la biblioteca?
+
+trait-scottish-name = Шотландский акцент
+trait-scottish-desc = Ты говоришь как настоящий шотландец!
 
 trait-painnumbness-name = Невосприимчивость к боли
 trait-painnumbness-desc = Вы не чувствуете боли и не осознаёте, насколько вы ранены.

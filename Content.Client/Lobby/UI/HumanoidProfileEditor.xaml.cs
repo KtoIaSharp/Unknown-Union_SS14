@@ -145,8 +145,7 @@ namespace Content.Client.Lobby.UI
 
             NameEdit.OnTextChanged += args => { SetName(args.Text); };
             NameEdit.IsValid = args => args.Length <= _maxNameLength;
-            NameRandomize.OnPressed += args => RandomizeName();
-            RandomizeEverythingButton.OnPressed += args => { RandomizeEverything(); };
+            RandomizeUnlockedButton.OnPressed += args => { RandomizeProfile(); };
             WarningLabel.SetMarkup($"[color=red]{Loc.GetString("humanoid-profile-editor-naming-rules-warning")}[/color]");
 
             #endregion Name
@@ -165,23 +164,23 @@ namespace Content.Client.Lobby.UI
 
             #endregion Sex
 
-            #region Voice
+            #region TTS voice
 
-            VoiceButton.OnItemSelected += args =>
+            TTSVoiceButton.OnItemSelected += args =>
             {
-                VoiceButton.SelectId(args.Id);
-                if (args.Id >= 0 && args.Id < _voices.Count)
-                    SetVoice(_voices[args.Id].ID);
+                TTSVoiceButton.SelectId(args.Id);
+                if (args.Id >= 0 && args.Id < _ttsVoices.Count)
+                    SetTTSVoice(_ttsVoices[args.Id].ID);
             };
 
-            VoicePreviewButton.OnPressed += _ =>
+            TTSVoicePreviewButton.OnPressed += _ =>
             {
-                var id = VoiceButton.SelectedId;
-                if (id >= 0 && id < _voices.Count)
-                    _entManager.System<TTSSystem>().RequestPreviewTTS(_voices[id].ID);
+                var id = TTSVoiceButton.SelectedId;
+                if (id >= 0 && id < _ttsVoices.Count)
+                    _entManager.System<TTSSystem>().RequestPreviewTTS(_ttsVoices[id].ID);
             };
 
-            #endregion Voice
+            #endregion TTS voice
 
             #region Age
 
@@ -275,7 +274,7 @@ namespace Content.Client.Lobby.UI
                 (int)PreferenceUnavailableMode.StayInLobby);
             PreferenceUnavailableButton.AddItem(
                 Loc.GetString("humanoid-profile-editor-preference-unavailable-spawn-as-overflow-button",
-                              ("overflowJob", Loc.GetString(SharedGameTicker.FallbackOverflowJobName))),
+                              ("overflowJob", Loc.GetString(GameTicker.FallbackOverflowJobName))),
                 (int)PreferenceUnavailableMode.SpawnAsOverflow);
 
             PreferenceUnavailableButton.OnItemSelected += args =>
@@ -401,6 +400,7 @@ namespace Content.Client.Lobby.UI
             UpdateEyePickers();
             UpdateSaveButton();
             UpdateMarkings();
+            UpdateVoiceControls();
 
             RefreshAntags();
             RefreshJobs();
