@@ -88,6 +88,15 @@ public sealed class FrequencyConfiguratorSystem : EntitySystem
         // Paste onto signal tower (sets its frequency)
         if (TryComp<SignalTowerComponent>(target, out var tower))
         {
+            // Вышка под кодом: конфигуратор — не отмычка, нужен код.
+            if (TryComp<SignalTowerAccessComponent>(target, out var access)
+                && !string.IsNullOrEmpty(access.Code))
+            {
+                _popup.PopupEntity(Loc.GetString("tower-locked"), args.User, args.User);
+                args.Handled = true;
+                return;
+            }
+
             tower.Frequency = freq;
             Dirty(target, tower);
             _popup.PopupEntity(Loc.GetString("radio-configurator-pasted", ("frequency", (object)freq)),

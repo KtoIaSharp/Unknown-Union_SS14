@@ -51,3 +51,19 @@ radio-jammer-frequency-set = Jammer set to frequency «{$frequency}».
 
 radio-transmitter-footer = One-time setup. To change the frequency, deconstruct the transmitter.
 radio-jammer-footer = Jams only the selected frequency within range.
+
+
+## Signal tower
+tower-window-title = Signal Tower
+tower-enter-code = Access code:
+tower-set-code = Access code (set it on first setup):
+tower-code-placeholder = e.g. AXIS-141
+tower-apply = Apply
+tower-footer = Only a narrow circle knows the code. A configurator will not open a locked tower.
+tower-invalid-code = Code must be 3-12 letters or digits.
+tower-code-set = Code set. Remember it - only someone who knows the code can change it.
+tower-wrong-code = Wrong access code.
+tower-frequency-set = Tower set to frequency "{$freq}".
+tower-locked = The tower is locked by a code - the configurator will not help.
+tower-status-locked = Locked by code
+tower-status-open = No code set

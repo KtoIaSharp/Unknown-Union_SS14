@@ -320,3 +320,7 @@ Resources/MapImages
 
 # C# Dev Kit cache file
 *.lscache
+
+# Сгенерированные превью спрайтов (Tools/gen_radio_sprites.py --preview)
+sprites_preview/
+

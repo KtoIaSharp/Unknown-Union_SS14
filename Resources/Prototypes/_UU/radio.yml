@@ -101,7 +101,24 @@
     noRot: false
     sprite: _UU/signal_tower.rsi
     layers:
-    - state: icon
+    - map: [ "tower" ]
+      state: idle
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.SignalTowerVisuals.State:
+        tower:
+          Idle: { state: idle }
+          Active: { state: active }
+          Jammed: { state: jammed }
+          Off: { state: off }
+  - type: ActivatableUI
+    key: enum.FrequencyUiKey.Tower
+    inHandsOnly: false
+  - type: UserInterface
+    interfaces:
+      enum.FrequencyUiKey.Tower:
+        type: TowerBui
   - type: Fixtures
     fixtures:
       fix1:

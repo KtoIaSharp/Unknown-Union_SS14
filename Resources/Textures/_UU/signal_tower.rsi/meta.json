@@ -6,7 +6,19 @@
   },
   "states": [
     {
-      "name": "icon",
+      "name": "idle",
+      "directions": 4
+    },
+    {
+      "name": "active",
+      "directions": 4
+    },
+    {
+      "name": "jammed",
+      "directions": 4
+    },
+    {
+      "name": "off",
       "directions": 4
     }
   ]

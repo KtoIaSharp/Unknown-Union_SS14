@@ -51,3 +51,19 @@ radio-jammer-frequency-set = Глушитель настроен на часто
 
 radio-transmitter-footer = Одноразовая настройка. Для смены частоты разберите передатчик.
 radio-jammer-footer = Глушит только выбранную частоту в радиусе действия.
+
+
+## Сигнальная вышка
+tower-window-title = Сигнальная вышка
+tower-enter-code = Код доступа:
+tower-set-code = Код доступа (задайте при первой настройке):
+tower-code-placeholder = напр. AXIS-141
+tower-apply = Задать
+tower-footer = Код знает только узкий круг. Конфигуратор запертую вышку не откроет.
+tower-invalid-code = Код — от 3 до 12 букв или цифр.
+tower-code-set = Код задан. Запомните его — сменить сможет только тот, кто знает код.
+tower-wrong-code = Неверный код доступа.
+tower-frequency-set = Вышка настроена на частоту «{$freq}».
+tower-locked = Вышка заперта кодом — конфигуратор не поможет.
+tower-status-locked = Заперта кодом
+tower-status-open = Код не задан

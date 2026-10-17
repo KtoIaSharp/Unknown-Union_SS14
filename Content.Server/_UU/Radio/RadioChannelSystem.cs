@@ -161,46 +161,69 @@ public sealed class RadioChannelSystem : EntitySystem
         if (IsInsideTransmitterZone(freq, point))
             return true;
 
-        // Collect all towers on this frequency and map
-        var towerQueue = new List<MapCoordinates>();
+        var activeTowers = GetActiveTowers(freq, point.MapId);
+
+        // The point is covered if it stands inside any active tower's zone
+        foreach (var uid in activeTowers)
+        {
+            var coords = GetMapCoordinates(uid);
+            if (coords.MapId == point.MapId
+                && (coords.Position - point.Position).Length() < TowerRadius)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Вышки, которые реально ретранслируют частоту: стоят под питанием и либо в зоне
+    /// передатчика, либо в зоне уже активной вышки (цепочка разрешается итеративно).
+    /// Обесточенная вышка сигнал не проводит.
+    /// </summary>
+    public HashSet<EntityUid> GetActiveTowers(string freq, MapId mapId)
+    {
+        var pending = new List<EntityUid>();
         var towerQuery = EntityQueryEnumerator<SignalTowerComponent, TransformComponent>();
         while (towerQuery.MoveNext(out var uid, out var tower, out var xform))
         {
             if (tower.Frequency != freq)
                 continue;
 
-            var towerMap = GetMapCoordinates(uid, xform);
-            if (towerMap.MapId != point.MapId)
+            // Без питания вышка — просто железо на столбе
+            if (!_power.IsPowered(uid))
                 continue;
 
-            towerQueue.Add(towerMap);
+            if (GetMapCoordinates(uid, xform).MapId != mapId)
+                continue;
+
+            pending.Add(uid);
         }
 
-        // Resolve chains: a tower is active if it stands inside the transmitter zone
-        // or inside the zone of an already active tower
-        var activeTowers = new List<MapCoordinates>();
+        var active = new HashSet<EntityUid>();
+        var activeCoords = new List<MapCoordinates>();
+
         var changed = true;
-        while (changed)
+        while (changed && pending.Count > 0)
         {
             changed = false;
-            var remaining = new List<MapCoordinates>();
-            foreach (var t in towerQueue)
+            for (var i = pending.Count - 1; i >= 0; i--)
             {
-                if (IsInsideTransmitterZone(freq, t) || IsInsideTowerZone(activeTowers, t))
-                {
-                    activeTowers.Add(t);
-                    changed = true;
-                }
-                else
-                {
-                    remaining.Add(t);
-                }
+                var uid = pending[i];
+                var coords = GetMapCoordinates(uid);
+
+                if (!IsInsideTransmitterZone(freq, coords) && !IsInsideTowerZone(activeCoords, coords))
+                    continue;
+
+                active.Add(uid);
+                activeCoords.Add(coords);
+                pending.RemoveAt(i);
+                changed = true;
             }
-            towerQueue = remaining;
         }
 
-        // The point is covered if it stands inside any active tower's zone
-        return IsInsideTowerZone(activeTowers, point);
+        return active;
     }
 
     private bool IsInsideTransmitterZone(string freq, MapCoordinates point)
@@ -225,7 +248,7 @@ public sealed class RadioChannelSystem : EntitySystem
         return false;
     }
 
-    private bool IsInsideTowerZone(List<MapCoordinates> activeTowers, MapCoordinates point)
+    private bool IsInsideTowerZone(IEnumerable<MapCoordinates> activeTowers, MapCoordinates point)
     {
         foreach (var tower in activeTowers)
         {
@@ -312,8 +335,15 @@ public sealed class RadioChannelSystem : EntitySystem
 
     public bool IsJammed(string freq, EntityCoordinates coords)
     {
-        var originMap = _xform.ToMapCoordinates(coords);
+        return IsJammedAt(freq, _xform.ToMapCoordinates(coords));
+    }
 
+    /// <summary>
+    /// Заглушена ли точка на этой частоте.
+    /// Если частота неизвестна (null), глушит только общий глушитель.
+    /// </summary>
+    public bool IsJammedAt(string? freq, MapCoordinates point)
+    {
         var jammers = EntityQueryEnumerator<JammerComponent, TransformComponent>();
         while (jammers.MoveNext(out var uid, out var jammer, out var xform))
         {
@@ -322,10 +352,10 @@ public sealed class RadioChannelSystem : EntitySystem
                 continue;
 
             var jammerMap = GetMapCoordinates(uid, xform);
-            if (jammerMap.MapId != originMap.MapId)
+            if (jammerMap.MapId != point.MapId)
                 continue;
 
-            if ((jammerMap.Position - originMap.Position).Length() > jammer.Radius)
+            if ((jammerMap.Position - point.Position).Length() > jammer.Radius)
                 continue;
 
             if (jammer.JammerType == JammerType.General)

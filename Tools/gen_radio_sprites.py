@@ -69,6 +69,23 @@ class Cell:
         for x in range(x0, x1 + 1):
             self.dot(x, y, color)
 
+    def dim(self, factor: float) -> None:
+        """Затемнить всю ячейку — обесточенное состояние."""
+        for y in range(SIZE):
+            for x in range(SIZE):
+                r, g, b, a = self.px[x, y]
+                if a == 0:
+                    continue
+                self.px[x, y] = (int(r * factor), int(g * factor), int(b * factor), a)
+
+    def dot_if_empty(self, x: int, y: int, color) -> None:
+        if 0 <= x < SIZE and 0 <= y < SIZE and self.px[x, y][3] == 0:
+            self.px[x, y] = (*color, 255)
+
+    def flip(self) -> None:
+        self.img = self.img.transpose(Image.FLIP_LEFT_RIGHT)
+        self.px = self.img.load()
+
     def poly(self, points: list[tuple[int, int]], color) -> None:
         """Ломаная по точкам: утолщённая линия без пропусков."""
         for (x0, y0), (x1, y1) in zip(points, points[1:]):
@@ -412,7 +429,7 @@ def tw_north(c: Cell) -> None:
     c.rect(18, 25, 19, 27, HI)
 
 
-def tw_side(c: Cell, mirror: bool) -> None:
+def tw_side(c: Cell) -> None:
     """Вышка сбоку: узкий кабинет, мачта с подсветкой грани, маяк."""
     base(c)
 
@@ -435,9 +452,54 @@ def tw_side(c: Cell, mirror: bool) -> None:
     c.vline(15, 0, 3, OUT)
     c.dot(15, 0, AMBER)
 
-    if mirror:
-        c.img = c.img.transpose(Image.FLIP_LEFT_RIGHT)
-        c.px = c.img.load()
+
+def tw_state(c: Cell, state: str) -> None:
+    """Настроение вышки поверх базового арта: маяк, помеха, обесточенность."""
+    if state == "idle":
+        # вышка есть, но в эфире молчит
+        c.dot(15, 0, (58, 62, 70))
+        c.dot(18, 6, DARK)
+    elif state == "active":
+        # маяк горит и слегка светится вокруг
+        c.dot(15, 0, AMBER)
+        c.dot_if_empty(14, 1, (120, 86, 40))
+        c.dot_if_empty(16, 1, (120, 86, 40))
+        c.dot_if_empty(15, 1, (190, 132, 52))
+        c.dot(18, 6, HI)
+    elif state == "jammed":
+        # красный маяк и фиолетовая рябь помех по мачте
+        c.dot(15, 0, RED)
+        for y in range(4, 21):
+            c.dot(15 if y % 2 == 0 else 16, y, PURPLE)
+        for x in (11, 12, 19, 20):
+            c.dot(x, 12, PURPLE)
+        c.dot(18, 6, RED)
+    elif state == "off":
+        c.dim(0.45)
+        c.dot(15, 0, (38, 42, 48))
+
+
+def tower_painters(state: str):
+    """Четыре направления вышки в заданном состоянии."""
+
+    def front(c: Cell) -> None:
+        tw_south(c)
+        tw_state(c, state)
+
+    def back(c: Cell) -> None:
+        tw_north(c)
+        tw_state(c, state)
+
+    def east(c: Cell) -> None:
+        tw_side(c)
+        tw_state(c, state)
+
+    def west(c: Cell) -> None:
+        tw_side(c)
+        tw_state(c, state)
+        c.flip()
+
+    return (front, back, east, west)
 
 
 def paint(front, back, east, west) -> Image.Image:
@@ -484,11 +546,11 @@ def main() -> None:
           (mj_south, mj_north, lambda c: mj_side(c, mirror=False), lambda c: mj_side(c, mirror=True)), preview)
     write(root, "jammer.rsi", "specific",
           (mj_specific_south, mj_north, lambda c: mj_side(c, mirror=False), lambda c: mj_side(c, mirror=True)), preview)
-    write(root, "signal_tower.rsi", "icon",
-          (tw_south, tw_north, lambda c: tw_side(c, mirror=False), lambda c: tw_side(c, mirror=True)), preview)
+    for state in ("idle", "active", "jammed", "off"):
+        write(root, "signal_tower.rsi", state, tower_painters(state), preview)
 
     write_meta(root, "jammer.rsi", ["icon", "specific"])
-    write_meta(root, "signal_tower.rsi", ["icon"])
+    write_meta(root, "signal_tower.rsi", ["idle", "active", "jammed", "off"])
 
 
 if __name__ == "__main__":

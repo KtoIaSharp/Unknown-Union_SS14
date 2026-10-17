@@ -1,0 +1,45 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'tower-window-title'}"
+               MinSize="420 300">
+    <!-- Тёмная основа в стиле UU: тёмный компактный sci-fi интерфейс -->
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
+    <BoxContainer Orientation="Vertical">
+
+        <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
+            <EntityPrototypeView Name="DeviceView" Scale="1.5 1.5" MinSize="48 48"
+                                 Margin="0 0 8 0" VerticalAlignment="Center" />
+            <BoxContainer Orientation="Vertical" VerticalAlignment="Center" HorizontalExpand="True">
+                <Label Text="{Loc 'tower-window-title'}" StyleClasses="ConsoleHeading" />
+                <Label Name="StatusLabel" StyleClasses="LabelSubText" Text="{Loc 'tower-status-open'}" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
+
+        <BoxContainer Orientation="Vertical" Margin="10 0 10 0" HorizontalExpand="True">
+            <Label Name="CurrentLabel" StyleClasses="ConsoleText" HorizontalAlignment="Center"
+                   Text="{Loc 'radio-no-frequency'}" />
+            <Control MinSize="0 10" />
+
+            <Label Name="CodeLabel" StyleClasses="ConsoleSubHeading" Text="{Loc 'tower-set-code'}" />
+            <LineEdit Name="CodeInput" PlaceHolder="{Loc 'tower-code-placeholder'}" HorizontalExpand="True" />
+            <Control MinSize="0 8" />
+
+            <Label Text="{Loc 'radio-enter-frequency'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="FreqInput" PlaceHolder="{Loc 'radio-frequency-placeholder'}" HorizontalExpand="True" />
+            <Control MinSize="0 12" />
+
+            <Button Name="SetButton" Text="{Loc 'tower-apply'}"
+                    StyleClasses="ButtonColorRed"
+                    HorizontalAlignment="Center" MinWidth="180" />
+        </BoxContainer>
+
+        <Control MinSize="0 10" />
+        <Label Text="{Loc 'tower-footer'}"
+               StyleClasses="LabelSubText"
+               HorizontalAlignment="Center"
+               Margin="10 0 10 8" />
+    </BoxContainer>
+</DefaultWindow>

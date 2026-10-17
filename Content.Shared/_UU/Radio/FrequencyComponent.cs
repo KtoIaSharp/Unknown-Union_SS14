@@ -99,4 +99,5 @@ public enum FrequencyUiKey
     Transmitter,
     Radio,
     Jammer,
+    Tower,
 }
