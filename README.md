@@ -57,13 +57,16 @@ RP здесь обязателен; токсичность и «просто п�
 git clone --recursive https://github.com/KtoIaSharp/Unknown-Union_SS14.git
 cd Unknown-Union_SS14
 python RUN_THIS.py          # инициализация сабмодулей и движка
-dotnet build                # или run-build-debug.bat
 ```
 
-Дальше:
+Дальше — одним действием:
 
-- `run-server-debug.bat` — сервер
-- `run-client-debug.bat` — клиент
+- `build-debug.bat` — полная Debug-сборка решения, затем автоматический запуск сервера и клиента (если сервер/клиент уже запущены и держат DLL, скрипт предложит их закрыть).
+
+Отдельные шаги, если нужно вручную:
+
+- `dotnet build SpaceStation14.slnx -c Debug` — полная сборка
+- `runserver.bat` / `runclient.bat` — сервер / клиент
 - `duo.bat` — сервер и два клиента сразу (плюс TTS, если поднят Docker)
 - `tts_start.bat` — поднять контейнер TTS
 
