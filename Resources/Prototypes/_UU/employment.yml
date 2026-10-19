@@ -1,0 +1,49 @@
+- type: entity
+  parent: BaseItem
+  id: WorkIdCard
+  name: удостоверение о работе
+  description: Пластиковая карта с данными о работе. Заполняется только через ручной работодатель.
+  components:
+  - type: Sprite
+    sprite: _UU/work_id.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: WorkIdCard
+
+- type: entity
+  parent: BaseItem
+  id: WorkIdWriter
+  name: ручной работодатель
+  description: Ручной сканер, который переносит данные с подписанного договора на удостоверение о работе.
+  components:
+  - type: Sprite
+    sprite: _UU/work_writer.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: WorkIdWriter
+
+- type: entity
+  parent: Paper
+  id: EmploymentContract
+  name: договор о трудоустройстве
+  description: Бланк договора о трудоустройстве. Подписывается отдельно работодателем и работником.
+  components:
+  - type: Sprite
+    layers:
+    - state: paper
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: Paper
+  - type: EmploymentContract
+  - type: UserInterface
+    interfaces:
+      enum.PaperUiKey.Key:
+        type: PaperBoundUserInterface
+      enum.EmploymentContractUiKey.Contract:
+        type: EmploymentContractBui

@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared._UU.Employment;
 using Content.Shared.Access.Components;
 using Content.Shared.Armor;
 using Content.Shared.Clothing.Components;
@@ -311,11 +312,13 @@ public abstract partial class InventorySystem
                               _item.GetSizePrototype(item.Size) <= _item.GetSizePrototype(PocketableItemSize);
 
         // UU: в паспортный и должностной карманы встают документы — бумага, ID-карты,
-        // а пока нет отдельного паспорта, и КПК. ClothingComponent им для этого не нужен.
+        // удостоверение о работе, а пока нет отдельного паспорта, и КПК.
+        // ClothingComponent им для этого не нужен.
         var fittingInDocumentSlot = (slotDefinition.SlotFlags.HasFlag(SlotFlags.PASSPORT) ||
                                      slotDefinition.SlotFlags.HasFlag(SlotFlags.POSITION)) &&
                                     (HasComp<PaperComponent>(itemUid) ||
                                      HasComp<IdCardComponent>(itemUid) ||
+                                     HasComp<WorkIdCardComponent>(itemUid) ||
                                      HasComp<PdaComponent>(itemUid));
 
         if (clothing == null && !fittingInPocket && !fittingInDocumentSlot
