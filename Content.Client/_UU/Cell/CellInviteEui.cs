@@ -14,7 +14,7 @@ public sealed class CellInviteEui : BaseEui
 
     public override void Opened()
     {
-        _window = new CellInviteWindow("...");
+        _window = new CellInviteWindow();
 
         _window.DeclineButton.OnPressed += _ =>
         {

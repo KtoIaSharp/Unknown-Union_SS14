@@ -41,6 +41,13 @@ public sealed partial class FormPrototype : IPrototype
     [DataField("name", required: true)]
     public string Name = string.Empty;
 
+    /// <summary>
+    ///     Локализованное пояснение: что это за документ, кто может его напечатать
+    ///     и что он даёт. Показывается под названием формы в списке.
+    /// </summary>
+    [DataField("description", required: true)]
+    public string Description = string.Empty;
+
     /// <summary>Что именно печатаем.</summary>
     [DataField("kind", required: true)]
     public FormKind Kind;

@@ -213,6 +213,13 @@ public sealed class EmploymentContractSystem : EntitySystem
 
         var contract = AddComp<EmploymentContractComponent>(paper);
         contract.Date = null;
+
+        // У напечатанного договора интерфейса из прототипа нет: бумага — обычный Paper,
+        // у которого зарегистрирован только PaperUiKey. Поэтому окно договора подключаем вручную,
+        // иначе верб «Открыть договор» молча ничего не открывает.
+        _ui.SetUi((paper.Owner, (UserInterfaceComponent?)null), EmploymentContractUiKey.Contract,
+            new InterfaceData("EmploymentContractBui"));
+
         _paper.SetContent(paper, Loc.GetString("employment-contract-body"));
         Dirty(paper, contract);
 

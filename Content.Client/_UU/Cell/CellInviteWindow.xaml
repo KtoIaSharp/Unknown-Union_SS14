@@ -1,0 +1,37 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'cell-invite-title'}"
+               MinSize="430 250">
+    <!-- Тёмная основа в стиле UU -->
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
+    <BoxContainer Orientation="Vertical">
+
+        <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
+            <EntityPrototypeView Name="DeviceView" Scale="1.4 1.4" MinSize="48 48"
+                                 Margin="0 0 8 0" VerticalAlignment="Center" />
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
+                <Label Text="{Loc 'cell-invite-heading'}" StyleClasses="ConsoleHeading" />
+                <Label Text="{Loc 'cell-invite-subheading'}" StyleClasses="LabelSubText" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
+
+        <Label Name="PromptLabel" StyleClasses="ConsoleText" Margin="10 0 10 0" HorizontalAlignment="Center" />
+
+        <Control MinSize="0 14" />
+
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="12">
+            <Button Name="AcceptAction" Text="{Loc 'cell-invite-accept'}"
+                    StyleClasses="ButtonColorRed" MinWidth="150" />
+            <Button Name="DeclineAction" Text="{Loc 'cell-invite-decline'}" MinWidth="150" />
+        </BoxContainer>
+
+        <Control MinSize="0 10" />
+        <Label Text="{Loc 'cell-invite-footer'}"
+               StyleClasses="LabelSubText"
+               HorizontalAlignment="Center"
+               Margin="10 0 10 8" />
+    </BoxContainer>
+</DefaultWindow>

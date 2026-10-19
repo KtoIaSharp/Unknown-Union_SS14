@@ -17,11 +17,19 @@ typewriter-no-actor = Printing is unavailable: no player session.
 typewriter-unknown-form = Unknown form.
 
 form-faction-founding = State founding document
+form-faction-founding-desc = The first paper of a state: its name and founding circle. Print it if you represent nobody yet.
 form-faction-govern = State governing document
+form-faction-govern-desc = The right to appoint and dismiss officials. Only the head of state can print it.
 form-faction-entry = Citizenship entry document
+form-faction-entry-desc = A form for granting citizenship. Only the head of state can print it.
 form-faction-leave = Citizenship leave document
+form-faction-leave-desc = A notice of leaving the state. Anyone but the head of state can print it.
 form-cell-founding = Cell founding document
+form-cell-founding-desc = Name and membership of a cell inside a state. Citizens hold the right to found cells.
 form-employment-contract = Employment contract
+form-employment-contract-desc = Worker, position and employer. Signed twice, with a pen only.
+
+typewriter-print = Print
 
 employment-contract-body = EMPLOYMENT CONTRACT
     The fields are filled in by hand. Valid with two signatures: employer and worker.

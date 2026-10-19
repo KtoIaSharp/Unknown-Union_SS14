@@ -3,35 +3,41 @@
 - type: form
   id: FormFactionFounding
   name: form-faction-founding
+  description: form-faction-founding-desc
   kind: FactionFounding
   order: 10
 
 - type: form
   id: FormFactionGovern
   name: form-faction-govern
+  description: form-faction-govern-desc
   kind: FactionGovern
   order: 20
 
 - type: form
   id: FormFactionEntry
   name: form-faction-entry
+  description: form-faction-entry-desc
   kind: FactionEntry
   order: 30
 
 - type: form
   id: FormFactionLeave
   name: form-faction-leave
+  description: form-faction-leave-desc
   kind: FactionLeave
   order: 40
 
 - type: form
   id: FormFactionCell
   name: form-cell-founding
+  description: form-cell-founding-desc
   kind: FactionCell
   order: 50
 
 - type: form
   id: FormEmploymentContract
   name: form-employment-contract
+  description: form-employment-contract-desc
   kind: EmploymentContract
   order: 60
