@@ -1,4 +1,3 @@
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Shared.CCVar;
@@ -48,12 +47,14 @@ namespace Content.Client.Changelog
             // UU: файл-маркер лежит в UserData и может оказаться занят (антивирус, синхронизация,
             // второй клиент). Раньше любое исключение при записи улетало в обработчик кнопки
             // «Changelog» и роняло весь клиент Unhandled exception'ом — теперь просто пишем в лог.
+            // Ловим именно Exception: песочница контента запрещает ссылаться на
+            // UnauthorizedAccessException, а он приходит из тех же OpenWriteText.
             try
             {
                 using var sw = _resource.UserData.OpenWriteText(path);
                 sw.Write(MaxId.ToString());
             }
-            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            catch (Exception e)
             {
                 _sawmill.Warning($"Не удалось сохранить отметку о прочитанном чейнджлоге ({path}): {e.Message}");
             }
