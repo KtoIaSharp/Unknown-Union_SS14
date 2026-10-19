@@ -1,3 +1,4 @@
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Content.Shared.CCVar;
@@ -42,9 +43,20 @@ namespace Content.Client.Changelog
             NewChangelogEntries = false;
             NewChangelogEntriesChanged?.Invoke();
 
-            using var sw = _resource.UserData.OpenWriteText(new ($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}"));
+            var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}");
 
-            sw.Write(MaxId.ToString());
+            // UU: файл-маркер лежит в UserData и может оказаться занят (антивирус, синхронизация,
+            // второй клиент). Раньше любое исключение при записи улетало в обработчик кнопки
+            // «Changelog» и роняло весь клиент Unhandled exception'ом — теперь просто пишем в лог.
+            try
+            {
+                using var sw = _resource.UserData.OpenWriteText(path);
+                sw.Write(MaxId.ToString());
+            }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                _sawmill.Warning($"Не удалось сохранить отметку о прочитанном чейнджлоге ({path}): {e.Message}");
+            }
         }
 
         public async void Initialize()
@@ -88,9 +100,13 @@ namespace Content.Client.Changelog
         private void CheckLastSeenEntry()
         {
             var path = new ResPath($"/changelog_last_seen_{_configManager.GetCVar(CCVars.ServerId)}");
-            if (_resource.UserData.TryReadAllText(path, out var lastReadIdText))
+
+            // UU: битый или усечённый маркер (например, после аварийного выхода) раньше давал
+            // FormatException прямо на старте клиента. Теперь просто считаем, что не читали.
+            if (_resource.UserData.TryReadAllText(path, out var lastReadIdText)
+                && int.TryParse(lastReadIdText, out var lastReadId))
             {
-                LastReadId = int.Parse(lastReadIdText);
+                LastReadId = lastReadId;
             }
 
             NewChangelogEntries = LastReadId < MaxId;
