@@ -1,0 +1,37 @@
+# Формы для печатной машинки: лист бумаги остаётся бумагой,
+# свойства документа появляются в момент печати.
+- type: form
+  id: FormFactionFounding
+  name: form-faction-founding
+  kind: FactionFounding
+  order: 10
+
+- type: form
+  id: FormFactionGovern
+  name: form-faction-govern
+  kind: FactionGovern
+  order: 20
+
+- type: form
+  id: FormFactionEntry
+  name: form-faction-entry
+  kind: FactionEntry
+  order: 30
+
+- type: form
+  id: FormFactionLeave
+  name: form-faction-leave
+  kind: FactionLeave
+  order: 40
+
+- type: form
+  id: FormFactionCell
+  name: form-cell-founding
+  kind: FactionCell
+  order: 50
+
+- type: form
+  id: FormEmploymentContract
+  name: form-employment-contract
+  kind: EmploymentContract
+  order: 60

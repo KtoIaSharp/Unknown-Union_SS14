@@ -2,8 +2,12 @@ using Content.Server._UU.FactionSystem;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
 using Content.Shared.Examine;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
+using Content.Shared.Paper;
 using Content.Shared.Popups;
+using Content.Shared.Tag;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
@@ -26,6 +30,11 @@ public sealed class EmploymentContractSystem : EntitySystem
     [Dependency] private readonly MetaDataSystem _meta = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly PaperSystem _paper = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly TagSystem _tag = default!;
+
+    private const string PenTag = "Pen";
 
     /// <summary>Метка, которой помечается подпись, поставленная от имени государства.</summary>
     public const string StateSignature = "state";
@@ -97,6 +106,13 @@ public sealed class EmploymentContractSystem : EntitySystem
     private void OnSign(Entity<EmploymentContractComponent> ent, ref EmploymentContractSignMessage args)
     {
         var user = args.Actor;
+
+        // Подпись ставится только ручкой: без неё договор не подписать.
+        if (!HasPen(user))
+        {
+            _popup.PopupEntity(Loc.GetString("employment-contract-needs-pen"), user, user);
+            return;
+        }
 
         if (string.IsNullOrWhiteSpace(ent.Comp.Worker) || string.IsNullOrWhiteSpace(ent.Comp.Position))
         {
@@ -179,6 +195,47 @@ public sealed class EmploymentContractSystem : EntitySystem
         args.PushMarkup(Loc.GetString(comp.Complete
             ? "employment-contract-examine-signed"
             : "employment-contract-examine-unsigned"));
+    }
+
+    /// <summary>
+    ///     Печать бланка договора на листе из печатной машинки. Лист остаётся бумагой —
+    ///     свойства договора появляются здесь, а не в отдельном предмете.
+    /// </summary>
+    public bool TryPrintContract(Entity<PaperComponent> paper, EntityUid user, out string? error)
+    {
+        error = null;
+
+        if (HasComp<EmploymentContractComponent>(paper))
+        {
+            error = "typewriter-form-already";
+            return false;
+        }
+
+        var contract = AddComp<EmploymentContractComponent>(paper);
+        contract.Date = null;
+        _paper.SetContent(paper, Loc.GetString("employment-contract-body"));
+        Dirty(paper, contract);
+
+        _meta.SetEntityName(paper, Loc.GetString("employment-contract-printed-name"));
+        _meta.SetEntityDescription(paper, Loc.GetString("employment-contract-printed-description"));
+
+        _popup.PopupEntity(Loc.GetString("employment-contract-printed"), user, user);
+        return true;
+    }
+
+    /// <summary>Подпись ставится только ручкой — предметом с тегом Pen в руках.</summary>
+    private bool HasPen(EntityUid user)
+    {
+        if (!TryComp<HandsComponent>(user, out var hands))
+            return false;
+
+        foreach (var held in _hands.EnumerateHeld((user, hands)))
+        {
+            if (_tag.HasTag(held, PenTag))
+                return true;
+        }
+
+        return false;
     }
 
     private void UpdateBui(Entity<EmploymentContractComponent> ent, EntityUid actor)

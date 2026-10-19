@@ -1,0 +1,54 @@
+- type: entity
+  parent: BaseStructure
+  id: Typewriter
+  name: typewriter
+  description: A mechanical typewriter for filling out forms on plain paper.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Typewriter
+    paperSlot:
+      insertSound: /Audio/Machines/scanning.ogg
+      ejectSound: /Audio/Machines/tray_eject.ogg
+      whitelist:
+        components:
+        - Paper
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      paper: !type:ContainerSlot { }
+  - type: Sprite
+    # Собственный арт UU: стационарная машинка с валиком, 32x32.
+    noRot: true
+    sprite: _UU/typewriter.rsi
+    layers:
+    - map: [ "body" ]
+      state: icon
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.TypewriterVisuals.HasPaper:
+        body:
+          True: { state: paper }
+          False: { state: icon }
+  - type: ActivatableUI
+    key: enum.TypewriterUiKey.Key
+    inHandsOnly: false
+  - type: UserInterface
+    interfaces:
+      enum.TypewriterUiKey.Key:
+        type: TypewriterBui
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.4,-0.3,0.4,0.3"
+        density: 80
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: InteractionOutline
+  - type: Anchorable

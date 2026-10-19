@@ -3,6 +3,7 @@ using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Chat.Systems;
 using Content.Shared._UU.Faction;
+using Content.Shared._UU.Office;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
@@ -162,109 +163,14 @@ public sealed class FactionSystem : EntitySystem
                           HasComp<FactionLeaveDocumentComponent>(paper) ||
                           HasComp<FactionGovernComponent>(paper);
 
-        // VERB 1: Create state (no faction, not a signed doc)
-        if (!hasFaction && !isSignedDoc)
-        {
-            if (!TryComp<ActorComponent>(user, out var actor))
-                return;
-
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("verb-sign-faction-document"),
-                Priority = 10,
-                Act = () =>
-                {
-                    _quickDialog.OpenDialog(actor.PlayerSession,
-                        Loc.GetString("faction-create-dialog-title"),
-                        Loc.GetString("faction-create-dialog-prompt"),
-                        (string factionName) =>
-                        {
-                            if (string.IsNullOrWhiteSpace(factionName))
-                            {
-                                _popup.PopupEntity(Loc.GetString("faction-create-invalid-name"), user, user);
-                                return;
-                            }
-
-                            CreateFaction(user, factionName, paper);
-                        });
-                },
-            });
-        }
-
-        // CELL: Create cell (no cell, not a signed doc)
-        if (_cellSystem.CanCreateCell(user) && !isSignedDoc)
-        {
-            if (!TryComp<ActorComponent>(user, out var cellActor))
-                return;
-
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("verb-create-cell"),
-                Priority = 10,
-                Act = () =>
-                {
-                    _quickDialog.OpenDialog(cellActor.PlayerSession,
-                        Loc.GetString("cell-create-dialog-title"),
-                        Loc.GetString("cell-create-dialog-prompt"),
-                        (string cellName) =>
-                        {
-                            if (string.IsNullOrWhiteSpace(cellName))
-                            {
-                                _popup.PopupEntity(Loc.GetString("cell-create-invalid-name"), user, user);
-                                return;
-                            }
-
-                            CreateCellDocument(user, cellName, paper);
-                        });
-                },
-            });
-        }
+        // Создание государственных бумаг и документов ячеек переехало в печатную машинку:
+        // верб на бумаге больше нет, бумага остаётся бумагой до момента печати (см. TypewriterSystem).
 
         // Категория для группировки подписей
         var signCategory = new VerbCategory("verb-sign-root", null);
 
         if (!hasFaction || faction == null)
             return;
-
-        var fid = faction.FactionId;
-        if (fid == null)
-            return;
-
-        // VERB 2: Leave state (not leader, not signed)
-        if (!faction.IsLeader && !isSignedDoc)
-        {
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("verb-leave-faction"),
-                Category = signCategory,
-                Priority = 5,
-                Act = () => LeaveFaction(user, fid.Value, paper),
-            });
-        }
-
-        // VERB 3: Create entry document (leader, not signed)
-        if (faction.IsLeader && !isSignedDoc)
-        {
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("verb-create-entry-document", ("name", (object)faction.Faction!)),
-                Category = signCategory,
-                Priority = 5,
-                Act = () => CreateEntryDocument(user, fid.Value, faction.Faction!, paper),
-            });
-        }
-
-        // VERB 4: Create governing document (leader, not signed)
-        if (faction.IsLeader && !isSignedDoc)
-        {
-            args.Verbs.Add(new Verb()
-            {
-                Text = Loc.GetString("verb-create-govern-document", ("name", (object)faction.Faction!)),
-                Category = signCategory,
-                Priority = 4,
-                Act = () => CreateGovernDocument(user, fid.Value, faction.Faction!, paper),
-            });
-        }
 
         // --- Верб "Подписать" с сабвербами ---
         if (string.IsNullOrWhiteSpace(paper.Comp.Content))
@@ -348,6 +254,129 @@ public sealed class FactionSystem : EntitySystem
                     _popup.PopupEntity(Loc.GetString("faction-state-signed", ("name", (object)FormattedMessage.EscapeText(factionName))), user, user);
                 },
             });
+        }
+    }
+
+    /// <summary>
+    ///     Печать государственной формы на листе из печатной машинки.
+    ///     Возвращает false и локализационный ключ ошибки, если состояние игрока не подходит.
+    /// </summary>
+    public bool TryPrintForm(FormKind kind, Entity<PaperComponent> paper, EntityUid user, out string? error)
+    {
+        error = null;
+
+        TryComp<FactionComponent>(user, out var factionData);
+        var factionName = factionData?.Faction;
+        var hasFaction = !string.IsNullOrEmpty(factionName);
+
+        switch (kind)
+        {
+            case FormKind.FactionFounding:
+            {
+                if (hasFaction)
+                {
+                    error = "typewriter-faction-already";
+                    return false;
+                }
+
+                if (!TryComp<ActorComponent>(user, out var actor))
+                {
+                    error = "typewriter-no-actor";
+                    return false;
+                }
+
+                _quickDialog.OpenDialog(actor.PlayerSession,
+                    Loc.GetString("faction-create-dialog-title"),
+                    Loc.GetString("faction-create-dialog-prompt"),
+                    (string newName) =>
+                    {
+                        if (string.IsNullOrWhiteSpace(newName))
+                        {
+                            _popup.PopupEntity(Loc.GetString("faction-create-invalid-name"), user, user);
+                            return;
+                        }
+
+                        CreateFaction(user, newName, paper);
+                    });
+
+                return true;
+            }
+
+            case FormKind.FactionCell:
+            {
+                if (!_cellSystem.CanCreateCell(user))
+                {
+                    error = "typewriter-cell-unavailable";
+                    return false;
+                }
+
+                if (!TryComp<ActorComponent>(user, out var cellActor))
+                {
+                    error = "typewriter-no-actor";
+                    return false;
+                }
+
+                _quickDialog.OpenDialog(cellActor.PlayerSession,
+                    Loc.GetString("cell-create-dialog-title"),
+                    Loc.GetString("cell-create-dialog-prompt"),
+                    (string cellName) =>
+                    {
+                        if (string.IsNullOrWhiteSpace(cellName))
+                        {
+                            _popup.PopupEntity(Loc.GetString("cell-create-invalid-name"), user, user);
+                            return;
+                        }
+
+                        CreateCellDocument(user, cellName, paper);
+                    });
+
+                return true;
+            }
+
+            case FormKind.FactionEntry:
+            case FormKind.FactionGovern:
+            {
+                if (!hasFaction || factionData?.FactionId is not { } fid)
+                {
+                    error = "typewriter-faction-missing";
+                    return false;
+                }
+
+                if (!factionData.IsLeader)
+                {
+                    error = "typewriter-not-leader";
+                    return false;
+                }
+
+                if (kind == FormKind.FactionEntry)
+                    CreateEntryDocument(user, fid, factionName!, paper);
+                else
+                    CreateGovernDocument(user, fid, factionName!, paper);
+
+                return true;
+            }
+
+            case FormKind.FactionLeave:
+            {
+                if (!hasFaction || factionData?.FactionId is not { } fid)
+                {
+                    error = "typewriter-faction-missing";
+                    return false;
+                }
+
+                if (factionData.IsLeader)
+                {
+                    error = "typewriter-leader-cannot-leave";
+                    return false;
+                }
+
+                LeaveFaction(user, fid, paper);
+                return true;
+            }
+
+            default:
+                error = "typewriter-unknown-form";
+                return false;
         }
     }
 
