@@ -1,3 +1,4 @@
+using Content.Shared._UU.Identity;
 using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
 
@@ -87,6 +88,18 @@ public sealed partial class WorkIdCardComponent : Component
     /// <summary>Данные перенесены — карта выдана.</summary>
     [DataField, AutoNetworkedField]
     public bool Issued;
+
+    /// <summary>Место работы: свободный текст, задаётся консолью работодателя.</summary>
+    [DataField, AutoNetworkedField]
+    public string? Workplace;
+
+    /// <summary>Тег доступа на карте: его читают только наши системы. Виден лишь в окне карты.</summary>
+    [DataField, AutoNetworkedField]
+    public string? Tag;
+
+    /// <summary>Слепок для фотографии на карте.</summary>
+    [DataField, AutoNetworkedField]
+    public PhotoSnapshot? Photo;
 }
 
 /// <summary>

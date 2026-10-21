@@ -1,0 +1,28 @@
+- type: entity
+  parent: BaseItem
+  id: PhotoCamera
+  name: photo camera
+  description: A simple camera that takes portrait photographs for work IDs.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/travel_camera.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: PhotoCamera
+
+- type: entity
+  parent: BaseItem
+  id: WorkPhoto
+  name: photograph
+  description: A portrait photograph. Can be inserted into an employer console.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/photograph.rsi
+    state: black
+  - type: Item
+    size: Tiny
+  - type: WorkPhoto
+  - type: Tag
+    tags:
+    - Document
