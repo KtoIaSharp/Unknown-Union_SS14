@@ -48,6 +48,10 @@
       whitelist:
         components:
         - WorkPhoto
+  - type: UserInterface
+    interfaces:
+      enum.WorkIdConsoleUiKey.Console:
+        type: WorkIdConsoleBui
   - type: ItemSlots
   - type: ContainerContainer
     containers:

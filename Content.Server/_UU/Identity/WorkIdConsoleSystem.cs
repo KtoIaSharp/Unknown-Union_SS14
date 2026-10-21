@@ -97,11 +97,10 @@ public sealed class WorkIdConsoleSystem : EntitySystem
 
     private void Open(Entity<WorkIdConsoleComponent> ent, EntityUid user)
     {
+        // Окно открывается всегда: если питание пропало, игрок увидит это в самом окне,
+        // а не будет гадать, почему консоль не реагирует.
         if (!_power.IsPowered(ent.Owner))
-        {
             _popup.PopupEntity(Loc.GetString("work-console-no-power"), user, user);
-            return;
-        }
 
         if (!CanUse(ent, user))
         {
