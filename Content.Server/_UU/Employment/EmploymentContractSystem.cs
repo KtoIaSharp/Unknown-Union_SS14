@@ -257,6 +257,10 @@ public sealed class EmploymentContractSystem : EntitySystem
             canSignAsState = faction.IsLeader;
         }
 
+        var body = TryComp<PaperComponent>(ent.Owner, out var paperComponent)
+            ? paperComponent.Content
+            : string.Empty;
+
         var state = new EmploymentContractBuiState(
             comp.Worker,
             comp.Position,
@@ -267,7 +271,8 @@ public sealed class EmploymentContractSystem : EntitySystem
             comp.WorkerSignature,
             comp.WorkerSignatureLabel,
             canSignAsState,
-            stateName);
+            stateName,
+            body);
 
         _ui.SetUiState(ent.Owner, EmploymentContractUiKey.Contract, state);
     }

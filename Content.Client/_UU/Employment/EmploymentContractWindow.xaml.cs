@@ -34,6 +34,9 @@ public sealed partial class EmploymentContractWindow : DefaultWindow
 
     public void UpdateState(EmploymentContractBuiState state)
     {
+        BodyLabel.SetMessage(state.Body);
+        BodyLabel.Visible = !string.IsNullOrWhiteSpace(state.Body);
+
         WorkerInput.Text = state.Worker ?? string.Empty;
         PositionInput.Text = state.Position ?? string.Empty;
         EmployerInput.Text = state.Employer ?? string.Empty;

@@ -87,16 +87,8 @@ public sealed class FrequencySetMessage : BoundUserInterfaceMessage
 }
 
 [Serializable, NetSerializable]
-public sealed class RadioSendMessage : BoundUserInterfaceMessage
-{
-    public readonly string Message;
-    public RadioSendMessage(string message) => Message = message;
-}
-
-[Serializable, NetSerializable]
 public enum FrequencyUiKey
 {
     Transmitter,
-    Radio,
     Tower,
 }

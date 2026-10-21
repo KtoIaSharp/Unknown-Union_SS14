@@ -19,6 +19,9 @@
 
         <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
 
+        <RichTextLabel Name="BodyLabel" StyleClasses="LabelSubText" MaxWidth="440"
+                       Margin="10 0 10 6" />
+
         <BoxContainer Orientation="Vertical" Margin="10 0 10 0" HorizontalExpand="True">
             <Label Text="{Loc 'employment-contract-worker'}" StyleClasses="ConsoleSubHeading" />
             <LineEdit Name="WorkerInput" PlaceHolder="{Loc 'employment-contract-worker-placeholder'}"

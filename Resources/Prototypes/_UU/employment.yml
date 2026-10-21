@@ -43,7 +43,8 @@
   - type: EmploymentContract
   - type: UserInterface
     interfaces:
-      enum.PaperUiKey.Key:
-        type: PaperBoundUserInterface
+      # Окно обычной бумаги здесь намеренно не регистрируется: через него можно
+      # переписать текст уже оформленного договора. Договор открывается только
+      # собственным окном, где содержимое править нельзя.
       enum.EmploymentContractUiKey.Contract:
         type: EmploymentContractBui

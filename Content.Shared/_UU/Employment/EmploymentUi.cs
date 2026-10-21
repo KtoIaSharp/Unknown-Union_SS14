@@ -34,6 +34,9 @@ public sealed class EmploymentContractBuiState : BoundUserInterfaceState
     /// <summary>Название государства подписанта, если он вообще в нём состоит.</summary>
     public readonly string? StateName;
 
+    /// <summary>Текст самого бланка: договор — это обычный лист бумаги со своим содержимым.</summary>
+    public readonly string Body;
+
     public EmploymentContractBuiState(
         string? worker,
         string? position,
@@ -44,7 +47,8 @@ public sealed class EmploymentContractBuiState : BoundUserInterfaceState
         string? workerSignature,
         string? workerSignatureLabel,
         bool canSignAsState,
-        string? stateName)
+        string? stateName,
+        string body)
     {
         Worker = worker;
         Position = position;
@@ -56,6 +60,7 @@ public sealed class EmploymentContractBuiState : BoundUserInterfaceState
         WorkerSignatureLabel = workerSignatureLabel;
         CanSignAsState = canSignAsState;
         StateName = stateName;
+        Body = body;
     }
 }
 
