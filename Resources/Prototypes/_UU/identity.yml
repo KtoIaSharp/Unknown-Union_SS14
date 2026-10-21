@@ -26,3 +26,57 @@
   - type: Tag
     tags:
     - Document
+
+- type: entity
+  parent: BaseStructure
+  id: WorkIdConsole
+  name: employer console
+  description: A console that fills in work IDs and stores the state's work tags.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: WorkIdConsole
+    cardSlot:
+      insertSound: /Audio/Machines/id_insert.ogg
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      whitelist:
+        components:
+        - WorkIdCard
+    photoSlot:
+      insertSound: /Audio/Machines/scanning.ogg
+      ejectSound: /Audio/Machines/tray_eject.ogg
+      whitelist:
+        components:
+        - WorkPhoto
+  - type: ItemSlots
+  - type: ContainerContainer
+    containers:
+      card: !type:ContainerSlot { }
+      photo: !type:ContainerSlot { }
+  - type: Sprite
+    # Основа — штатный спрайт консоли, сверху собственный экран UU.
+    noRot: true
+    sprite: Structures/Machines/computers.rsi
+    layers:
+    - map: [ "body" ]
+      state: computer
+    - map: [ "screen" ]
+      sprite: _UU/work_console.rsi
+      state: screen
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.45,-0.35,0.45,0.35"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MidImpassable
+        - LowImpassable
+  - type: ApcPowerReceiver
+    powerLoad: 150
+  - type: ExtensionCableReceiver
+  - type: InteractionOutline
+  - type: Anchorable

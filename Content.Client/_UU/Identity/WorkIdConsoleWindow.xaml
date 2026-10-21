@@ -1,0 +1,63 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'work-console-window-title'}"
+               MinSize="480 520">
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
+    <BoxContainer Orientation="Vertical">
+        <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
+            <EntityPrototypeView Name="DeviceView" Scale="1.5 1.5" MinSize="48 48"
+                                 Margin="0 0 8 0" VerticalAlignment="Center" />
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
+                <Label Text="{Loc 'work-console-window-title'}" StyleClasses="ConsoleHeading" />
+                <Label Name="FactionLabel" StyleClasses="LabelSubText" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
+
+        <BoxContainer Orientation="Horizontal" Margin="10 0 10 0" SeparationOverride="12">
+            <Label Name="CardStatus" StyleClasses="LabelSubText" />
+            <Label Name="PhotoStatus" StyleClasses="LabelSubText" />
+        </BoxContainer>
+
+        <Control MinSize="0 6" />
+
+        <BoxContainer Orientation="Vertical" Margin="10 0 10 0" SeparationOverride="2">
+            <Label Text="{Loc 'work-card-holder'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="HolderInput" PlaceHolder="{Loc 'work-console-holder-placeholder'}" HorizontalExpand="True" />
+            <Label Text="{Loc 'work-card-position'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="PositionInput" PlaceHolder="{Loc 'work-console-position-placeholder'}" HorizontalExpand="True" />
+            <Label Text="{Loc 'work-card-employer'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="EmployerInput" PlaceHolder="{Loc 'work-console-employer-placeholder'}" HorizontalExpand="True" />
+            <Label Text="{Loc 'work-card-workplace'}" StyleClasses="ConsoleSubHeading" />
+            <LineEdit Name="WorkplaceInput" PlaceHolder="{Loc 'work-console-workplace-placeholder'}" HorizontalExpand="True" />
+        </BoxContainer>
+
+        <Control MinSize="0 6" />
+
+        <BoxContainer Orientation="Horizontal" Margin="10 0 10 0" SeparationOverride="8">
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                <Label Text="{Loc 'work-card-tag'}" StyleClasses="ConsoleSubHeading" />
+                <OptionButton Name="TagSelect" HorizontalExpand="True" />
+            </BoxContainer>
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
+                <Label Text="{Loc 'work-console-new-tag'}" StyleClasses="ConsoleSubHeading" />
+                <LineEdit Name="NewTagInput" PlaceHolder="{Loc 'work-console-new-tag-placeholder'}" HorizontalExpand="True" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <CheckBox Name="PhotoCheck" Text="{Loc 'work-console-apply-photo'}" Margin="10 6 10 0" Pressed="True" />
+
+        <Control MinSize="0 8" />
+
+        <BoxContainer Orientation="Horizontal" Margin="10 0 10 0" SeparationOverride="8" HorizontalAlignment="Center">
+            <Button Name="ApplyButton" Text="{Loc 'work-console-apply'}" StyleClasses="ButtonColorRed" MinWidth="160" />
+            <Button Name="AccessButton" Text="{Loc 'work-console-access'}" StyleClasses="ButtonColorRed" MinWidth="160" />
+        </BoxContainer>
+
+        <Control MinSize="0 10" />
+        <Label Text="{Loc 'work-console-footer'}" StyleClasses="LabelSubText"
+               HorizontalAlignment="Center" Margin="10 0 10 8" />
+    </BoxContainer>
+</DefaultWindow>
