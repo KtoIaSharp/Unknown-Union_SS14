@@ -24,7 +24,7 @@ namespace Content.Server._UU.FactionSystem;
 public sealed class FactionSystem : EntitySystem
 {
     [Dependency] private readonly Content.Server._UU.CellSystem.CellSystem _cellSystem = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+    [Dependency] private readonly Content.Server._UU.Office.TextPromptSystem _textPrompt = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly MetaDataSystem _meta = default!;
@@ -35,7 +35,7 @@ public sealed class FactionSystem : EntitySystem
 
     private const string WriteTag = "Write";
 
-    // Правка: название государства — свободный пользовательский ввод из QuickDialog, который
+    // Правка: название государства — свободный пользовательский ввод из окна UU (TextPromptEui), который
     // уходит в глобальные анонсы, метаданные бумаги и сетевое состояние. Ограничиваем длину.
     private const int MaxFactionNameLength = 48;
 
@@ -285,10 +285,15 @@ public sealed class FactionSystem : EntitySystem
                     return false;
                 }
 
-                _quickDialog.OpenDialog(actor.PlayerSession,
-                    Loc.GetString("faction-create-dialog-title"),
-                    Loc.GetString("faction-create-dialog-prompt"),
-                    (string newName) =>
+                _textPrompt.Open(actor.PlayerSession,
+                    new TextPromptEuiState(
+                        Loc.GetString("faction-create-dialog-title"),
+                        Loc.GetString("faction-create-dialog-prompt"),
+                        Loc.GetString("faction-name-placeholder"),
+                        MaxFactionNameLength,
+                        Loc.GetString("text-prompt-submit"),
+                        Loc.GetString("text-prompt-cancel")),
+                    newName =>
                     {
                         if (string.IsNullOrWhiteSpace(newName))
                         {
@@ -316,10 +321,15 @@ public sealed class FactionSystem : EntitySystem
                     return false;
                 }
 
-                _quickDialog.OpenDialog(cellActor.PlayerSession,
-                    Loc.GetString("cell-create-dialog-title"),
-                    Loc.GetString("cell-create-dialog-prompt"),
-                    (string cellName) =>
+                _textPrompt.Open(cellActor.PlayerSession,
+                    new TextPromptEuiState(
+                        Loc.GetString("cell-create-dialog-title"),
+                        Loc.GetString("cell-create-dialog-prompt"),
+                        Loc.GetString("cell-name-placeholder"),
+                        48,
+                        Loc.GetString("text-prompt-submit"),
+                        Loc.GetString("text-prompt-cancel")),
+                    cellName =>
                     {
                         if (string.IsNullOrWhiteSpace(cellName))
                         {
@@ -462,7 +472,7 @@ public sealed class FactionSystem : EntitySystem
         if (!_cellSystem.CreateCell(player, cellName, out cellName))
             return;
 
-        // Правка: название из QuickDialog не должно уходить в бумагу без ограничения длины.
+        // Правка: название из окна ввода не должно уходить в бумагу без ограничения длины.
         cellName = ClampFactionName(cellName) ?? cellName;
 
         WriteDocumentText(paper, "faction-doc-cell", ("name", (object)cellName), comment);
@@ -476,7 +486,7 @@ public sealed class FactionSystem : EntitySystem
 
     private void CreateFaction(EntityUid player, string factionName, Entity<PaperComponent> paper)
     {
-        // Правка: режем пользовательский ввод из QuickDialog до разумной длины (см. MaxFactionNameLength).
+        // Правка: режем пользовательский ввод из окна ввода до разумной длины (см. MaxFactionNameLength).
         factionName = ClampFactionName(factionName) ?? factionName;
 
         var factionId = _nextFactionId++;

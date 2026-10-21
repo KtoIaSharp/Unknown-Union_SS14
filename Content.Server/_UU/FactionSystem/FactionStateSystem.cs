@@ -1,6 +1,7 @@
 using Content.Server.Administration;
 using Content.Server.Chat.Systems;
 using Content.Shared._UU.Faction;
+using Content.Shared._UU.Office;
 using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Content.Shared.Verbs;
@@ -15,11 +16,11 @@ public sealed class FactionStateSystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly QuickDialogSystem _quickDialog = default!;
+    [Dependency] private readonly Content.Server._UU.Office.TextPromptSystem _textPrompt = default!;
 
     private const string WriteTag = "Write";
 
-    // Правка: новое название государства — свободный ввод из QuickDialog, ограничиваем длину.
+    // Правка: новое название государства — свободный ввод из окна UU (TextPromptEui), ограничиваем длину.
     private const int MaxFactionNameLength = 48;
 
     public override void Initialize()
@@ -63,10 +64,15 @@ public sealed class FactionStateSystem : EntitySystem
             Priority = 10,
             Act = () =>
             {
-                _quickDialog.OpenDialog(actor.PlayerSession,
-                    Loc.GetString("faction-rename-dialog-title"),
-                    Loc.GetString("faction-rename-dialog-prompt"),
-                    (string newName) =>
+                _textPrompt.Open(actor.PlayerSession,
+                    new TextPromptEuiState(
+                        Loc.GetString("faction-rename-dialog-title"),
+                        Loc.GetString("faction-rename-dialog-prompt"),
+                        Loc.GetString("faction-name-placeholder"),
+                        MaxFactionNameLength,
+                        Loc.GetString("text-prompt-submit"),
+                        Loc.GetString("text-prompt-cancel")),
+                    newName =>
                     {
                         if (string.IsNullOrWhiteSpace(newName))
                         {
@@ -86,10 +92,15 @@ public sealed class FactionStateSystem : EntitySystem
             Priority = 5,
             Act = () =>
             {
-                _quickDialog.OpenDialog(actor.PlayerSession,
-                    Loc.GetString("faction-disband-dialog-title"),
-                    Loc.GetString("faction-disband-dialog-prompt"),
-                    (string confirm) =>
+                _textPrompt.Open(actor.PlayerSession,
+                    new TextPromptEuiState(
+                        Loc.GetString("faction-disband-dialog-title"),
+                        Loc.GetString("faction-disband-dialog-prompt"),
+                        Loc.GetString("faction-disband-placeholder"),
+                        48,
+                        Loc.GetString("text-prompt-submit"),
+                        Loc.GetString("text-prompt-cancel")),
+                    confirm =>
                     {
                         if (confirm.ToLower() != Loc.GetString("faction-disband-confirm-keyword").ToLower())
                         {
@@ -117,7 +128,7 @@ public sealed class FactionStateSystem : EntitySystem
 
     private void RenameFaction(int factionId, string oldName, string newName)
     {
-        // Правка: имя из QuickDialog режем по длине, иначе оно уходит в анонс и бумагу без ограничений.
+        // Правка: имя из окна ввода режем по длине, иначе оно уходит в анонс и бумагу без ограничений.
         newName = ClampFactionName(newName) ?? newName;
 
         var query = EntityQuery<FactionComponent>();
