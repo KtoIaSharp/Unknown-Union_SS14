@@ -13,6 +13,7 @@ ent-WorkIdConsole = консоль работодателя
     .desc = Заполняет удостоверения о работе, хранит рабочие теги государства и переносит на карту фотографию.
 
 # --- удостоверение ---
+work-card-issued-name = удостоверение: {$holder}
 work-card-window-title = Удостоверение о работе
 work-card-holder = Владелец:
 work-card-position = Должность:

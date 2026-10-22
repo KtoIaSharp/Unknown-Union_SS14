@@ -35,4 +35,11 @@ public sealed partial class WorkIdConsoleComponent : Component
     /// <summary>Кто может менять настройки консоли. Пусто — как <see cref="UseTags"/>.</summary>
     [DataField, AutoNetworkedField]
     public List<string> EditTags = new();
+
+    /// <summary>
+    ///     Теги, заведённые на консоли до её привязки к государству.
+    ///     После привязки они переносятся в реестр государства.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public List<string> LocalTags = new();
 }

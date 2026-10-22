@@ -29,6 +29,7 @@ public sealed class WorkIdConsoleSystem : EntitySystem
     [Dependency] private readonly PowerReceiverSystem _power = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly WorkTagSystem _tags = default!;
+    [Dependency] private readonly MetaDataSystem _metaData = default!;
 
     public override void Initialize()
     {
@@ -99,6 +100,11 @@ public sealed class WorkIdConsoleSystem : EntitySystem
     {
         ent.Comp.FactionId = factionId;
         ent.Comp.FactionName = factionName;
+
+        // Теги, заведённые до привязки, переезжают в реестр государства.
+        foreach (var local in ent.Comp.LocalTags)
+            _tags.TryAddTag(factionId, local);
+
         Dirty(ent);
         _popup.PopupEntity(Loc.GetString("work-console-bound", ("name", (object)FormattedMessage.EscapeText(factionName))), user, user);
         UpdateBui(ent, true);
@@ -160,10 +166,18 @@ public sealed class WorkIdConsoleSystem : EntitySystem
         {
             var tag = WorkTagSystem.Clamp(args.Tag);
 
+            // Тег создаётся при заполнении карты. Если консоль ещё не привязана
+            // к государству, тег живёт на самой консоли — иначе игрок не увидит
+            // в списке то, что только что ввёл.
             if (ent.Comp.FactionId is { } factionId)
             {
                 // Создавать теги может любой, кому разрешено пользоваться консолью.
                 _tags.TryAddTag(factionId, tag);
+            }
+            else if (!ent.Comp.LocalTags.Contains(tag))
+            {
+                ent.Comp.LocalTags.Add(tag);
+                Dirty(ent);
             }
 
             card.Tag = tag;
@@ -180,6 +194,12 @@ public sealed class WorkIdConsoleSystem : EntitySystem
         }
 
         card.Issued = true;
+
+        // Пустых бланков больше нет: консоль сама подписывает карту именем владельца,
+        // чтобы в руках и в инвентаре она читалась как документ, а не «пустое удостоверение».
+        if (!string.IsNullOrWhiteSpace(card.Holder))
+            _metaData.SetEntityName(cardUid, Loc.GetString("work-card-issued-name", ("holder", card.Holder!)));
+
         Dirty(cardUid, card);
         _popup.PopupEntity(Loc.GetString("work-console-applied"), user, user);
         UpdateBui(ent, true);
@@ -250,9 +270,16 @@ public sealed class WorkIdConsoleSystem : EntitySystem
         if (comp.PhotoSlot.Item is { } photoUid && TryComp<WorkPhotoComponent>(photoUid, out var photoComp))
             photo = photoComp.Snapshot;
 
-        var tags = comp.FactionId is { } factionId
-            ? _tags.GetTags(factionId).ToList()
-            : new List<string>();
+        var tags = new List<string>();
+
+        if (comp.FactionId is { } factionId)
+            tags.AddRange(_tags.GetTags(factionId));
+
+        foreach (var local in comp.LocalTags)
+        {
+            if (!tags.Contains(local))
+                tags.Add(local);
+        }
 
         // Открывающий окно: считаем права по его карте.
         var actors = _ui.GetActors(ent.Owner, WorkIdConsoleUiKey.Console);

@@ -16,12 +16,6 @@
         type: WorkIdCardBui
 
 - type: entity
-  parent: WorkIdCard
-  id: WorkIdCardBlank
-  name: пустое удостоверение о работе
-  description: Пластиковая заготовка удостоверения. Заполняется в консоли работодателя.
-
-- type: entity
   parent: BaseItem
   id: WorkIdWriter
   name: ручной работодатель

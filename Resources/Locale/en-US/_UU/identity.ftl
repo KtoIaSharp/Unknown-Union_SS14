@@ -13,6 +13,7 @@ ent-WorkIdConsole = employer console
     .desc = Fills in work IDs, stores the state's work tags and transfers photographs onto cards.
 
 # --- work card ---
+work-card-issued-name = work ID: {$holder}
 work-card-window-title = Work ID
 work-card-holder = Holder:
 work-card-position = Position:
