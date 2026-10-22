@@ -51,6 +51,11 @@
       visible: false
   - type: Paper
   - type: EmploymentContract
+  # Бумага из родителя приносит ActivatableUI с ключом PaperUiKey, а интерфейс бумаги
+  # мы сняли. Переопределяем ключ на свой, иначе клик по договору логирует
+  # «Missing UI Key» и ничего не делает (нашёл ss14_ui_check).
+  - type: ActivatableUI
+    key: enum.EmploymentContractUiKey.Contract
   - type: UserInterface
     interfaces:
       # Окно обычной бумаги здесь намеренно не регистрируется: через него можно
