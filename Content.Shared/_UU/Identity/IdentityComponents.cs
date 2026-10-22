@@ -57,9 +57,12 @@ public sealed partial class PhotoSnapshot
     [DataField]
     public List<string> Clothing = new();
 
-    /// <summary>Заглушка под готовый отрендеренный портрет (спрайт/состояние).</summary>
+    /// <summary>
+    ///     Снимок спрайта, снятый клиентом фотографа: PNG в base64.
+    ///     Хранится на самом предмете, поэтому фото переживает уход человека из PVS.
+    /// </summary>
     [DataField]
-    public string? Portrait;
+    public string? ImageBase64;
 }
 
 /// <summary>

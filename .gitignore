@@ -331,3 +331,4 @@ error.glsl
 # Сгенерированные превью спрайтов (Tools/gen_radio_sprites.py --preview)
 sprites_preview/
 
+bin_verify/

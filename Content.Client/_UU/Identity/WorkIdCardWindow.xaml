@@ -15,7 +15,13 @@
         <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 8" SetHeight="2" />
 
         <BoxContainer Orientation="Horizontal" Margin="10 0 10 0" SeparationOverride="10">
-            <BoxContainer Name="PhotoBox" Orientation="Vertical" MinSize="96 96" VerticalAlignment="Top" />
+            <PanelContainer StyleClasses="PdaBorderRect" MinSize="96 96" VerticalAlignment="Top">
+                <BoxContainer Orientation="Vertical" VerticalAlignment="Center">
+                    <TextureRect Name="PhotoTexture" MinSize="92 92" Stretch="KeepAspectCentered" />
+                    <Label Name="NoPhotoLabel" Text="{Loc 'work-card-no-photo'}"
+                           StyleClasses="LabelSubText" HorizontalAlignment="Center" MaxWidth="90" />
+                </BoxContainer>
+            </PanelContainer>
 
             <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="2">
                 <Label Text="{Loc 'work-card-holder'}" StyleClasses="ConsoleSubHeading" />

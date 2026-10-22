@@ -36,6 +36,20 @@ public sealed class PhotoCameraSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<PhotoCameraComponent, AfterInteractEvent>(OnAfterInteract);
         SubscribeLocalEvent<PhotoCameraComponent, MapInitEvent>(OnMapInit);
+        SubscribeNetworkEvent<PhotoCaptureResponseEvent>(OnCaptureResponse);
+    }
+
+    private void OnCaptureResponse(PhotoCaptureResponseEvent ev)
+    {
+        var photo = GetEntity(ev.Photo);
+        if (!TryComp<WorkPhotoComponent>(photo, out var photoComp) || photoComp.Snapshot == null)
+            return;
+
+        if (string.IsNullOrEmpty(ev.ImageBase64))
+            return;
+
+        photoComp.Snapshot.ImageBase64 = ev.ImageBase64;
+        Dirty(photo, photoComp);
     }
 
     private void OnMapInit(Entity<PhotoCameraComponent> ent, ref MapInitEvent args)
@@ -70,6 +84,16 @@ public sealed class PhotoCameraSystem : EntitySystem
         }
 
         _meta.SetEntityName(photo, Loc.GetString("work-photo-name", ("name", Name(target))));
+
+        // Пиксели спрайта есть только у клиента фотографа — просим снимок у него.
+        if (TryComp<ActorComponent>(args.User, out var actor))
+        {
+            RaiseNetworkEvent(new PhotoCaptureRequestEvent
+            {
+                Photo = GetNetEntity(photo),
+                Target = GetNetEntity(target),
+            }, actor.PlayerSession.Channel);
+        }
 
         if (!_hands.TryForcePickupAnyHand(args.User, photo))
             _popup.PopupEntity(Loc.GetString("photo-camera-taken-floor"), args.User, args.User);
