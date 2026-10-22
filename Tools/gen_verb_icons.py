@@ -118,6 +118,37 @@ def draw_document(c: Canvas) -> None:
     c.hline(11, 16, 22, DIM)
 
 
+def draw_invite(c: Canvas) -> None:
+    """Приглашение: конверт."""
+    c.rect(5, 9, 26, 22, DARK)
+    c.frame(5, 9, 26, 22, INK)
+    for i in range(9):
+        c.dot(6 + i, 10 + i, DIM)
+        c.dot(25 - i, 10 + i, DIM)
+    c.hline(11, 20, 16, PURPLE)
+    c.hline(13, 18, 18, PURPLE)
+
+
+def draw_rename(c: Canvas) -> None:
+    """Переименовать: карандаш по листу."""
+    c.rect(5, 6, 18, 26, DARK)
+    c.frame(5, 6, 18, 26, INK)
+    c.hline(8, 15, 10, DIM)
+    c.hline(8, 13, 13, DIM)
+    for i in range(11):
+        c.rect(14 + i, 25 - i, 17 + i, 28 - i, GOLD)
+    c.rect(24, 14, 27, 17, PURPLE)
+
+
+def draw_disband(c: Canvas) -> None:
+    """Распустить: печать с крестом."""
+    c.frame(6, 6, 25, 25, GOLD)
+    c.rect(6, 6, 25, 8, DARK)
+    for i in range(13):
+        c.dot(10 + i, 11 + i, INK)
+        c.dot(21 - i, 11 + i, INK)
+
+
 STATES = {
     "open_console": draw_console,
     "bind_faction": draw_bind,
@@ -126,6 +157,9 @@ STATES = {
     "sign_personal": lambda c: draw_pen(c, seal=False),
     "sign_state": lambda c: draw_pen(c, seal=True),
     "document": draw_document,
+    "invite": draw_invite,
+    "rename": draw_rename,
+    "disband": draw_disband,
 }
 
 

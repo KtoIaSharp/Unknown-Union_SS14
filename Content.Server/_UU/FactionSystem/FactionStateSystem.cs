@@ -61,6 +61,7 @@ public sealed class FactionStateSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("verb-rename-faction"),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "rename"),
             Priority = 10,
             Act = () =>
             {
@@ -89,6 +90,7 @@ public sealed class FactionStateSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("verb-disband-faction"),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "disband"),
             Priority = 5,
             Act = () =>
             {

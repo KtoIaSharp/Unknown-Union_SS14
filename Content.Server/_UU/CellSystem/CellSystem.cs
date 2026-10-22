@@ -128,6 +128,7 @@ public sealed class CellSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("verb-cell-invite", ("name", (object)cellName)),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "invite"),
             Priority = 10,
             Act = () =>
             {

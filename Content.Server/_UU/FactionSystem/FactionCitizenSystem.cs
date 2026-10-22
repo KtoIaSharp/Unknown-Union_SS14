@@ -87,6 +87,7 @@ public sealed class FactionCitizenSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("verb-sign-entry-document", ("name", (object)factionName)),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "sign_personal"),
             Category = signCategory,
             Priority = 10,
             Act = () =>

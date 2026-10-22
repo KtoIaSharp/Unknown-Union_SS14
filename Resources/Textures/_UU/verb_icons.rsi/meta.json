@@ -25,6 +25,15 @@
     },
     {
       "name": "document"
+    },
+    {
+      "name": "invite"
+    },
+    {
+      "name": "rename"
+    },
+    {
+      "name": "disband"
     }
   ]
 }
