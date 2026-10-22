@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "open_console"
+    },
+    {
+      "name": "bind_faction"
+    },
+    {
+      "name": "open_card"
+    },
+    {
+      "name": "open_contract"
+    },
+    {
+      "name": "sign_personal"
+    },
+    {
+      "name": "sign_state"
+    },
+    {
+      "name": "document"
+    }
+  ]
+}

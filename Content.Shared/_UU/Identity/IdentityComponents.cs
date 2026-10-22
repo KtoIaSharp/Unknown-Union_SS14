@@ -42,6 +42,10 @@ public sealed partial class PhotoSnapshot
     [DataField]
     public Color HairColor = Color.White;
 
+    /// <summary>Цвет кожи — по нему рисуется лицо на портрете.</summary>
+    [DataField]
+    public Color SkinColor = Color.FromHex("#E0B58A");
+
     /// <summary>Борода или усы: прототип.</summary>
     [DataField]
     public string? FacialHairStyle;

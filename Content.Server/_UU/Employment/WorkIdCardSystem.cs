@@ -33,6 +33,7 @@ public sealed class WorkIdCardSystem : EntitySystem
         args.Verbs.Add(new Verb
         {
             Text = Loc.GetString("work-id-verb-open"),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "open_card"),
             Priority = 10,
             Act = () => _ui.OpenUi(ent.Owner, WorkIdCardUiKey.Card, user),
         });

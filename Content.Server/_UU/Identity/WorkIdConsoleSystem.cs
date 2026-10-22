@@ -5,6 +5,7 @@ using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
 using Content.Shared._UU.Identity;
 using Content.Shared.Containers.ItemSlots;
+using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
@@ -37,6 +38,7 @@ public sealed class WorkIdConsoleSystem : EntitySystem
         SubscribeLocalEvent<WorkIdConsoleComponent, ComponentRemove>(OnRemove);
         SubscribeLocalEvent<WorkIdConsoleComponent, ContainerModifiedMessage>(OnSlotChanged);
         SubscribeLocalEvent<WorkIdConsoleComponent, GetVerbsEvent<Verb>>(OnVerb);
+        SubscribeLocalEvent<WorkIdConsoleComponent, ActivateInWorldEvent>(OnActivate);
         SubscribeLocalEvent<WorkIdConsoleComponent, BoundUIOpenedEvent>(OnUiOpened);
         SubscribeLocalEvent<WorkIdConsoleComponent, WorkIdConsoleApplyMessage>(OnApply);
         SubscribeLocalEvent<WorkIdConsoleComponent, WorkIdConsoleAccessMessage>(OnAccess);
@@ -60,6 +62,19 @@ public sealed class WorkIdConsoleSystem : EntitySystem
             UpdateBui(ent, ent.Comp.CardSlot.Item.HasValue);
     }
 
+    /// <summary>
+    ///     Консоль открывается взаимодействием (клик пустой рукой), а не вербом —
+    ///     так же, как остальная техника на станции.
+    /// </summary>
+    private void OnActivate(Entity<WorkIdConsoleComponent> ent, ref ActivateInWorldEvent args)
+    {
+        if (args.Handled || !args.Complex)
+            return;
+
+        Open(ent, args.User);
+        args.Handled = true;
+    }
+
     private void OnVerb(Entity<WorkIdConsoleComponent> ent, ref GetVerbsEvent<Verb> args)
     {
         if (!args.CanAccess || !args.CanInteract)
@@ -67,19 +82,13 @@ public sealed class WorkIdConsoleSystem : EntitySystem
 
         var user = args.User;
 
-        args.Verbs.Add(new Verb
-        {
-            Text = Loc.GetString("work-console-verb-open"),
-            Priority = 10,
-            Act = () => Open(ent, user),
-        });
-
         if (ent.Comp.FactionId == null && TryComp<FactionComponent>(user, out var faction) && faction.IsLeader
             && faction.FactionId is { } ownId && !string.IsNullOrWhiteSpace(faction.Faction))
         {
             args.Verbs.Add(new Verb
             {
                 Text = Loc.GetString("work-console-verb-bind"),
+                Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "bind_faction"),
                 Priority = 8,
                 Act = () => BindFaction(ent, ownId, faction.Faction!, user),
             });

@@ -126,6 +126,7 @@ public sealed class FactionSystem : EntitySystem
         args.Verbs.Add(new Verb()
         {
             Text = Loc.GetString("verb-expel-citizen", ("name", (object)targetName)),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "document"),
             Priority = 10,
             Act = () =>
             {
@@ -194,6 +195,7 @@ public sealed class FactionSystem : EntitySystem
             args.Verbs.Add(new Verb()
             {
                 Text = Loc.GetString("verb-personal-sign"),
+                Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "sign_personal"),
                 Category = signCategory,
                 Priority = 2,
                 Act = () =>
@@ -240,6 +242,7 @@ public sealed class FactionSystem : EntitySystem
             args.Verbs.Add(new Verb()
             {
                 Text = Loc.GetString("verb-state-sign", ("name", (object)factionName)),
+                Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "sign_state"),
                 Category = signCategory,
                 Priority = 1,
                 Act = () =>

@@ -59,6 +59,7 @@ public sealed class EmploymentContractSystem : EntitySystem
         args.Verbs.Add(new Verb
         {
             Text = Loc.GetString("employment-contract-verb-open"),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "open_contract"),
             Priority = 10,
             Act = () => _ui.OpenUi(ent.Owner, EmploymentContractUiKey.Contract, user),
         });

@@ -101,8 +101,18 @@ public sealed class PhotoCameraSystem : EntitySystem
             HumanoidVisualLayers.FacialHair,
         };
 
-        if (_body.TryGatherMarkingsData(target, photoLayers, out _, out _, out var applied))
+        if (_body.TryGatherMarkingsData(target, photoLayers, out var profiles, out _, out var applied))
         {
+            // Цвет кожи берём из первого органа, у которого он задан — по нему рисуется лицо.
+            foreach (var organProfile in profiles.Values)
+            {
+                if (organProfile.SkinColor == Color.White)
+                    continue;
+
+                snapshot.SkinColor = organProfile.SkinColor;
+                break;
+            }
+
             foreach (var organMarkings in applied.Values)
             {
                 if (snapshot.HairStyle == null
