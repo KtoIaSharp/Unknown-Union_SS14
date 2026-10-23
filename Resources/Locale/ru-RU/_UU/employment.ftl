@@ -56,3 +56,4 @@ work-id-examine-employer = Работодатель: {$employer}
 work-id-examine-date = Дата: {$date}
 work-id-examine-signed-state = [color=gold]Подписано от имени[/color] {$name}
 work-id-examine-signed-person = Подпись: {$name}
+employment-contract-already-signed = Эта сторона уже подписала договор.

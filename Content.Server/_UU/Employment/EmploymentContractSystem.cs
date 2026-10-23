@@ -121,6 +121,18 @@ public sealed class EmploymentContractSystem : EntitySystem
             return;
         }
 
+        // Подпись ставится один раз: уже подписанная сторона не подписывает снова,
+        // чтобы под договором не появлялось двух разных росчерков от одного лица.
+        var alreadySigned = args.AsEmployer
+            ? !string.IsNullOrWhiteSpace(ent.Comp.EmployerSignatureLabel)
+            : !string.IsNullOrWhiteSpace(ent.Comp.WorkerSignatureLabel);
+
+        if (alreadySigned)
+        {
+            _popup.PopupEntity(Loc.GetString("employment-contract-already-signed"), user, user);
+            return;
+        }
+
         string label;
         string sprite;
 

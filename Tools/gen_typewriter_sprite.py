@@ -63,17 +63,19 @@ class Canvas:
             self.dot(x, y, color)
 
 
-def draw(with_paper: bool) -> Canvas:
+def draw(paper: str) -> Canvas:
+    """paper: "none" — валик пуст, "blank" — пустой лист, "printed" — лист с текстом."""
     c = Canvas()
 
     # лист в валике (рисуем первым — валик перекрывает низ листа)
-    if with_paper:
+    if paper != "none":
         c.rect(9, 1, 22, 11, CARD)
         c.frame(9, 1, 22, 11, CARD_DARK)
-        c.hline(11, 20, 3, INK)
-        c.hline(11, 18, 5, INK)
-        c.hline(11, 20, 7, INK)
-        c.hline(11, 16, 9, INK)
+        if paper == "printed":
+            c.hline(11, 20, 3, INK)
+            c.hline(11, 18, 5, INK)
+            c.hline(11, 20, 7, INK)
+            c.hline(11, 16, 9, INK)
 
     # корпус
     c.rect(3, 17, 28, 26, DARK)
@@ -108,7 +110,7 @@ def draw(with_paper: bool) -> Canvas:
     return c
 
 
-STATES = {"icon": False, "paper": True}
+STATES = {"idle": "none", "loaded": "blank", "printed": "printed"}
 
 
 def main() -> int:
@@ -127,8 +129,8 @@ def main() -> int:
     if preview:
         out_dir.mkdir(exist_ok=True)
 
-    for name, with_paper in STATES.items():
-        canvas = draw(with_paper)
+    for name, paper in STATES.items():
+        canvas = draw(paper)
         canvas.image.save(folder / f"{name}.png")
         if preview:
             canvas.image.resize((SIZE * 6, SIZE * 6), Image.NEAREST).save(out_dir / f"typewriter_{name}_6x.png")

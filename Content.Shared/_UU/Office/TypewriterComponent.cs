@@ -23,8 +23,22 @@ public sealed partial class TypewriterComponent : Component
 [Serializable, NetSerializable]
 public enum TypewriterVisuals : byte
 {
-    /// <summary>Есть ли лист в валике.</summary>
-    HasPaper,
+    /// <summary>Три состояния спрайта: пусто, пустой лист, напечатанный лист.</summary>
+    State,
+}
+
+/// <summary>Что показывает спрайт машинки.</summary>
+[Serializable, NetSerializable]
+public enum TypewriterState : byte
+{
+    /// <summary>Валик пуст — листов нет.</summary>
+    Idle,
+
+    /// <summary>В валике чистый лист.</summary>
+    Loaded,
+
+    /// <summary>В валике лист с напечатанным текстом.</summary>
+    Printed,
 }
 
 /// <summary>Ключ интерфейса печатной машинки.</summary>

@@ -6,10 +6,13 @@
   },
   "states": [
     {
-      "name": "icon"
+      "name": "idle"
     },
     {
-      "name": "paper"
+      "name": "loaded"
+    },
+    {
+      "name": "printed"
     }
   ]
 }

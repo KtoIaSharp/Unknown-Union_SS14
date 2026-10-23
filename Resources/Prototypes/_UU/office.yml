@@ -23,14 +23,15 @@
     sprite: _UU/typewriter.rsi
     layers:
     - map: [ "body" ]
-      state: icon
+      state: idle
   - type: Appearance
   - type: GenericVisualizer
     visuals:
-      enum.TypewriterVisuals.HasPaper:
+      enum.TypewriterVisuals.State:
         body:
-          True: { state: paper }
-          False: { state: icon }
+          Idle: { state: idle }
+          Loaded: { state: loaded }
+          Printed: { state: printed }
   - type: ActivatableUI
     key: enum.TypewriterUiKey.Key
     inHandsOnly: false

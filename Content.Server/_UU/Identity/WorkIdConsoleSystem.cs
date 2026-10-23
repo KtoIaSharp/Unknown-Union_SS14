@@ -156,6 +156,14 @@ public sealed class WorkIdConsoleSystem : EntitySystem
             return;
         }
 
+        // Консоль не доводит до конца карту, которую никто не подписал:
+        // сначала работодатель ставит подпись на договоре и на карте.
+        if (string.IsNullOrWhiteSpace(card.EmployerSignatureLabel))
+        {
+            _popup.PopupEntity(Loc.GetString("work-console-card-unsigned"), user, user);
+            return;
+        }
+
         card.Holder = Clamp(args.Holder);
         card.Position = Clamp(args.Position);
         card.Employer = Clamp(args.Employer);

@@ -104,8 +104,12 @@ public sealed class TypewriterSystem : EntitySystem
 
     private void UpdateAppearance(Entity<TypewriterComponent> ent)
     {
-        var hasPaper = ent.Comp.PaperSlot.Item.HasValue;
-        _appearance.SetData(ent.Owner, TypewriterVisuals.HasPaper, hasPaper);
+        var state = TypewriterState.Idle;
+
+        if (ent.Comp.PaperSlot.Item is { } paperUid && TryComp<PaperComponent>(paperUid, out var paper))
+            state = string.IsNullOrWhiteSpace(paper.Content) ? TypewriterState.Loaded : TypewriterState.Printed;
+
+        _appearance.SetData(ent.Owner, TypewriterVisuals.State, state);
     }
 
     private void UpdateUi(Entity<TypewriterComponent> ent)

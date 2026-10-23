@@ -56,3 +56,4 @@ work-id-examine-employer = Employer: {$employer}
 work-id-examine-date = Date: {$date}
 work-id-examine-signed-state = [color=gold]Signed on behalf of[/color] {$name}
 work-id-examine-signed-person = Signature: {$name}
+employment-contract-already-signed = This party has already signed the contract.

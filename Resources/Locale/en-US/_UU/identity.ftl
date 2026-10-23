@@ -67,3 +67,7 @@ work-console-access-saved = Access lists updated.
 work-console-access-footer = An empty list on the left lets everyone in. Tags are created when a work ID is filled in.
 work-console-no-tags = No tags yet
 work-console-footer = Insert a work ID and a photograph. A tag is created by entering a new one and applied together with the data.
+work-console-card-unsigned = The console accepts only a signed work ID.
+
+ent-TypewriterKit = typewriter kit
+    .desc = A typewriter packed in a box. Unpack it with a screwdriver and place it.

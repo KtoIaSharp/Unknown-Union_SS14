@@ -1,0 +1,35 @@
+# Рецепты офисного оборудования UU. Результаты попадают в ServiceTechFab,
+# список добавлен в статический набор ServiceStatic (Packs/service.yml).
+
+- type: latheRecipe
+  id: TypewriterKit
+  result: TypewriterKit
+  completetime: 8
+  materials:
+    Steel: 1000
+    Plastic: 300
+
+- type: latheRecipe
+  id: PhotoCamera
+  result: PhotoCamera
+  completetime: 5
+  materials:
+    Steel: 400
+    Plastic: 200
+    Glass: 100
+
+- type: latheRecipe
+  id: WorkIdCard
+  result: WorkIdCard
+  completetime: 3
+  materials:
+    Plastic: 100
+
+- type: latheRecipe
+  id: WorkIdWriter
+  result: WorkIdWriter
+  completetime: 6
+  materials:
+    Steel: 500
+    Plastic: 250
+    Glass: 100
