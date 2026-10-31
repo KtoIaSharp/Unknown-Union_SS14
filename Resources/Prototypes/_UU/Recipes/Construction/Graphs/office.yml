@@ -1,0 +1,72 @@
+# Графы крафта офисного оборудования UU (меню крафта, не фабы).
+
+- type: constructionGraph
+  id: UUTypewriter
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: typewriter
+          steps:
+            - material: Steel
+              amount: 2
+              doAfter: 4
+            - material: Plastic
+              amount: 1
+              doAfter: 2
+    - node: typewriter
+      entity: Typewriter
+
+- type: constructionGraph
+  id: UUPhotoCamera
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: photo_camera
+          steps:
+            - material: Steel
+              amount: 1
+              doAfter: 2
+            - material: Plastic
+              amount: 1
+              doAfter: 2
+            - material: Glass
+              amount: 1
+              doAfter: 2
+    - node: photo_camera
+      entity: PhotoCamera
+
+- type: constructionGraph
+  id: UUWorkIdCard
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: work_id_card
+          steps:
+            - material: Plastic
+              amount: 1
+              doAfter: 3
+    - node: work_id_card
+      entity: WorkIdCard
+
+- type: constructionGraph
+  id: UUWorkIdWriter
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: work_id_writer
+          steps:
+            - material: Steel
+              amount: 1
+              doAfter: 2
+            - material: Plastic
+              amount: 1
+              doAfter: 2
+            - material: Glass
+              amount: 1
+              doAfter: 2
+    - node: work_id_writer
+      entity: WorkIdWriter

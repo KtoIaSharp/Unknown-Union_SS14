@@ -1,0 +1,25 @@
+# Крафт офисного оборудования UU: всё собирается игроком из материалов в руках,
+# фабы не используются.
+- type: construction
+  parent: BaseMachine
+  id: Typewriter
+  graph: UUTypewriter
+  targetNode: typewriter
+
+- type: construction
+  parent: BaseTool
+  id: PhotoCamera
+  graph: UUPhotoCamera
+  targetNode: photo_camera
+
+- type: construction
+  parent: BaseTool
+  id: WorkIdCard
+  graph: UUWorkIdCard
+  targetNode: work_id_card
+
+- type: construction
+  parent: BaseTool
+  id: WorkIdWriter
+  graph: UUWorkIdWriter
+  targetNode: work_id_writer

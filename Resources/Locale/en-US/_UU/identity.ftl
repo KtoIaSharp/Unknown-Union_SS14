@@ -69,5 +69,7 @@ work-console-no-tags = No tags yet
 work-console-footer = Insert a work ID and a photograph. A tag is created by entering a new one and applied together with the data.
 work-console-card-unsigned = The console accepts only a signed work ID.
 
-ent-TypewriterKit = typewriter kit
-    .desc = A typewriter packed in a box. Unpack it with a screwdriver and place it.
+ent-TypewriterKit = typewriter parts box
+    .desc = Parts for building a typewriter. Open the box to get the materials.
+
+kit-box-unpacked = You open the box and shake out the contents.

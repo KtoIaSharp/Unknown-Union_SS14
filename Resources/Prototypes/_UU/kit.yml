@@ -1,16 +1,19 @@
-# Коробка с печатной машинкой: игрок получает её в стартовом наборе,
-# распаковывает отвёрткой и ставит машинку у себя.
+# Коробка с деталями печатной машинки: игрок получает её в стартовом наборе
+# колониста. Внутри — материалы, из которых машинка собирается в меню крафта.
 - type: entity
   parent: BaseItem
   id: TypewriterKit
-  name: typewriter kit
-  description: A typewriter packed in a box. Unpack it with a screwdriver.
+  name: typewriter parts box
+  description: A box of parts for building a typewriter. Open it to get the materials.
   components:
   - type: Sprite
     sprite: Objects/Storage/boxes.rsi
     state: box
   - type: Item
     size: Normal
-  - type: Flatpack
-    qualityNeeded: Screwing
-    entity: Typewriter
+  - type: KitBox
+    contents:
+    # Материалы лежат стопками: крафт в меню строительства берёт материал
+    # из одного стека, отдельные листы он не сложит.
+    - SheetSteel10
+    - SheetPlastic10
