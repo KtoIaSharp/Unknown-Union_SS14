@@ -82,6 +82,13 @@ public sealed class WorkIdCardSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString("work-card-no-photo-to-attach"), args.User, args.User);
     }
 
+    /// <summary>Перерисовать открытое окно карты (например, после отзыва тега).</summary>
+    public void Refresh(EntityUid uid)
+    {
+        if (TryComp<WorkIdCardComponent>(uid, out var card))
+            UpdateBui((uid, card));
+    }
+
     private void UpdateBui(Entity<WorkIdCardComponent> ent)
     {
         var comp = ent.Comp;
@@ -97,7 +104,9 @@ public sealed class WorkIdCardSystem : EntitySystem
             comp.WorkerSignature,
             comp.WorkerSignatureLabel,
             comp.Photo,
-            _registry.IsRevoked(comp.Holder, comp.Tag),
+            comp.RegistryRevoked || _registry.IsRevoked(comp.Holder, comp.Tag),
+            comp.RegistryRevokedBy,
+            comp.RegistryRevokedAt,
             comp.RegistryStamped,
             comp.RegistryStampFaction));
     }

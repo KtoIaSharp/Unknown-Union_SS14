@@ -4,6 +4,7 @@ using Content.Server._UU.FactionSystem;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
+using Content.Server._UU.Employment;
 using Content.Shared._UU.Identity;
 using Content.Shared.GameTicking;
 using Content.Shared.Hands.Components;
@@ -15,6 +16,7 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Server._UU.Identity;
@@ -45,6 +47,8 @@ public sealed class WorkRegistrySystem : EntitySystem
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly FactionBoundSystem _factionBound = default!;
+    [Dependency] private readonly WorkIdCardSystem _cards = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
 
     private readonly Dictionary<int, WorkStateRegistry> _registries = new();
 
@@ -224,6 +228,8 @@ public sealed class WorkRegistrySystem : EntitySystem
 
         entry.Revoked = args.Revoke;
 
+        SyncCards(entry, args.Revoke, factionName);
+
         _popup.PopupEntity(
             Loc.GetString(args.Revoke ? "work-registry-fired" : "work-registry-restored",
                 ("name", (object)FormattedMessage.EscapeText(entry.Name))),
@@ -231,6 +237,34 @@ public sealed class WorkRegistrySystem : EntitySystem
             user);
 
         UpdateBui(ent);
+    }
+
+    /// <summary>Перенести отзыв на сами карты: реестр живёт до первого роспуска государства, карта — нет.</summary>
+    private void SyncCards(WorkRegistryEntry entry, bool revoke, string? factionName)
+    {
+        var date = GameDate();
+
+        var cards = EntityQueryEnumerator<WorkIdCardComponent>();
+        while (cards.MoveNext(out var cardUid, out var card))
+        {
+            if (card.Holder != entry.Name)
+                continue;
+
+            if ((card.Tag ?? string.Empty) != (entry.Tag ?? string.Empty))
+                continue;
+
+            card.RegistryRevoked = revoke;
+            card.RegistryRevokedBy = revoke ? factionName : null;
+            card.RegistryRevokedAt = revoke ? date : null;
+            Dirty(cardUid, card);
+
+            _cards.Refresh(cardUid);
+        }
+    }
+
+    private string GameDate()
+    {
+        return new DateTime(2700, 1, 1).AddDays((int) (_timing.CurTime.TotalMinutes / 20)).ToString("dd.MM.yyyy");
     }
 
     private void OnAccess(Entity<WorkRegistryConsoleComponent> ent, ref WorkRegistryAccessMessage args)
@@ -283,7 +317,7 @@ public sealed class WorkRegistrySystem : EntitySystem
                 continue;
 
             // Уволенный тег не даёт доступа даже с картой в руках.
-            if (IsRevoked(card.Holder, card.Tag))
+            if (card.RegistryRevoked || IsRevoked(card.Holder, card.Tag))
                 continue;
 
             return true;
@@ -377,6 +411,12 @@ public sealed class WorkRegistrySystem : EntitySystem
 
         if (TryComp<WorkIdCardComponent>(cardUid, out var stamped))
         {
+            if (stamped.RegistryRevoked)
+            {
+                _popup.PopupEntity(Loc.GetString("position-scanner-revoked"), user, user);
+                return false;
+            }
+
             if (!stamped.RegistryStamped)
             {
                 _popup.PopupEntity(Loc.GetString("position-scanner-no-stamp"), user, user);

@@ -109,7 +109,18 @@ public sealed partial class WorkIdCardComponent : Component
     [DataField, AutoNetworkedField]
     public int? RegistryStampFactionId;
 
-    /// <summary>Место работы: свободный текст, задаётся консолью работодателя.</summary>
+    /// <summary>Тег отозван консолью государства: карта больше не применяет свои права.</summary>
+    [DataField, AutoNetworkedField]
+    public bool RegistryRevoked;
+
+    /// <summary>Государство, отозвавшее тег.</summary>
+    [DataField, AutoNetworkedField]
+    public string? RegistryRevokedBy;
+
+    /// <summary>Дата отзыва тега.</summary>
+    [DataField, AutoNetworkedField]
+    public string? RegistryRevokedAt;
+
     /// <summary>Тег доступа на карте: его читают только наши системы. Виден лишь в окне карты.</summary>
     [DataField, AutoNetworkedField]
     public string? Tag;

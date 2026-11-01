@@ -99,3 +99,6 @@ faction-bound-verb = Закрепить за государством
 faction-bound-done = Закреплено за государством «{$name}».
 faction-bound-already = Уже закреплено за государством.
 faction-bound-no-state = Нужно государство, чтобы закрепить.
+
+position-scanner-revoked = Тег отозван: карта больше не применяется.
+work-card-revoked-by = ТЕГ ОТОЗВАН: {$state}, {$date}

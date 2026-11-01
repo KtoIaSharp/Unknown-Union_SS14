@@ -56,6 +56,13 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
             : state.WorkerSignatureLabel!;
 
         RevokedLabel.Visible = state.Revoked;
+
+        if (state.Revoked)
+        {
+            RevokedLabel.Text = state.RevokedBy is { } by
+                ? Loc.GetString("work-card-revoked-by", ("state", by), ("date", state.RevokedAt ?? "-"))
+                : Loc.GetString("work-card-revoked");
+        }
         StampLabel.Text = state.RegistryStamped
             ? Loc.GetString("work-card-stamped", ("name", state.RegistryStampFaction ?? Loc.GetString("registry-stamp-no-state")))
             : Loc.GetString("work-card-no-stamp");

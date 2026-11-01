@@ -99,3 +99,6 @@ faction-bound-verb = Bind to a state
 faction-bound-done = Bound to the state "{$name}".
 faction-bound-already = Already bound to a state.
 faction-bound-no-state = You need a state to bind it.
+
+position-scanner-revoked = The tag is revoked: this card no longer applies.
+work-card-revoked-by = TAG REVOKED: {$state}, {$date}
