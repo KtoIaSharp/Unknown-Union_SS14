@@ -33,6 +33,12 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
     /// <summary>Тег отозван консолью государства: карта больше не применяет свои права.</summary>
     public readonly bool Revoked;
 
+    /// <summary>Стоит ли на карте печать реестра.</summary>
+    public readonly bool RegistryStamped;
+
+    /// <summary>Государство, чья печать стоит на карте (null — без привязки).</summary>
+    public readonly string? RegistryStampFaction;
+
     public WorkIdCardBuiState(
         string? holder,
         string? position,
@@ -45,7 +51,9 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
         string? workerSignature,
         string? workerSignatureLabel,
         PhotoSnapshot? photo,
-        bool revoked)
+        bool revoked,
+        bool registryStamped,
+        string? registryStampFaction)
     {
         Holder = holder;
         Position = position;
@@ -59,5 +67,7 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
         WorkerSignatureLabel = workerSignatureLabel;
         Photo = photo;
         Revoked = revoked;
+        RegistryStamped = registryStamped;
+        RegistryStampFaction = registryStampFaction;
     }
 }

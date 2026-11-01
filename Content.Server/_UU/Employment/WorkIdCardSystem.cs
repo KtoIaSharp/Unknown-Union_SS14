@@ -98,7 +98,9 @@ public sealed class WorkIdCardSystem : EntitySystem
             comp.WorkerSignature,
             comp.WorkerSignatureLabel,
             comp.Photo,
-            _registry.IsRevoked(comp.Holder, comp.Tag)));
+            _registry.IsRevoked(comp.Holder, comp.Tag),
+            comp.RegistryStamped,
+            comp.RegistryStampFaction));
     }
 
     private void OnExamined(Entity<WorkIdCardComponent> ent, ref ExaminedEvent args)
@@ -127,6 +129,17 @@ public sealed class WorkIdCardSystem : EntitySystem
         {
             args.PushMarkup(Loc.GetString("work-id-examine-employer",
                 ("employer", (object)FormattedMessage.EscapeText(comp.Employer!))));
+        }
+
+        if (comp.RegistryStamped)
+        {
+            args.PushMarkup(Loc.GetString("work-id-examine-stamped",
+                ("name", (object)FormattedMessage.EscapeText(
+                    comp.RegistryStampFaction ?? Loc.GetString("registry-stamp-no-state")))));
+        }
+        else
+        {
+            args.PushMarkup(Loc.GetString("work-id-examine-no-stamp"));
         }
 
         if (!string.IsNullOrWhiteSpace(comp.Date))

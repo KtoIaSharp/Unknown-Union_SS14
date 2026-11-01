@@ -15,6 +15,9 @@ ent-PositionScanner = position scanner
 ent-WorkRegistryConsole = positions console
     .desc = The registry of the state's positions and tags. Positions are revoked through it: the card stays, but its tag no longer applies.
 
+ent-WorkRegistryStamp = state registry seal
+    .desc = Pressed onto a fully signed work ID. Without the seal the position scanner will not read the card.
+
 # --- work ID ---
 work-card-issued-name = work ID: {$holder}
 work-card-issued-desc = A plastic card with a position, signatures and the holder's photograph.
@@ -37,6 +40,15 @@ work-card-revoked = TAG REVOKED
 work-card-photo-attached = The photograph is attached to the work ID.
 work-card-no-photo-to-attach = Hold a photograph in your other hand.
 work-card-footer = A work ID is issued from a signed contract. The tag applies until it is revoked from the positions console.
+work-card-stamp = Registry seal:
+work-card-stamped = {$name}
+work-card-no-stamp = no seal
+registry-stamp-applied = The registry seal is pressed on: {$name}.
+registry-stamp-no-state = no state
+registry-stamp-already = The card already bears the registry seal.
+registry-stamp-not-signed = The seal goes only on a fully signed work ID.
+work-id-examine-stamped = [color=gold]Registry seal:[/color] {$name}
+work-id-examine-no-stamp = [color=#ff5555]No registry seal.[/color]
 work-id-verb-open = Open work ID
 work-id-examine-revoked = [color=#ff5555]The tag was revoked by the state.[/color]
 
@@ -72,6 +84,7 @@ work-registry-footer = Dismissal does not damage the card: the tag simply stops 
 position-scanner-unbound = Bind the scanner to a state first.
 position-scanner-no-card = Hold a work ID in your other hand.
 position-scanner-empty = The work ID has no name or position.
+position-scanner-no-stamp = The work ID bears no registry seal.
 position-scanner-scanned = {$name} — position "{$position}" recorded in the registry.
 
 uu-construction-step-paper = a sheet of paper

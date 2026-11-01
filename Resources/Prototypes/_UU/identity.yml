@@ -78,3 +78,16 @@
   - type: ExtensionCableReceiver
   - type: InteractionOutline
   - type: Anchorable
+
+- type: entity
+  parent: RubberStampBase
+  id: WorkRegistryStamp
+  name: государственная печать реестра
+  description: Ставится на подписанное удостоверение о работе. Без печати сканер должности карту не читает.
+  components:
+  - type: Sprite
+    state: stamp-cap
+  - type: Item
+    size: Tiny
+  - type: WorkRegistryStamp
+

@@ -452,6 +452,12 @@ public sealed class WorkRegistrySystem : EntitySystem
             return false;
         }
 
+        if (TryComp<WorkIdCardComponent>(cardUid, out var stamped) && !stamped.RegistryStamped)
+        {
+            _popup.PopupEntity(Loc.GetString("position-scanner-no-stamp"), user, user);
+            return false;
+        }
+
         if (!TryComp<WorkIdCardComponent>(cardUid, out var card)
             || string.IsNullOrWhiteSpace(card.Holder)
             || string.IsNullOrWhiteSpace(card.Position))

@@ -15,6 +15,9 @@ ent-PositionScanner = сканер должности
 ent-WorkRegistryConsole = консоль управления должностями
     .desc = Реестр должностей и тегов государства. Через неё увольняют с должности: карта остаётся, но её тег больше не действует.
 
+ent-WorkRegistryStamp = государственная печать реестра
+    .desc = Ставится на подписанное удостоверение о работе. Без печати сканер должности карту не читает.
+
 # --- удостоверение ---
 work-card-issued-name = удостоверение: {$holder}
 work-card-issued-desc = Пластиковая карта с должностью, подписями и фотографией владельца.
@@ -37,6 +40,15 @@ work-card-revoked = ТЕГ ОТОЗВАН
 work-card-photo-attached = Фотография приложена к удостоверению.
 work-card-no-photo-to-attach = Возьмите фотографию во вторую руку.
 work-card-footer = Удостоверение оформляется по подписанному договору. Тег действует, пока его не отозвали из консоли должностей.
+work-card-stamp = Печать реестра:
+work-card-stamped = {$name}
+work-card-no-stamp = нет печати
+registry-stamp-applied = Печать реестра поставлена: {$name}.
+registry-stamp-no-state = без государства
+registry-stamp-already = На карте уже стоит печать реестра.
+registry-stamp-not-signed = Печать ставят только на полностью подписанное удостоверение.
+work-id-examine-stamped = [color=gold]Печать реестра:[/color] {$name}
+work-id-examine-no-stamp = [color=#ff5555]Печати реестра нет.[/color]
 work-id-verb-open = Открыть удостоверение
 work-id-examine-revoked = [color=#ff5555]Тег отозван государством.[/color]
 
@@ -72,6 +84,7 @@ work-registry-footer = Увольнение не портит карту: тег
 position-scanner-unbound = Сначала закрепите сканер за государством.
 position-scanner-no-card = Возьмите удостоверение во вторую руку.
 position-scanner-empty = В удостоверении нет имени и должности.
+position-scanner-no-stamp = На удостоверении нет печати реестра.
 position-scanner-scanned = {$name} — должность «{$position}» внесена в реестр.
 
 uu-construction-step-paper = лист бумаги

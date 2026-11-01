@@ -34,6 +34,7 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
         TagLabel.Text = Loc.GetString("work-card-no-tag");
         EmployerSignatureLabel.Text = Loc.GetString("work-card-unsigned");
         WorkerSignatureLabel.Text = Loc.GetString("work-card-unsigned");
+        StampLabel.Text = Loc.GetString("work-card-no-stamp");
     }
 
     public void UpdateState(WorkIdCardBuiState state)
@@ -57,6 +58,9 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
             : state.WorkerSignatureLabel!;
 
         RevokedLabel.Visible = state.Revoked;
+        StampLabel.Text = state.RegistryStamped
+            ? Loc.GetString("work-card-stamped", ("name", state.RegistryStampFaction ?? Loc.GetString("registry-stamp-no-state")))
+            : Loc.GetString("work-card-no-stamp");
 
         SetPhoto(state.Photo?.ImageBase64);
     }

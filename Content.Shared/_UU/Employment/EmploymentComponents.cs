@@ -97,6 +97,18 @@ public sealed partial class WorkIdCardComponent : Component
     [DataField, AutoNetworkedField]
     public bool Issued;
 
+    /// <summary>На карту поставлена печать реестра: без неё сканер не читает карту.</summary>
+    [DataField, AutoNetworkedField]
+    public bool RegistryStamped;
+
+    /// <summary>Государство, чья печать реестра стоит на карте.</summary>
+    [DataField, AutoNetworkedField]
+    public string? RegistryStampFaction;
+
+    /// <summary>ID государства, чья печать стоит на карте.</summary>
+    [DataField, AutoNetworkedField]
+    public int? RegistryStampFactionId;
+
     /// <summary>Место работы: свободный текст, задаётся консолью работодателя.</summary>
     [DataField, AutoNetworkedField]
     public string? Workplace;
