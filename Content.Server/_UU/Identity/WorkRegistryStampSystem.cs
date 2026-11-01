@@ -1,4 +1,5 @@
 using Content.Server._UU.Employment;
+using Content.Server._UU.FactionSystem;
 using Content.Server.Popups;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
@@ -18,44 +19,13 @@ namespace Content.Server._UU.Identity;
 public sealed class WorkRegistryStampSystem : EntitySystem
 {
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly FactionBoundSystem _factionBound = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<WorkRegistryStampComponent, GetVerbsEvent<Verb>>(OnVerb);
         SubscribeLocalEvent<WorkRegistryStampComponent, AfterInteractEvent>(OnAfterInteract);
         SubscribeLocalEvent<WorkRegistryStampComponent, UseInHandEvent>(OnUseInHand);
-    }
-
-    private void OnVerb(Entity<WorkRegistryStampComponent> ent, ref GetVerbsEvent<Verb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract)
-            return;
-
-        if (ent.Comp.FactionId != null)
-            return;
-
-        if (!TryComp<FactionComponent>(args.User, out var faction) || faction.FactionId is not { } factionId)
-            return;
-
-        var user = args.User;
-        var factionName = faction.Faction;
-
-        args.Verbs.Add(new Verb
-        {
-            Text = Loc.GetString("work-registry-verb-bind"),
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "bind_faction"),
-            Act = () =>
-            {
-                ent.Comp.FactionId = factionId;
-                ent.Comp.FactionName = factionName;
-                Dirty(ent, ent.Comp);
-                _popup.PopupEntity(
-                    Loc.GetString("work-registry-bound", ("name", factionName ?? "???")),
-                    ent.Owner,
-                    user);
-            },
-        });
     }
 
     private void OnAfterInteract(Entity<WorkRegistryStampComponent> ent, ref AfterInteractEvent args)
@@ -105,8 +75,14 @@ public sealed class WorkRegistryStampSystem : EntitySystem
             return false;
         }
 
+        if (!_factionBound.TryGetFaction(stamp.Owner, out var stampFactionId, out var stampFactionName))
+        {
+            _popup.PopupEntity(Loc.GetString("registry-stamp-no-state"), cardUid, user);
+            return false;
+        }
+
         if (card.EmployerSignature == EmploymentContractSystem.StateSignature &&
-            stamp.Comp.FactionName is { } stampState &&
+            stampFactionName is { } stampState &&
             !string.Equals(stampState, card.EmployerSignatureLabel, StringComparison.OrdinalIgnoreCase))
         {
             _popup.PopupEntity(Loc.GetString("registry-stamp-wrong-state"), cardUid, user);
@@ -114,13 +90,13 @@ public sealed class WorkRegistryStampSystem : EntitySystem
         }
 
         card.RegistryStamped = true;
-        card.RegistryStampFaction = stamp.Comp.FactionName;
-        card.RegistryStampFactionId = stamp.Comp.FactionId;
+        card.RegistryStampFaction = stampFactionName;
+        card.RegistryStampFactionId = stampFactionId;
         Dirty(cardUid, card);
 
         _popup.PopupEntity(
             Loc.GetString("registry-stamp-applied",
-                ("name", stamp.Comp.FactionName ?? Loc.GetString("registry-stamp-no-state"))),
+                ("name", stampFactionName ?? Loc.GetString("registry-stamp-no-state"))),
             cardUid,
             user);
         return true;

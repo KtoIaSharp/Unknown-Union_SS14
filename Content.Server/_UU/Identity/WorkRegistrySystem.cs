@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Content.Server._UU.FactionSystem;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
@@ -43,6 +44,7 @@ public sealed class WorkRegistrySystem : EntitySystem
     [Dependency] private readonly PowerReceiverSystem _power = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly FactionBoundSystem _factionBound = default!;
 
     private readonly Dictionary<int, WorkStateRegistry> _registries = new();
 
@@ -50,13 +52,11 @@ public sealed class WorkRegistrySystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<WorkRegistryConsoleComponent, GetVerbsEvent<Verb>>(OnConsoleVerb);
         SubscribeLocalEvent<WorkRegistryConsoleComponent, ActivateInWorldEvent>(OnConsoleActivate);
         SubscribeLocalEvent<WorkRegistryConsoleComponent, BoundUIOpenedEvent>(OnConsoleOpened);
         SubscribeLocalEvent<WorkRegistryConsoleComponent, WorkRegistryRevokeMessage>(OnRevoke);
         SubscribeLocalEvent<WorkRegistryConsoleComponent, WorkRegistryAccessMessage>(OnAccess);
 
-        SubscribeLocalEvent<PositionScannerComponent, GetVerbsEvent<Verb>>(OnScannerVerb);
         SubscribeLocalEvent<PositionScannerComponent, UseInHandEvent>(OnScannerUseInHand);
         SubscribeLocalEvent<PositionScannerComponent, AfterInteractEvent>(OnScannerInteract);
 
@@ -161,60 +161,6 @@ public sealed class WorkRegistrySystem : EntitySystem
 
     #region Консоль
 
-    private void OnConsoleVerb(Entity<WorkRegistryConsoleComponent> ent, ref GetVerbsEvent<Verb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract)
-            return;
-
-        if (ent.Comp.FactionId != null)
-            return;
-
-        var user = args.User;
-
-        if (!TryComp<FactionComponent>(user, out var faction)
-            || faction.FactionId is not { } factionId
-            || string.IsNullOrWhiteSpace(faction.Faction))
-        {
-            return;
-        }
-
-        args.Verbs.Add(new Verb
-        {
-            Text = Loc.GetString("work-registry-verb-bind"),
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "bind_faction"),
-            Priority = 8,
-            Act = () => BindFaction(ent.Owner, ent.Comp.FactionId, factionId, faction.Faction!, user, BindTarget.Console),
-        });
-    }
-
-    private enum BindTarget
-    {
-        Console,
-        Scanner,
-    }
-
-    private void BindFaction(EntityUid uid, int? current, int factionId, string factionName, EntityUid user, BindTarget target)
-    {
-        if (current != null)
-            return;
-
-        if (target == BindTarget.Console && TryComp<WorkRegistryConsoleComponent>(uid, out var console))
-        {
-            console.FactionId = factionId;
-            console.FactionName = factionName;
-            Dirty(uid, console);
-            UpdateBui((uid, console));
-        }
-        else if (target == BindTarget.Scanner && TryComp<PositionScannerComponent>(uid, out var scanner))
-        {
-            scanner.FactionId = factionId;
-            scanner.FactionName = factionName;
-            Dirty(uid, scanner);
-        }
-
-        _popup.PopupEntity(Loc.GetString("work-registry-bound", ("name", (object)FormattedMessage.EscapeText(factionName))), user, user);
-    }
-
     private void OnConsoleActivate(Entity<WorkRegistryConsoleComponent> ent, ref ActivateInWorldEvent args)
     {
         if (args.Handled || !args.Complex)
@@ -226,7 +172,7 @@ public sealed class WorkRegistrySystem : EntitySystem
 
     private void Open(Entity<WorkRegistryConsoleComponent> ent, EntityUid user)
     {
-        if (ent.Comp.FactionId == null)
+        if (!_factionBound.IsBound(ent.Owner))
         {
             _popup.PopupEntity(Loc.GetString("work-registry-unbound"), user, user);
             return;
@@ -259,10 +205,10 @@ public sealed class WorkRegistrySystem : EntitySystem
             return;
         }
 
-        if (ent.Comp.FactionId is not { } factionId)
+        if (!_factionBound.TryGetFaction(ent.Owner, out var factionId, out var factionName))
             return;
 
-        var registry = GetRegistry(factionId, ent.Comp.FactionName);
+        var registry = GetRegistry(factionId, factionName);
 
         var name = args.Name;
         var position = args.Position;
@@ -349,15 +295,15 @@ public sealed class WorkRegistrySystem : EntitySystem
     private void UpdateBui(Entity<WorkRegistryConsoleComponent> ent)
     {
         var comp = ent.Comp;
-        var registry = comp.FactionId is { } factionId
-            ? GetRegistry(factionId, comp.FactionName)
+        var registry = _factionBound.TryGetFaction(ent.Owner, out var factionId, out var factionName)
+            ? GetRegistry(factionId, factionName)
             : new WorkStateRegistry();
 
         var actors = _ui.GetActors(ent.Owner, WorkRegistryUiKey.Registry).ToList();
         var actor = actors.Count > 0 ? actors[0] : EntityUid.Invalid;
 
         var state = new WorkRegistryBuiState(
-            comp.FactionName,
+            factionName,
             registry.Entries.Select(e => new WorkRegistryEntry
             {
                 Name = e.Name,
@@ -383,29 +329,6 @@ public sealed class WorkRegistrySystem : EntitySystem
     #endregion
 
     #region Сканер
-
-    private void OnScannerVerb(Entity<PositionScannerComponent> ent, ref GetVerbsEvent<Verb> args)
-    {
-        if (!args.CanAccess || !args.CanInteract || ent.Comp.FactionId != null)
-            return;
-
-        var user = args.User;
-
-        if (!TryComp<FactionComponent>(user, out var faction)
-            || faction.FactionId is not { } factionId
-            || string.IsNullOrWhiteSpace(faction.Faction))
-        {
-            return;
-        }
-
-        args.Verbs.Add(new Verb
-        {
-            Text = Loc.GetString("work-registry-verb-bind"),
-            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "bind_faction"),
-            Priority = 8,
-            Act = () => BindFaction(ent.Owner, ent.Comp.FactionId, factionId, faction.Faction!, user, BindTarget.Scanner),
-        });
-    }
 
     /// <summary>Сканер в руке: обычное использование сканирует карту во второй руке.</summary>
     private void OnScannerUseInHand(Entity<PositionScannerComponent> ent, ref UseInHandEvent args)
@@ -446,7 +369,7 @@ public sealed class WorkRegistrySystem : EntitySystem
 
     private bool TryScan(Entity<PositionScannerComponent> scanner, EntityUid cardUid, EntityUid user)
     {
-        if (scanner.Comp.FactionId is not { } factionId)
+        if (!_factionBound.TryGetFaction(scanner.Owner, out var factionId, out var factionName))
         {
             _popup.PopupEntity(Loc.GetString("position-scanner-unbound"), user, user);
             return false;
@@ -481,7 +404,7 @@ public sealed class WorkRegistrySystem : EntitySystem
         card.Tag = tag;
         Dirty(cardUid, card);
 
-        UpsertEntry(factionId, scanner.Comp.FactionName, new WorkRegistryEntry
+        UpsertEntry(factionId, factionName, new WorkRegistryEntry
         {
             Name = card.Holder!,
             Position = card.Position!,
@@ -501,8 +424,11 @@ public sealed class WorkRegistrySystem : EntitySystem
         var consoles = EntityQueryEnumerator<WorkRegistryConsoleComponent>();
         while (consoles.MoveNext(out var consoleUid, out var console))
         {
-            if (console.FactionId == factionId)
+            if (_factionBound.TryGetFaction(consoleUid, out var consoleFaction, out _)
+                && consoleFaction == factionId)
+            {
                 UpdateBui((consoleUid, console));
+            }
         }
 
         return true;

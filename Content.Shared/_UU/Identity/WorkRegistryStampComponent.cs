@@ -4,16 +4,10 @@ namespace Content.Shared._UU.Identity;
 
 /// <summary>
 /// Государственная печать реестра: ставится на подписанное удостоверение,
-/// без неё сканер должности карту не читает. Печать многоразовая.
+/// без неё сканер должности карту не читает. Сама печать не расходуется.
+/// Государство берётся из FactionBoundComponent — привязка общая для консоли, сканера и печати.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent]
 public sealed partial class WorkRegistryStampComponent : Component
 {
-    /// <summary>Государство, за которым закреплена печать (null — не закреплена).</summary>
-    [DataField, AutoNetworkedField]
-    public int? FactionId;
-
-    /// <summary>Название государства для штампа.</summary>
-    [DataField, AutoNetworkedField]
-    public string? FactionName;
 }

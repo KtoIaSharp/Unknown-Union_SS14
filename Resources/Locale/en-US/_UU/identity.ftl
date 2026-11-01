@@ -54,8 +54,6 @@ work-id-examine-revoked = [color=#ff5555]The tag was revoked by the state.[/colo
 
 # --- positions console ---
 work-registry-title = Positions console
-work-registry-verb-bind = Bind to a state
-work-registry-bound = Bound to the state "{$name}".
 work-registry-unbound = Bind it to a state first.
 work-registry-unbound-short = Not bound to a state
 work-registry-faction = State: {$name}
@@ -96,3 +94,8 @@ kit-box-unpacked = You pry the box open and shake out its contents.
 
 position-scanner-wrong-state = The registry stamp belongs to another state.
 registry-stamp-wrong-state = The card is signed on behalf of another state.
+
+faction-bound-verb = Bind to a state
+faction-bound-done = Bound to the state "{$name}".
+faction-bound-already = Already bound to a state.
+faction-bound-no-state = You need a state to bind it.

@@ -54,8 +54,6 @@ work-id-examine-revoked = [color=#ff5555]Тег отозван государс�
 
 # --- консоль управления должностями ---
 work-registry-title = Консоль управления должностями
-work-registry-verb-bind = Закрепить за государством
-work-registry-bound = Закреплено за государством «{$name}».
 work-registry-unbound = Сначала закрепите за государством.
 work-registry-unbound-short = Не закреплена за государством
 work-registry-faction = Государство: {$name}
@@ -96,3 +94,8 @@ kit-box-unpacked = Вы вскрыли коробку и вытряхнули с
 
 position-scanner-wrong-state = Печать реестра принадлежит другому государству.
 registry-stamp-wrong-state = Карта подписана от имени другого государства.
+
+faction-bound-verb = Закрепить за государством
+faction-bound-done = Закреплено за государством «{$name}».
+faction-bound-already = Уже закреплено за государством.
+faction-bound-no-state = Нужно государство, чтобы закрепить.

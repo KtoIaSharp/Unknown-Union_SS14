@@ -54,12 +54,6 @@ public enum WorkRegistryUiKey : byte
 public sealed partial class WorkRegistryConsoleComponent : Component
 {
     /// <summary>Государство, за которым закреплена консоль.</summary>
-    [DataField, AutoNetworkedField]
-    public int? FactionId;
-
-    [DataField, AutoNetworkedField]
-    public string? FactionName;
-
     /// <summary>Теги, носители которых могут пользоваться консолью. Пусто — все.</summary>
     [DataField, AutoNetworkedField]
     public List<string> UseTags = new();
@@ -73,15 +67,9 @@ public sealed partial class WorkRegistryConsoleComponent : Component
 ///     Сканер должности: им сканируют удостоверение, чтобы внести должность и тег
 ///     в реестр государства, за которым закреплён сканер.
 /// </summary>
-[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[RegisterComponent, NetworkedComponent]
 public sealed partial class PositionScannerComponent : Component
-{
-    [DataField, AutoNetworkedField]
-    public int? FactionId;
-
-    [DataField, AutoNetworkedField]
-    public string? FactionName;
-}
+{}
 
 /// <summary>Что клиент видит в окне консоли управления должностями.</summary>
 [Serializable, NetSerializable]

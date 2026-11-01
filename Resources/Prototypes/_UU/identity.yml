@@ -39,6 +39,7 @@
   - type: Item
     size: Small
   - type: PositionScanner
+  - type: FactionBound
 
 - type: entity
   parent: BaseStructure
@@ -49,6 +50,7 @@
     mode: SnapgridCenter
   components:
   - type: WorkRegistryConsole
+  - type: FactionBound
   - type: UserInterface
     interfaces:
       enum.WorkRegistryUiKey.Registry:
@@ -90,4 +92,5 @@
   - type: Item
     size: Tiny
   - type: WorkRegistryStamp
+  - type: FactionBound
 
