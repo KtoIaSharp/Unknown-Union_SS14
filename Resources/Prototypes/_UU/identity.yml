@@ -56,15 +56,11 @@
       enum.WorkRegistryUiKey.Access:
         type: WorkRegistryBui
   - type: Sprite
-    # Основа - штатный спрайт консоли, сверху собственный экран UU.
-    noRot: true
-    sprite: Structures/Machines/computers.rsi
+    # Собственный спрайт: 32x32, четыре направления, без наложения слоёв.
+    sprite: _UU/work_console.rsi
+    noRot: false
     layers:
-    - map: [ "body" ]
-      state: computer
-    - map: [ "screen" ]
-      sprite: _UU/work_console.rsi
-      state: screen
+    - state: icon
   - type: Fixtures
     fixtures:
       fix1:

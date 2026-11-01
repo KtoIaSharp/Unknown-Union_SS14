@@ -6,7 +6,8 @@
   },
   "states": [
     {
-      "name": "screen"
+      "name": "icon",
+      "directions": 4
     }
   ]
 }
