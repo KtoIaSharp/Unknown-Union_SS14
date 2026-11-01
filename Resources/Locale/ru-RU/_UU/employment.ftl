@@ -57,3 +57,6 @@ work-id-examine-date = Дата: {$date}
 work-id-examine-signed-state = [color=gold]Подписано от имени[/color] {$name}
 work-id-examine-signed-person = Подпись: {$name}
 employment-contract-already-signed = Эта сторона уже подписала договор.
+employment-contract-verb-issue = Оформить удостоверение
+employment-contract-card-issued = Удостоверение оформлено.
+employment-contract-card-dropped = Удостоверение оформлено, но выпало на пол.

@@ -1,0 +1,35 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'work-registry-title'}"
+               MinSize="560 440">
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
+    <BoxContainer Orientation="Vertical">
+        <BoxContainer Orientation="Horizontal" Margin="10 8 10 4" HorizontalExpand="True">
+            <EntityPrototypeView Name="DeviceView" Scale="1.5 1.5" MinSize="48 48"
+                                 Margin="0 0 8 0" VerticalAlignment="Center" />
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True" VerticalAlignment="Center">
+                <Label Text="{Loc 'work-registry-title'}" StyleClasses="ConsoleHeading" />
+                <Label Name="FactionLabel" StyleClasses="LabelSubText" />
+            </BoxContainer>
+        </BoxContainer>
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 6" SetHeight="2" />
+
+        <Label Name="SummaryLabel" StyleClasses="ConsoleSubHeading" Margin="10 0 10 4" />
+
+        <ScrollContainer Name="EntriesScroll" VerticalExpand="True" MinSize="0 220" Margin="10 0 10 0">
+            <BoxContainer Name="EntriesBox" Orientation="Vertical" SeparationOverride="4" HorizontalExpand="True" />
+        </ScrollContainer>
+
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8" Margin="10 6 10 0">
+            <Button Name="AccessButton" StyleClasses="ButtonColorRed" MinWidth="180"
+                    Text="{Loc 'work-registry-access-button'}" />
+            <Button Name="CloseAction" StyleClasses="ButtonColorRed" MinWidth="120"
+                    Text="{Loc 'work-registry-close'}" />
+        </BoxContainer>
+
+        <RichTextLabel Text="{Loc 'work-registry-footer'}" StyleClasses="LabelSubText"
+                       HorizontalAlignment="Center" Margin="10 4 10 8" MaxWidth="520" />
+    </BoxContainer>
+</DefaultWindow>

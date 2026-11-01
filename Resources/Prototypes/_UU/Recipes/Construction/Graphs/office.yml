@@ -37,6 +37,7 @@
     - node: photo_camera
       entity: PhotoCamera
 
+# Удостоверение: пластик + лист бумаги + кусачки (обрезать заготовку по формату).
 - type: constructionGraph
   id: UUWorkIdCard
   start: start
@@ -45,19 +46,27 @@
       edges:
         - to: work_id_card
           steps:
+            - tag: Paper
+              name: uu-construction-step-paper
+              icon:
+                sprite: Objects/Misc/bureaucracy.rsi
+                state: paper
+              doAfter: 1
             - material: Plastic
               amount: 1
-              doAfter: 3
+              doAfter: 2
+            - tool: Cutting
+              doAfter: 2
     - node: work_id_card
       entity: WorkIdCard
 
 - type: constructionGraph
-  id: UUWorkIdWriter
+  id: UUPositionScanner
   start: start
   graph:
     - node: start
       edges:
-        - to: work_id_writer
+        - to: position_scanner
           steps:
             - material: Steel
               amount: 1
@@ -68,5 +77,25 @@
             - material: Glass
               amount: 1
               doAfter: 2
-    - node: work_id_writer
-      entity: WorkIdWriter
+    - node: position_scanner
+      entity: PositionScanner
+
+- type: constructionGraph
+  id: UUWorkRegistryConsole
+  start: start
+  graph:
+    - node: start
+      edges:
+        - to: work_registry_console
+          steps:
+            - material: Steel
+              amount: 5
+              doAfter: 6
+            - material: Plastic
+              amount: 2
+              doAfter: 3
+            - material: Glass
+              amount: 2
+              doAfter: 3
+    - node: work_registry_console
+      entity: WorkRegistryConsole

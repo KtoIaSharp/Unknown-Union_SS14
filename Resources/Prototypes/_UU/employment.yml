@@ -2,7 +2,7 @@
   parent: BaseItem
   id: WorkIdCard
   name: удостоверение о работе
-  description: Пластиковая карта с данными о работе. Заполняется только через ручной работодатель.
+  description: Пластиковая карта с данными о работе и двумя подписями. Оформляется по подписанному договору.
   components:
   - type: Sprite
     sprite: _UU/work_id.rsi
@@ -10,23 +10,12 @@
   - type: Item
     size: Small
   - type: WorkIdCard
+  - type: ActivatableUI
+    key: enum.WorkIdCardUiKey.Card
   - type: UserInterface
     interfaces:
       enum.WorkIdCardUiKey.Card:
         type: WorkIdCardBui
-
-- type: entity
-  parent: BaseItem
-  id: WorkIdWriter
-  name: ручной работодатель
-  description: Ручной сканер, который переносит данные с подписанного договора на удостоверение о работе.
-  components:
-  - type: Sprite
-    sprite: _UU/work_writer.rsi
-    state: icon
-  - type: Item
-    size: Small
-  - type: WorkIdWriter
 
 - type: entity
   parent: Paper

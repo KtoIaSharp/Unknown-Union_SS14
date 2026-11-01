@@ -1,6 +1,11 @@
+using Content.Server._UU.Identity;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Identity;
 using Content.Shared.Examine;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Interaction.Events;
+using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
@@ -10,11 +15,14 @@ namespace Content.Server._UU.Employment;
 
 /// <summary>
 ///     Удостоверение о работе: осмотр показывает записанное, взаимодействие открывает
-///     окно с полной картой, фотографией и рабочим тегом.
+///     окно-карточку с фотографией и подписями.
 /// </summary>
 public sealed class WorkIdCardSystem : EntitySystem
 {
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
+    [Dependency] private readonly WorkRegistrySystem _registry = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -22,6 +30,7 @@ public sealed class WorkIdCardSystem : EntitySystem
         SubscribeLocalEvent<WorkIdCardComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<WorkIdCardComponent, GetVerbsEvent<Verb>>(OnVerb);
         SubscribeLocalEvent<WorkIdCardComponent, BoundUIOpenedEvent>(OnUiOpened);
+        SubscribeLocalEvent<WorkIdCardComponent, UseInHandEvent>(OnUseInHand);
     }
 
     private void OnVerb(Entity<WorkIdCardComponent> ent, ref GetVerbsEvent<Verb> args)
@@ -44,16 +53,52 @@ public sealed class WorkIdCardSystem : EntitySystem
         if (args.UiKey is not WorkIdCardUiKey.Card)
             return;
 
+        UpdateBui(ent);
+    }
+
+    /// <summary>Использование карты в руке вешает на неё фотографию из второй руки.</summary>
+    private void OnUseInHand(Entity<WorkIdCardComponent> ent, ref UseInHandEvent args)
+    {
+        if (args.Handled || !TryComp<HandsComponent>(args.User, out var hands))
+            return;
+
+        foreach (var held in _hands.EnumerateHeld((args.User, hands)))
+        {
+            if (held == ent.Owner)
+                continue;
+
+            if (!TryComp<WorkPhotoComponent>(held, out var photo) || photo.Snapshot == null)
+                continue;
+
+            ent.Comp.Photo = photo.Snapshot;
+            Dirty(ent.Owner, ent.Comp);
+            QueueDel(held);
+
+            _popup.PopupEntity(Loc.GetString("work-card-photo-attached"), args.User, args.User);
+            args.Handled = true;
+            return;
+        }
+
+        _popup.PopupEntity(Loc.GetString("work-card-no-photo-to-attach"), args.User, args.User);
+    }
+
+    private void UpdateBui(Entity<WorkIdCardComponent> ent)
+    {
         var comp = ent.Comp;
+
         _ui.SetUiState(ent.Owner, WorkIdCardUiKey.Card, new WorkIdCardBuiState(
             comp.Holder,
             comp.Position,
             comp.Employer,
             comp.Date,
-            comp.EmployerSignatureLabel,
             comp.Workplace,
             comp.Tag,
-            comp.Photo));
+            comp.EmployerSignature,
+            comp.EmployerSignatureLabel,
+            comp.WorkerSignature,
+            comp.WorkerSignatureLabel,
+            comp.Photo,
+            _registry.IsRevoked(comp.Holder, comp.Tag)));
     }
 
     private void OnExamined(Entity<WorkIdCardComponent> ent, ref ExaminedEvent args)
@@ -95,5 +140,8 @@ public sealed class WorkIdCardSystem : EntitySystem
                     : "work-id-examine-signed-person",
                 ("name", (object)FormattedMessage.EscapeText(comp.EmployerSignatureLabel!))));
         }
+
+        if (_registry.IsRevoked(comp.Holder, comp.Tag))
+            args.PushMarkup(Loc.GetString("work-id-examine-revoked"));
     }
 }

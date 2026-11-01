@@ -85,6 +85,14 @@ public sealed partial class WorkIdCardComponent : Component
     [DataField, AutoNetworkedField]
     public string? EmployerSignatureLabel;
 
+    /// <summary>Спрайт подписи работника, согласившегося на должность.</summary>
+    [DataField, AutoNetworkedField]
+    public string? WorkerSignature;
+
+    /// <summary>Чья подпись со стороны работника.</summary>
+    [DataField, AutoNetworkedField]
+    public string? WorkerSignatureLabel;
+
     /// <summary>Данные перенесены — карта выдана.</summary>
     [DataField, AutoNetworkedField]
     public bool Issued;
@@ -100,13 +108,4 @@ public sealed partial class WorkIdCardComponent : Component
     /// <summary>Слепок для фотографии на карте.</summary>
     [DataField, AutoNetworkedField]
     public PhotoSnapshot? Photo;
-}
-
-/// <summary>
-///     Ручной работодатель: сканер-записыватель, который переписывает данные
-///     с подписанного договора на пластиковое удостоверение.
-/// </summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class WorkIdWriterComponent : Component
-{
 }

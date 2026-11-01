@@ -92,15 +92,7 @@ public sealed class FactionSystem : EntitySystem
         if (string.IsNullOrEmpty(ent.Comp.Faction))
             args.PushMarkup(Loc.GetString("faction-none"));
         else
-        {
             args.PushMarkup(Loc.GetString("faction-examine", ("faction", (object)FormattedMessage.EscapeText(ent.Comp.Faction!))));
-            if (!string.IsNullOrEmpty(ent.Comp.Title) &&
-                TryComp<FactionComponent>(args.Examiner, out var examinerFaction) &&
-                examinerFaction.FactionId == ent.Comp.FactionId)
-            {
-                args.PushMarkup(Loc.GetString("faction-title-examine", ("title", (object)FormattedMessage.EscapeText(ent.Comp.Title!))));
-            }
-        }
     }
 
     private void OnFactionVerb(Entity<FactionComponent> ent, ref GetVerbsEvent<Verb> args)
@@ -132,7 +124,6 @@ public sealed class FactionSystem : EntitySystem
             {
                 citizen.Comp.Faction = null;
                 citizen.Comp.FactionId = null;
-                citizen.Comp.Title = null;
                 citizen.Comp.IsLeader = false;
                 Dirty(citizen, citizen.Comp);
 
@@ -403,7 +394,6 @@ public sealed class FactionSystem : EntitySystem
 
         faction.Faction = null;
         faction.FactionId = null;
-        faction.Title = null;
         faction.IsLeader = false;
         Dirty(player, faction);
 
@@ -498,7 +488,6 @@ public sealed class FactionSystem : EntitySystem
         var factionComp = EnsureComp<FactionComponent>(player);
         factionComp.Faction = factionName;
         factionComp.FactionId = factionId;
-        factionComp.Title = Loc.GetString("faction-title-leader");
         factionComp.IsLeader = true;
 
         var doc = EnsureComp<FactionDocumentComponent>(paper);

@@ -63,6 +63,56 @@ public sealed class EmploymentContractSystem : EntitySystem
             Priority = 10,
             Act = () => _ui.OpenUi(ent.Owner, EmploymentContractUiKey.Contract, user),
         });
+
+        // Договор заключён и ручка в руках — можно оформить удостоверение.
+        if (!ent.Comp.Complete || !HasPen(user))
+            return;
+
+        args.Verbs.Add(new Verb
+        {
+            Text = Loc.GetString("employment-contract-verb-issue"),
+            Icon = new SpriteSpecifier.Rsi(new ResPath("/Textures/_UU/verb_icons.rsi"), "document"),
+            Priority = 9,
+            Act = () => IssueCard(ent, user),
+        });
+    }
+
+    /// <summary>
+    ///     Оформить удостоверение: данные и обе подписи переписываются с подписанного договора.
+    ///     Фотографию на карту вешают отдельно — картой в руке по фотографии.
+    /// </summary>
+    private void IssueCard(Entity<EmploymentContractComponent> ent, EntityUid user)
+    {
+        var contract = ent.Comp;
+
+        var card = Spawn("WorkIdCard", Transform(ent).Coordinates);
+
+        if (!TryComp<WorkIdCardComponent>(card, out var comp))
+        {
+            QueueDel(card);
+            return;
+        }
+
+        comp.Holder = contract.Worker;
+        comp.Position = contract.Position;
+        comp.Employer = contract.Employer;
+        comp.Date = contract.Date ?? GameDate();
+        comp.EmployerSignature = contract.EmployerSignature;
+        comp.EmployerSignatureLabel = contract.EmployerSignatureLabel;
+        comp.WorkerSignature = contract.WorkerSignature;
+        comp.WorkerSignatureLabel = contract.WorkerSignatureLabel;
+        comp.Issued = true;
+        Dirty(card, comp);
+
+        if (!string.IsNullOrWhiteSpace(contract.Worker))
+            _meta.SetEntityName(card, Loc.GetString("work-card-issued-name", ("holder", contract.Worker!)));
+
+        _meta.SetEntityDescription(card, Loc.GetString("work-card-issued-desc"));
+
+        if (_hands.TryForcePickupAnyHand(user, card))
+            _popup.PopupEntity(Loc.GetString("employment-contract-card-issued"), user, user);
+        else
+            _popup.PopupEntity(Loc.GetString("employment-contract-card-dropped"), user, user);
     }
 
     private void OnBuiOpened(Entity<EmploymentContractComponent> ent, ref BoundUIOpenedEvent args)

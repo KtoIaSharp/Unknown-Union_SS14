@@ -95,7 +95,6 @@ public sealed class FactionCitizenSystem : EntitySystem
                 var userFaction = EnsureComp<FactionComponent>(user);
                 userFaction.Faction = factionName;
                 userFaction.FactionId = factionId;
-                userFaction.Title = Loc.GetString("faction-title-member");
                 userFaction.IsLeader = false;
                 Dirty(user, userFaction);
 

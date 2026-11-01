@@ -1,0 +1,40 @@
+<DefaultWindow xmlns="https://spacestation14.io"
+               Title="{Loc 'work-registry-access-title'}"
+               MinSize="520 380">
+    <PanelContainer StyleClasses="PdaBackgroundRect" ModulateSelfOverride="#121212" />
+    <PanelContainer StyleClasses="PdaBorderRect" Modulate="#31383f" />
+
+    <BoxContainer Orientation="Vertical">
+        <Label Text="{Loc 'work-registry-access-title'}" StyleClasses="ConsoleHeading" Margin="10 8 10 4" />
+
+        <PanelContainer StyleClasses="LowDivider" HorizontalExpand="True" Margin="10 0 10 6" SetHeight="2" />
+
+        <BoxContainer Orientation="Horizontal" SeparationOverride="12" Margin="10 0 10 0" HorizontalExpand="True">
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                <Label Text="{Loc 'work-registry-access-use'}" StyleClasses="ConsoleSubHeading" />
+                <ScrollContainer VerticalExpand="True" MinSize="0 180">
+                    <BoxContainer Name="UseBox" Orientation="Vertical" SeparationOverride="2"
+                                  HorizontalExpand="True" />
+                </ScrollContainer>
+            </BoxContainer>
+
+            <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+                <Label Text="{Loc 'work-registry-access-edit'}" StyleClasses="ConsoleSubHeading" />
+                <ScrollContainer VerticalExpand="True" MinSize="0 180">
+                    <BoxContainer Name="EditBox" Orientation="Vertical" SeparationOverride="2"
+                                  HorizontalExpand="True" />
+                </ScrollContainer>
+            </BoxContainer>
+        </BoxContainer>
+
+        <BoxContainer Orientation="Horizontal" HorizontalAlignment="Center" SeparationOverride="8" Margin="10 6 10 0">
+            <Button Name="SaveButton" StyleClasses="ButtonColorRed" MinWidth="160"
+                    Text="{Loc 'work-registry-save'}" />
+            <Button Name="CancelButton" StyleClasses="ButtonColorRed" MinWidth="120"
+                    Text="{Loc 'work-registry-cancel'}" />
+        </BoxContainer>
+
+        <RichTextLabel Text="{Loc 'work-registry-access-footer'}" StyleClasses="LabelSubText"
+                       HorizontalAlignment="Center" Margin="10 4 10 8" MaxWidth="480" />
+    </BoxContainer>
+</DefaultWindow>

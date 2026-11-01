@@ -168,7 +168,6 @@ public sealed class FactionStateSystem : EntitySystem
             {
                 comp.Faction = null;
                 comp.FactionId = null;
-                comp.Title = null;
                 comp.IsLeader = false;
                 Dirty(comp.Owner, comp);
             }

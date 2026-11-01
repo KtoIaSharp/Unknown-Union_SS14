@@ -20,6 +20,12 @@
 
 - type: construction
   parent: BaseTool
-  id: WorkIdWriter
-  graph: UUWorkIdWriter
-  targetNode: work_id_writer
+  id: PositionScanner
+  graph: UUPositionScanner
+  targetNode: position_scanner
+
+- type: construction
+  parent: BaseMachine
+  id: WorkRegistryConsole
+  graph: UUWorkRegistryConsole
+  targetNode: work_registry_console

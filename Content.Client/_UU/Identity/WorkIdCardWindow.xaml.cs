@@ -23,6 +23,17 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
         DeviceView.SetPrototype("WorkIdCard");
 
         PhotoTexture.Visible = false;
+
+        // Заглушки, чтобы окно не выглядело пустым до прихода состояния.
+        var unknown = Loc.GetString("work-card-unknown");
+        HolderLabel.Text = unknown;
+        PositionLabel.Text = unknown;
+        EmployerLabel.Text = unknown;
+        WorkplaceLabel.Text = unknown;
+        DateLabel.Text = unknown;
+        TagLabel.Text = Loc.GetString("work-card-no-tag");
+        EmployerSignatureLabel.Text = Loc.GetString("work-card-unsigned");
+        WorkerSignatureLabel.Text = Loc.GetString("work-card-unsigned");
     }
 
     public void UpdateState(WorkIdCardBuiState state)
@@ -30,16 +41,22 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
         HolderLabel.Text = OrUnknown(state.Holder);
         PositionLabel.Text = OrUnknown(state.Position);
         EmployerLabel.Text = OrUnknown(state.Employer);
-        DateLabel.Text = OrUnknown(state.Date);
         WorkplaceLabel.Text = OrUnknown(state.Workplace);
+        DateLabel.Text = OrUnknown(state.Date);
 
         TagLabel.Text = string.IsNullOrWhiteSpace(state.Tag)
             ? Loc.GetString("work-card-no-tag")
             : state.Tag!;
 
-        SignatureLabel.Text = string.IsNullOrWhiteSpace(state.EmployerSignatureLabel)
+        EmployerSignatureLabel.Text = string.IsNullOrWhiteSpace(state.EmployerSignatureLabel)
             ? Loc.GetString("work-card-unsigned")
             : state.EmployerSignatureLabel!;
+
+        WorkerSignatureLabel.Text = string.IsNullOrWhiteSpace(state.WorkerSignatureLabel)
+            ? Loc.GetString("work-card-unsigned")
+            : state.WorkerSignatureLabel!;
+
+        RevokedLabel.Visible = state.Revoked;
 
         SetPhoto(state.Photo?.ImageBase64);
     }

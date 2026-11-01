@@ -15,9 +15,6 @@ public sealed partial class FactionComponent : Component
     public int? FactionId;
 
     [DataField, AutoNetworkedField]
-    public string? Title;
-
-    [DataField, AutoNetworkedField]
     public bool IsLeader;
 
     /// <summary>Зафиксированный на этот раунд спрайт подписи (sig01-sig10).</summary>

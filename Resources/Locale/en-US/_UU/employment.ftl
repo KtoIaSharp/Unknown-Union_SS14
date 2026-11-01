@@ -57,3 +57,6 @@ work-id-examine-date = Date: {$date}
 work-id-examine-signed-state = [color=gold]Signed on behalf of[/color] {$name}
 work-id-examine-signed-person = Signature: {$name}
 employment-contract-already-signed = This party has already signed the contract.
+employment-contract-verb-issue = Issue work ID
+employment-contract-card-issued = The work ID has been issued.
+employment-contract-card-dropped = The work ID has been issued, but it fell on the floor.

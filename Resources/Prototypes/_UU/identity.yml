@@ -1,8 +1,8 @@
 - type: entity
   parent: BaseItem
   id: PhotoCamera
-  name: photo camera
-  description: A simple camera that takes portrait photographs for work IDs.
+  name: фотоаппарат
+  description: Простой фотоаппарат для портретов на удостоверения.
   components:
   - type: Sprite
     sprite: Objects/Devices/travel_camera.rsi
@@ -14,8 +14,8 @@
 - type: entity
   parent: BaseItem
   id: WorkPhoto
-  name: photograph
-  description: A portrait photograph. Can be inserted into an employer console.
+  name: фотография
+  description: Портретная фотография. Её можно приложить к удостоверению о работе.
   components:
   - type: Sprite
     sprite: Objects/Misc/photograph.rsi
@@ -28,37 +28,35 @@
     - Document
 
 - type: entity
+  parent: BaseItem
+  id: PositionScanner
+  name: сканер должности
+  description: Считывает удостоверение и заносит должность, тег и имя в реестр государства.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/forensic_scanner.rsi
+    state: icon
+  - type: Item
+    size: Small
+  - type: PositionScanner
+
+- type: entity
   parent: BaseStructure
-  id: WorkIdConsole
-  name: employer console
-  description: A console that fills in work IDs and stores the state's work tags.
+  id: WorkRegistryConsole
+  name: консоль управления должностями
+  description: Реестр должностей и тегов государства. Через неё увольняют с должности.
   placement:
     mode: SnapgridCenter
   components:
-  - type: WorkIdConsole
-    cardSlot:
-      insertSound: /Audio/Machines/id_insert.ogg
-      ejectSound: /Audio/Machines/id_swipe.ogg
-      whitelist:
-        components:
-        - WorkIdCard
-    photoSlot:
-      insertSound: /Audio/Machines/scanning.ogg
-      ejectSound: /Audio/Machines/tray_eject.ogg
-      whitelist:
-        components:
-        - WorkPhoto
+  - type: WorkRegistryConsole
   - type: UserInterface
     interfaces:
-      enum.WorkIdConsoleUiKey.Console:
-        type: WorkIdConsoleBui
-  - type: ItemSlots
-  - type: ContainerContainer
-    containers:
-      card: !type:ContainerSlot { }
-      photo: !type:ContainerSlot { }
+      enum.WorkRegistryUiKey.Registry:
+        type: WorkRegistryBui
+      enum.WorkRegistryUiKey.Access:
+        type: WorkRegistryBui
   - type: Sprite
-    # Основа — штатный спрайт консоли, сверху собственный экран UU.
+    # Основа - штатный спрайт консоли, сверху собственный экран UU.
     noRot: true
     sprite: Structures/Machines/computers.rsi
     layers:
