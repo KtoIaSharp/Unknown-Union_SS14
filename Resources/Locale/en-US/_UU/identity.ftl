@@ -93,3 +93,6 @@ ent-TypewriterKit = typewriter parts box
     .desc = Parts to assemble a typewriter. Open the box to get the materials.
 
 kit-box-unpacked = You pry the box open and shake out its contents.
+
+position-scanner-wrong-state = The registry stamp belongs to another state.
+registry-stamp-wrong-state = The card is signed on behalf of another state.

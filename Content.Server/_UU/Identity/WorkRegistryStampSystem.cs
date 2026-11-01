@@ -1,3 +1,4 @@
+using Content.Server._UU.Employment;
 using Content.Server.Popups;
 using Content.Shared._UU.Employment;
 using Content.Shared._UU.Faction;
@@ -101,6 +102,14 @@ public sealed class WorkRegistryStampSystem : EntitySystem
             string.IsNullOrWhiteSpace(card.WorkerSignature))
         {
             _popup.PopupEntity(Loc.GetString("registry-stamp-not-signed"), cardUid, user);
+            return false;
+        }
+
+        if (card.EmployerSignature == EmploymentContractSystem.StateSignature &&
+            stamp.Comp.FactionName is { } stampState &&
+            !string.Equals(stampState, card.EmployerSignatureLabel, StringComparison.OrdinalIgnoreCase))
+        {
+            _popup.PopupEntity(Loc.GetString("registry-stamp-wrong-state"), cardUid, user);
             return false;
         }
 

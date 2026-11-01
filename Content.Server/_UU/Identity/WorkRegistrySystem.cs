@@ -452,10 +452,19 @@ public sealed class WorkRegistrySystem : EntitySystem
             return false;
         }
 
-        if (TryComp<WorkIdCardComponent>(cardUid, out var stamped) && !stamped.RegistryStamped)
+        if (TryComp<WorkIdCardComponent>(cardUid, out var stamped))
         {
-            _popup.PopupEntity(Loc.GetString("position-scanner-no-stamp"), user, user);
-            return false;
+            if (!stamped.RegistryStamped)
+            {
+                _popup.PopupEntity(Loc.GetString("position-scanner-no-stamp"), user, user);
+                return false;
+            }
+
+            if (stamped.RegistryStampFactionId is { } stampFaction && stampFaction != factionId)
+            {
+                _popup.PopupEntity(Loc.GetString("position-scanner-wrong-state"), user, user);
+                return false;
+            }
         }
 
         if (!TryComp<WorkIdCardComponent>(cardUid, out var card)
