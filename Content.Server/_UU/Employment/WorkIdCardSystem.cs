@@ -91,7 +91,6 @@ public sealed class WorkIdCardSystem : EntitySystem
             comp.Position,
             comp.Employer,
             comp.Date,
-            comp.Workplace,
             comp.Tag,
             comp.EmployerSignature,
             comp.EmployerSignatureLabel,

@@ -110,9 +110,6 @@ public sealed partial class WorkIdCardComponent : Component
     public int? RegistryStampFactionId;
 
     /// <summary>Место работы: свободный текст, задаётся консолью работодателя.</summary>
-    [DataField, AutoNetworkedField]
-    public string? Workplace;
-
     /// <summary>Тег доступа на карте: его читают только наши системы. Виден лишь в окне карты.</summary>
     [DataField, AutoNetworkedField]
     public string? Tag;

@@ -29,7 +29,6 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
         HolderLabel.Text = unknown;
         PositionLabel.Text = unknown;
         EmployerLabel.Text = unknown;
-        WorkplaceLabel.Text = unknown;
         DateLabel.Text = unknown;
         TagLabel.Text = Loc.GetString("work-card-no-tag");
         EmployerSignatureLabel.Text = Loc.GetString("work-card-unsigned");
@@ -42,7 +41,6 @@ public sealed partial class WorkIdCardWindow : DefaultWindow
         HolderLabel.Text = OrUnknown(state.Holder);
         PositionLabel.Text = OrUnknown(state.Position);
         EmployerLabel.Text = OrUnknown(state.Employer);
-        WorkplaceLabel.Text = OrUnknown(state.Workplace);
         DateLabel.Text = OrUnknown(state.Date);
 
         TagLabel.Text = string.IsNullOrWhiteSpace(state.Tag)

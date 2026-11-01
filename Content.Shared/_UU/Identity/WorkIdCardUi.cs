@@ -20,7 +20,6 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
     public readonly string? Position;
     public readonly string? Employer;
     public readonly string? Date;
-    public readonly string? Workplace;
     public readonly string? Tag;
 
     public readonly string? EmployerSignature;
@@ -44,7 +43,6 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
         string? position,
         string? employer,
         string? date,
-        string? workplace,
         string? tag,
         string? employerSignature,
         string? employerSignatureLabel,
@@ -59,7 +57,6 @@ public sealed class WorkIdCardBuiState : BoundUserInterfaceState
         Position = position;
         Employer = employer;
         Date = date;
-        Workplace = workplace;
         Tag = tag;
         EmployerSignature = employerSignature;
         EmployerSignatureLabel = employerSignatureLabel;

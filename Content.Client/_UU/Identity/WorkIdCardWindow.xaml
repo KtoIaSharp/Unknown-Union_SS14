@@ -37,8 +37,6 @@
 
         <BoxContainer Orientation="Horizontal" Margin="10 0 10 0" SeparationOverride="16">
             <BoxContainer Orientation="Vertical" HorizontalExpand="True" SeparationOverride="1">
-                <Label Text="{Loc 'work-card-workplace'}" StyleClasses="LabelSubText" />
-                <Label Name="WorkplaceLabel" StyleClasses="ConsoleText" />
                 <Label Text="{Loc 'work-card-date'}" StyleClasses="LabelSubText" Margin="0 4 0 0" />
                 <Label Name="DateLabel" StyleClasses="ConsoleText" />
             </BoxContainer>
